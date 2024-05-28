@@ -1,0 +1,223 @@
+﻿@model LSService.Customer
+@{
+    ViewBag.Title = "تعریف قطعات";
+    Layout = null;
+}
+
+@using (@Html.BeginForm("SaveTCat", "LS", FormMethod.Post, new { enctype = "multipart/form-data", id = "CustomerForm" }))
+{
+    <div class="row panel-group col-sm-12 float-right" style="border: 1px solid gray; padding: 10px; border-radius: 20px 20px;">
+        <div class="col-sm-12" align="center">
+            <span id="acPublicMsg"></span>
+        </div>
+        <div class="row col-sm-12" style="padding-top:20px;">
+            <div class="col-sm-2 control-label">
+                نوع مشتری
+            </div>
+            <div class="col-sm-10">
+                @Html.DropDownListFor(m => m.CustomerTypeId, (SelectList)ViewData["CT"], new { style = "width:25%;text-align:right" })
+                <span id="CustomerTypeIdMsg"></span>
+            </div>
+        </div>
+        <div class="row col-sm-12" style="padding-top:20px;">
+            <div class="col-sm-2 control-label">
+                مشتری
+            </div>
+            <div class="col-sm-10">
+                @Html.DropDownListFor(m => m.CustomerContractTypeId, (SelectList)ViewData["CC"], new { style = "width:25%;text-align:right" })
+                <span id="CustomerContractTypeIdMsg"></span>
+            </div>
+        </div>
+        <div class="row col-sm-12" style="padding-top:20px;">
+            <div class="col-sm-2 control-label">
+                نام مشتری
+            </div>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.CustomerName, new { style = "width:90%;", @class = "form-control", maxlength = 150 })
+                <span id="CustomerNameMsg"></span>
+            </div>
+        </div>
+        <div class="row col-sm-12" style="padding-top:20px;">
+            <div class="col-sm-2 control-label">
+                كد/شناسه ملي
+            </div>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.NationalId, new { style = "width:90%;text-align:left;", @class = "form-control", maxlength = 20 })
+                <span id="NationalIdMsg"></span>
+            </div>
+            <div class="col-sm-2 control-label">
+                كد پستي
+            </div>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.ZIPCode, new { style = "width:90%;text-align:left;", @class = "form-control", maxlength = 10 })
+                <span id="ZIPCodeMsg"></span>
+            </div>
+            <div class="col-sm-2 control-label">
+                كد اقتصادي
+            </div>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.EcoCode, new { style = "width:96%;text-align:left;", @class = "form-control", maxlength = 20 })
+                <span id="EcoCodeMsg"></span>
+            </div>
+        </div>
+        <div class="row col-sm-12" style="padding-top:20px;">
+            <div class="col-sm-2 control-label">
+                شماره ثبت
+            </div>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.RegistrationNumber, new { style = "width:90%;text-align:left;", @class = "form-control", maxlength = 20 })
+                <span id="RegistrationNumberMsg"></span>
+            </div>
+            <div class="col-sm-2 control-label">
+                كد ويزيتور
+            </div>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.RepresentativeCode, new { style = "width:90%;text-align:left;", @class = "form-control", maxlength = 10 })
+                <span id="RepresentativeCodeMsg"></span>
+            </div>
+            <div class="col-sm-2 control-label">
+                نام ويزيتور
+            </div>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.RepresentativeName, new { style = "width:96%;text-align:left;", @class = "form-control", maxlength = 10 })
+                <span id="RepresentativeNameMsg"></span>
+            </div>
+        </div>
+        <div class="row col-sm-12" style="padding-top:20px;">
+            <div class="col-sm-2 control-label">
+                تلفن
+            </div>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.Tel, new { style = "width:90%;text-align:left;", @class = "form-control", maxlength = 20 })
+                <span id="TelMsg"></span>
+            </div>
+            <div class="col-sm-2 control-label">
+                موبایل
+            </div>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.MobileNo, new { style = "width:90%;text-align:left;", @class = "form-control", maxlength = 50 })
+                <span id="MobileNoMsg"></span>
+            </div>
+            <div class="col-sm-2 control-label">
+                ایمیل
+            </div>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.Email, new { style = "width:96%;text-align:left;", @class = "form-control", maxlength = 100 })
+                <span id="EmailMsg"></span>
+            </div>
+        </div>
+        <div class="row col-sm-12" style="padding-top:20px;">
+            <div class="col-sm-2 control-label">
+                آدرس
+            </div>
+            <div class="col-sm-6">
+                @Html.TextBoxFor(m => m.Address, new { style = "width:96%;", @class = "form-control", maxlength = 1024 })
+                <span id="AddressMsg"></span>
+            </div>
+            <div class="col-sm-2 control-label">
+                نام مدیر
+            </div>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.ManagerName, new { style = "width:96%;", @class = "form-control", maxlength = 150 })
+                <span id="ManagerNameMsg"></span>
+            </div>
+        </div>
+        <div class="col-sm-12 divClass">
+            @Html.HiddenFor(m => m.FlagUpdate)
+            @Html.HiddenFor(m => m.CustomerId)
+            <button id="SaveBtn" name="SaveBtn" class="btn btn-success" style="width: 80pt; height: 30pt;" value="Save" type="button" onclick="SaveBtn_Click()">
+                ثبت  <i class="fa fa-save" style="font-size: 14pt" aria-hidden="true"></i>
+            </button><span id="SaveBtnMsg"></span>
+        </div>
+    </div>
+}
+<script>
+    $(function () {
+        $("#CustomerTypeId").select2({
+            placeholder: "نوع مشتری",
+            allowClear: false,
+            theme: "classic"
+        });
+        $("#CustomerContractTypeId").select2({
+            placeholder: "مشتری",
+            allowClear: false,
+            theme: "classic"
+        });
+
+    });
+
+    function SaveBtn_Click() {
+        try {
+            if (CustomerCheckValidation()) {
+                var form = $('#CustomerForm')[0]; // You need to use standard javascript object here
+                var formData = new FormData(form);
+                $.ajax({
+                    url: '@Url.Action("SaveTCustomer", "LS")',
+                    type: 'Post',
+                    enctype: 'multipart/form-data',
+                    async: false,
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        ShowAlert("بروز رساني انجام شد", "توجه");
+                        if ($("#FlagUpdate").val() != "1") {
+                            $("#CustomerForm")[0].reset();
+                        }
+                        url = "@Url.Action("CustomerList", "home")";
+                        url += "?CustomerTypeId=0";
+                        url += "&CustomerContractTypeId=0";
+
+                        $("#ResultDiv").load(url);
+                        return;
+                    },
+
+                    dataType: "json",
+                    data: formData,
+                    error: function (xhr, status, error) {
+                        //alert("err");
+                        alert(error.toString());
+                        //var err = eval("(" + xhr.responseText + ")");
+                        //alert(err.Message);
+                        flag = false;
+                    }
+                });
+            }
+        } catch (e) {
+            alert(e.toString());
+        }
+        return;
+    }
+    function CustomerCheckValidation() {
+        var flag = true;
+        CustomerName, Tel, MobileNo, Email, Address, ManagerName
+
+        ClearMessage("#CustomerNameMsg");
+        if (isEmpty("CustomerName", "لطفا نام مشتری راوارد کنید", "tomato", "CustomerNameMsg")) {
+            flag = false;
+        }
+
+        ClearMessage("#TelMsg");
+        if (isEmpty("Tel", "لطفا تلفن راوارد کنید", "tomato", "TelMsg")) {
+            flag = false;
+        }
+
+        ClearMessage("#MobileNoMsg");
+        if (isEmpty("MobileNo", "لطفا موبایل راوارد کنید", "tomato", "MobileNoMsg")) {
+            flag = false;
+        }
+
+        ClearMessage("#AddressMsg");
+        if (isEmpty("Address", "لطفا آدرس راوارد کنید", "tomato", "AddressMsg")) {
+            flag = false;
+        }
+
+        ClearMessage("#ManagerNameMsg");
+        if (isEmpty("ManagerName", "لطفا نام مدیر راوارد کنید", "tomato", "ManagerNameMsg")) {
+            flag = false;
+        }
+
+        return flag;
+
+    }
+</script>

@@ -1,0 +1,86 @@
+﻿
+@model IList<LSData.VCustomer>
+@{
+    ViewBag.Title = "نمایش مشتری";
+}
+<link href="@Url.Content("~/Content/DataTables/css/dataTables.bootstrap.min.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/DataTables/css/fixedHeader.bootstrap.min.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/DataTables/css/responsive.bootstrap.min.css")" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/DataTables/dataTables.buttons.min.js"></script>
+<script src="~/Scripts/DataTables/buttons.flash.min.js"></script>
+<script src="~/Scripts/DataTables/jszip.min.js"></script>
+<script src="~/Scripts/DataTables/pdfmake.min.js"></script>
+<script src="~/Scripts/DataTables/vfs_fonts.js"></script>
+<script src="~/Scripts/DataTables/buttons.html5.min.js"></script>
+<script src="~/Scripts/DataTables/buttons.print.min.js"></script>
+<script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
+<script src="~/Scripts/DataTables/dataTables.fixedHeader.min.js"></script>
+<script src="~/Scripts/DataTables/dataTables.responsive.min.js"></script>
+<script src="~/Scripts/DataTables/responsive.bootstrap.min.js"></script>
+
+<div class="row panel-group col-sm-12 float-right" style="border: 1px solid gray; padding: 10px; border-radius: 20px 20px;">
+    <div class="row col-sm-12" align="right" valing="middle" style="direction: rtl; background-color: #CB0f1f; color: #fff; height: 40px; vertical-align: middle; vertical-align: middle;margin: 10px">
+        <label style="vert-align: middle; vertical-align: middle; direction:rtl;margin-right:20px;margin-top:10px;display:inline-block"> اطلاعات قطعات</label>
+    </div>
+    <div id="CustomerModal" class="modal" role="dialog" style="width: 100%;">
+        <div class="modal-dialog modal-lg" style="width: 100%">
+            <div class="modal-content" style="width: 100%">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        &times;
+                    </button>
+                </div>
+                <div class="modal-body" id="CustomerPartialBody">
+                </div>
+                <div class="modal-footer" style="text-align: center">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-sm-12" style="padding-top:20px" id="ResultDiv">
+    </div>
+    <div class="col-sm-12" style="padding-top:20px">
+        <button id="NewCustomerBtn" name="NewCustomerBtn" class="btn btn-success" style="height: 30pt;" value="Save" type="button" onclick="NewCustomerBtn_Click()">
+            مشتری جدید <i class="fa fa-plus" style="font-size: 14pt" aria-hidden="true"></i>
+        </button>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        try {
+            url = "@Url.Action("CustomerList", "home")";
+            url += "?CustomerTypeId=0";
+            url += "&CustomerContractTypeId=0" ;
+
+            $("#ResultDiv").load(url);
+        } catch (ex) {
+            alert(ex.toString());
+        }
+    });
+
+    function NewCustomerBtn_Click() {
+        var url = "@Url.Action("AddCustomer", "home")";
+        url += "?CustomerId=0";
+
+        $("#CustomerPartialBody").load(url);
+        $("#CustomerModal").modal('show');
+
+        return;
+    }
+
+    function EditBtn_Click(customerId) {
+        try {
+            var url = "@Url.Action("AddCustomer", "home")";
+            url += "?CustomerId=" + customerId.toString();
+
+            $("#CustomerPartialBody").load(url);
+            $("#CustomerModal").modal('show');
+        } catch (e) {
+            alert(e.toString());
+        }
+        return;
+    }
+</script>

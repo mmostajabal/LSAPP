@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+						 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+						 x:Class="TourStops.Pages.BasicsPage">
+	<!-- [Demo 1] 
+
+		The Root element is usually one of the Page classes.
+		The root element contains XML namespaces
+		The x:Class attribute indicates what 
+		.NET class contains the class code.
+
+-->
+
+	<StackLayout>
+
+		<StackLayout x:Name="Demo2Elements">
+			<!-- Classes are represented as XML elements 
+				 Attributes in XAML represent class properties -->
+			<Label Text="Tour Photos"  />
+
+			<!-- Attributes can also represent class events -->
+
+			<Button Text="Save..." Clicked="SaveButton_Clicked" />
+		</StackLayout>
+
+		<StackLayout x:Name="Demo3PropertyElements">
+			<Stepper Minimum="15" >
+				<Stepper.Maximum>75</Stepper.Maximum>
+			</Stepper>
+
+			<Grid >
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="2*" />
+					<ColumnDefinition Width="4*" />
+				</Grid.ColumnDefinitions>
+			</Grid>
+
+			<ListView>
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<ViewCell.View>
+								<StackLayout/>
+							</ViewCell.View>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+
+		</StackLayout>
+
+		<StackLayout x:Name="Demo4Enums">
+			<Slider HorizontalOptions="End" />
+		</StackLayout>
+
+		<StackLayout x:Name="Demo5Attached">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="4*"/>
+					<RowDefinition Height="6*"/>
+				</Grid.RowDefinitions>
+				 <!--Attached properties are defined in one type
+						and accessed in another type.--> 
+
+				<Button Text="Details" Grid.Row="0" />
+				<Entry Grid.Row="1"  />
+
+			</Grid>
+			<RelativeLayout >
+				<Entry RelativeLayout.HeightConstraint="40"  />
+			</RelativeLayout>
+		</StackLayout>
+
+		<StackLayout x:Name="Demo6ValueConverters">
+			<BoxView HeightRequest="30"
+							 WidthRequest="60"
+							 BackgroundColor="Purple"/>
+
+			<BoxView HeightRequest="30"
+				 WidthRequest="60"
+				 BackgroundColor="#FF005500"/>
+			<BoxView HeightRequest="30"
+			 WidthRequest="60"
+			 BackgroundColor="#DDD"/>
+		</StackLayout>
+
+		<StackLayout x:Name="Demo7MarkupExtensions">
+			<StackLayout.Resources>
+				
+			</StackLayout.Resources>
+			<Label Text="Use Style" 
+						 Style="{DynamicResource  SubtitleStyle}" />
+			
+			<Entry x:Name ="SearchEntry" />
+			<Label BindingContext="{x:Reference Name=SearchEntry}"
+						 Text="{Binding Path=Text}" />
+		</StackLayout>
+	</StackLayout>
+</ContentPage>

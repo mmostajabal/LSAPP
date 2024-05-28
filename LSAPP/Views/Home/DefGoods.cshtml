@@ -1,0 +1,324 @@
+﻿@model LSService.Cat
+@{
+    ViewBag.Title = "تعریف قطعات";
+    Layout = null;
+}
+
+@using (@Html.BeginForm("SaveTCat", "LS", FormMethod.Post, new { enctype = "multipart/form-data", id = "CatForm" }))
+{
+    <div class="row panel-group col-sm-12 float-right" style="border: 1px solid gray; padding: 10px; border-radius: 20px 20px;">
+        <div class="col-sm-12" align="center">
+            <span id="dgPublicMsg"></span>
+        </div>
+        <div class="row col-sm-12" style="padding-top:20px;">
+            <div class="col-sm-2 control-label">
+                شماره فنی
+            </div>
+            <div class="col-sm-4">
+                @if (Model.FlagUpdate == 1)
+                {
+                    @Html.TextBoxFor(m => m.TechnicalCode, new { style = "width:50%;text-align:left;", @class = "form-control", maxlength = 20, required = "required", @readonly= "readonly" })
+                }
+                else
+                {
+                    @Html.TextBoxFor(m => m.TechnicalCode, new { style = "width:50%;text-align:left;", @class = "form-control", maxlength = 20, required = "required" })
+                }
+                <span id="TechnicalCodeMsg"></span>
+            </div>
+            <div class="col-sm-2 control-label">
+                PNC
+            </div>
+            <div class="col-sm-4">
+                @Html.TextBoxFor(m => m.PNC, new { style = "width:50%;text-align:left;", @class = "form-control", maxlength = 15 })
+                <span id="PNCMsg"></span>
+            </div>
+        </div>
+        <div class="row col-sm-12" style="padding-top: 20px;">
+            <div class="col-sm-2 control-label">
+                شرح لاتین
+            </div>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.ItemName, new { style = "width:80%;text-align:left;", @class = "form-control", maxlength = 255 })
+                <span id="ItemNameMsg"></span>
+            </div>
+        </div>
+        <div class="row col-sm-12" style="padding-top: 20px;">
+            <div class="col-sm-2 control-label">
+                شرح فارسی
+            </div>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.PersianName, new { style = "width:80%;text-align:right;", @class = "form-control", maxlength = 255 })
+                <span id="PersianNameMsg"></span>
+            </div>
+        </div>
+        <div class="row col-sm-12" style="padding-top:20px;">
+            <div class="col-sm-2 control-label">
+                طول
+            </div>
+            <div class="col-sm-2">
+                    @Html.TextBoxFor(m => m.Length, new { style = "width:70%;text-align:left;", @class = "form-control", maxlength = 5})
+                <span id="LengthMsg"></span>
+            </div>
+            <div class="col-sm-1 control-label">
+                عرض
+            </div>
+            <div class="col-sm-3">
+                @Html.TextBoxFor(m => m.Width, new { style = "width:50%;text-align:left;", @class = "form-control", maxlength = 5 })
+                <span id="WidthMsg"></span>
+            </div>
+            <div class="col-sm-1 control-label">
+                ارتفاع
+            </div>
+            <div class="col-sm-3">
+                @Html.TextBoxFor(m => m.Height, new { style = "width:50%;text-align:left;", @class = "form-control", maxlength = 5 })
+                <span id="HeightMsg"></span>
+            </div>
+        </div>
+        <div class="row col-sm-12" style="padding-top:20px;">
+            <div class="col-sm-2 control-label">
+                وزن خالص
+            </div>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.NetWeight, new { style = "width:70%;text-align:left;", @class = "form-control", maxlength = 7 })
+                <span id="NetWeightMsg"></span>
+            </div>
+            <div class="col-sm-1 control-label">
+                گروه قطعه
+            </div>
+            <div class="col-sm-3">
+                @Html.DropDownListFor(m => m.ItemGroup, (SelectList)ViewData["IG"], new { style = "width:50%;text-align:right" })
+                <span id="ItemGroupMsg"></span>
+            </div>
+            <div class="col-sm-1 control-label">
+                نوع قطعه
+            </div>
+            <div class="col-sm-3">
+                @Html.DropDownListFor(m => m.ItemTypeId, (SelectList)ViewData["IT"], new { style = "width:96%;text-align:right" })
+                <span id="ItemTypeIdMsg"></span>
+            </div>
+        </div>
+
+        <div class="row col-sm-12" style="padding-top:20px;">
+            <div class="col-sm-2 control-label">
+                گرید
+            </div>
+            <div class="col-sm-2">
+                @Html.DropDownListFor(m => m.GoodsGradeId, (SelectList)ViewData["GG"], new { style = "width:96%;text-align:right" })
+                <span id="GoodsGradeIdMsg"></span>
+            </div>
+            <div class="col-sm-1 control-label">
+                ردیابی
+            </div>
+            <div class="col-sm-3">
+                @Html.DropDownListFor(m => m.TrackingTypeId, (SelectList)ViewData["TT"], new { style = "width:75%;text-align:right" })
+                <span id="TrackingTypeIdMsg"></span>
+            </div>
+            <div class="col-sm-1 control-label">
+                لیبل
+            </div>
+            <div class="col-sm-3">
+                @Html.DropDownListFor(m => m.LabelingTypeId, (SelectList)ViewData["LG"], new { style = "width:96%;text-align:right" })
+                <span id="LabelingTypeIdMsg"></span>
+            </div>
+        </div>
+        <div class="row col-sm-12" style="padding-top:20px;">
+            <div class="col-sm-2 control-label">
+                نحوه استفاده
+            </div>
+            <div class="col-sm-2">
+                @Html.DropDownListFor(m => m.UsageTypeId, (SelectList)ViewData["UT"], new { style = "width:96%;text-align:right" })
+                <span id="UsageTypeIdMsg"></span>
+            </div>
+
+            <div class="col-sm-1 control-label">
+                واحد شمارش
+            </div>
+            <div class="col-sm-7">
+                @Html.DropDownListFor(m => m.UnitId, (SelectList)ViewData["U"], new { style = "width:25%;text-align:right" })
+                <span id="UsageTypeIdMsg"></span>
+            </div>
+        </div>
+        <div class="col-sm-12 divClass">
+            @Html.HiddenFor(m=>m.FlagUpdate)
+            <button id="SaveBtn" name="SaveBtn" class="btn btn-success" style="width: 80pt; height: 30pt;" value="Save" type="button" onclick="SaveBtn_Click()">
+                ثبت  <i class="fa fa-save" style="font-size: 14pt" aria-hidden="true"></i>
+            </button><span id="SaveBtnMsg"></span>
+        </div>
+    </div>
+
+
+}
+
+<script>
+
+
+    $(function () {
+        $("#ItemGroup").select2({
+            placeholder: "گروه قطعه",
+            allowClear: false,
+            theme: "classic"
+        });
+
+        $("#ItemTypeId").select2({
+            placeholder: "نوع قطعه",
+            allowClear: false,
+            theme: "classic"
+        });
+
+        $("#GoodsGradeId").select2({
+            placeholder: "گرید قطعه",
+            allowClear: false,
+            theme: "classic"
+        });
+
+        $("#TrackingTypeId").select2({
+            placeholder: "نوع ردیابی",
+            allowClear: false,
+            theme: "classic"
+        });
+
+        $("#LabelingTypeId").select2({
+            placeholder: "نوع برچسب",
+            allowClear: false,
+            theme: "classic"
+        });
+
+
+        $("#UsageTypeId").select2({
+            placeholder: "نوع برچسب",
+            allowClear: false,
+            theme: "classic"
+        });
+
+        $("#UnitId").select2({
+            placeholder: "واحد شمارش",
+            allowClear: false,
+            theme: "classic"
+        });
+
+    });
+
+    function SaveBtn_Click() {
+        try{
+            if (CatCheckValidation()) {
+                var form = $('#CatForm')[0]; // You need to use standard javascript object here
+                var formData = new FormData(form);
+                $.ajax({
+                    url: '@Url.Action("SaveTCat", "LS")',
+                    type: 'Post',
+                    enctype: 'multipart/form-data',
+                    async: false,
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        ShowAlert("بروز رساني انجام شد", "توجه");
+                        if ($("#FlagUpdate").val() != "1") {
+                            $("#CatForm")[0].reset();
+                        }
+                        SearchBtn_Click();
+                       return;
+                    },
+
+                    dataType: "json",
+                    data: formData,
+                    error: function (xhr, status, error) {
+                        //alert("err");
+                        alert(error.toString());
+                        //var err = eval("(" + xhr.responseText + ")");
+                        //alert(err.Message);
+                        flag = false;
+                    }
+                });
+            }
+        } catch (e) {
+            alert(e.toString());
+        }
+        return;
+    }
+
+    function CatCheckValidation() {
+        var flag = true;
+
+        try {
+            
+            ClearMessage("#TechnicalCodeMsg");
+            if (isEmpty("TechnicalCode", "لطفا شماره فنی راوارد کنید", "tomato", "TechnicalCodeMsg")) {
+                flag = false;
+            } else if ($("#FlagUpdate").val() != "1"){
+                try {
+                    $.ajax({
+                        url: '@Url.Action("CheckDuplicateTechnicalCode", "LS")',
+                        type: 'Post',
+                        async: false,
+                        cache: false,
+                        data: "{'technicalCode':'" + $("#TechnicalCode").val().toString().trim()
+                            + "'}",
+                        success: function (data) {
+                            
+                            if (data) {
+                                //ShowMessage("شماره فنی تکراری است", "error", "TechnicalCodeMsg");
+                                ShowMessage("TechnicalCodeMsg", "tomato", "شماره فنی تکراری است");
+                                flag = false;
+                            }
+                        },
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+
+
+                        error: function (xhr, status, error) {
+                            //alert("err");
+                            alert(error.toString());
+                            //var err = eval("(" + xhr.responseText + ")");
+                            //alert(err.Message);
+                            flag = false;
+                        }
+                    });
+                } catch (e) {
+                    alert(e.toString());
+                }
+            }
+            ClearMessage("#PNCMsg");
+            if (isEmpty("PNC", "لطفا PNC راوارد کنید", "tomato", "PNCMsg")) {
+                flag = false;
+            }
+
+            ClearMessage("#ItemNameMsg");
+            if (isEmpty("ItemName", "لطفا شرح لاتین راوارد کنید", "tomato", "ItemNameMsg")) {
+                flag = false;
+            }
+
+            ClearMessage("#PersianNameMsg");
+            if (isEmpty("PersianName", "لطفا شرح فارسی راوارد کنید", "tomato", "PersianNameMsg")) {
+                flag = false;
+            }
+
+            ClearMessage("#LengthMsg");
+            if (!CheckNumber($("#Length").val(), "لطفا طول راوارد کنید", "tomato", "LengthMsg")) {
+                flag = false;
+            }
+
+            ClearMessage("#WidthMsg");
+            if (!CheckNumber($("#Width").val(), "لطفا عرض راوارد کنید", "tomato", "WidthMsg")) {
+                flag = false;
+            }
+
+            ClearMessage("#HeightMsg");
+            if (!CheckNumber($("#Height").val(), "لطفا ارتفاع راوارد کنید", "tomato", "HeightMsg")) {
+                flag = false;
+            }
+
+            ClearMessage("#NetWeightMsg");
+            if (!CheckNumber($("#NetWeight").val(), "لطفا وزن خالص راوارد کنید", "tomato", "NetWeightMsg")) {
+                flag = false;
+            }
+
+            //ItemNamem, PersianName, Length, Width, Height
+        } catch (e) {
+            alert(e.toString());
+        }
+        return flag;
+    }
+
+  
+</script>

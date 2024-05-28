@@ -1,0 +1,164 @@
+﻿@{
+    Layout = null;
+   
+}
+<div class="col-sm-12">
+    <div class="row col-sm-12" style="padding-top:20px;">
+        <div class="col-sm-2 control-label">
+            عنوان پیش فاکتور
+        </div>
+        <div class="col-sm-10">
+            @Html.TextBox("InvoiceTitle", "", new { style = "width:65%;", @class = "form-control", maxlength = 150 })
+            <span id="InvoiceTitleMsg"></span>
+        </div>
+    </div>
+    <div id="RequestListDiv"></div>
+    <div class="col-sm-12" style="padding-top:20px">
+       
+        <button id="SaveInvoiceBtn" name="SaveInvoiceBtn" class="btn btn-success" style="height: 30pt;" value="Save" type="button" onclick="SaveInvoiceBtn_Click()">
+            ثبت پیش فاکتور <i class="fa fa-save" style="font-size: 14pt" aria-hidden="true"></i>
+        </button><span id="CreateInvoiceMsg"></span>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        FetchRequestList();
+    });
+    function FetchRequestList() {
+        var url;
+
+        url = "@Url.Action("RequestList4Invoice", "home")";
+        url += "?CustomerId=" + ($("#CustomerId").val() == null ? "-1" : $("#CustomerId").val().toString());
+        url += "&RequestNo=" + $("#KeepRequestNo").val().toString();
+
+        $("#RequestListDiv").load(url);
+
+        return;
+    }
+    function SaveInvoiceBtn_Click() {
+        if (CheckInvoiceValidation()) {
+            try {
+
+                var invoiceQty = "", requestId = "", requestDetialId = "", requestNo = "", technicalCode = "";
+                var numberRow = $("#NumberRequestRow").val();
+
+                for (ind = 1; ind <= numberRow; ind++) {
+
+                if ($("#Selected" + ind.toString()).prop("checked")) {
+                    invoiceQty += (invoiceQty == "" ? "" : ",");
+                    invoiceQty += $("#InvoiceQty-" + ind.toString()).val();
+
+                    requestId += (requestId == "" ? "" : ",");
+                    requestId += $("#RequestId" + ind.toString()).val();
+
+                    requestDetialId += (requestDetialId == "" ? "" : ",");
+                    requestDetialId += $("#RequestDetialId" + ind.toString()).val();
+
+                    requestNo += (requestNo == "" ? "" : ",");
+                    requestNo += $("#RequestNo-" + ind.toString()).html();
+
+                    technicalCode += (technicalCode == "" ? "" : ",");
+                    technicalCode += $("#TechnicalCode-" + ind.toString()).html();
+                }
+            }
+
+
+                $.ajax({
+                    url: '@Url.Action("SaveInvoice", "LS")',
+                    type: 'Post',
+                    async: false,
+                    cache: false,
+                    data: "{'technicalCode':'" + technicalCode
+                        + "', 'invoiceQty':'" + invoiceQty
+                        + "', 'requestId':'" + requestId
+                        + "', 'requestDetialId':'" + requestDetialId
+                        + "', 'requestNo':'" + requestNo
+                        + "', 'customerId':" + $("#CustomerId").val().toString()
+                        + ", 'invoiceTitle':'" + $("#InvoiceTitle").val().toString()
+                        + "'}",
+                        success: function (data) {
+                            if (data != null) {
+                                var url;
+                                ShowAlert("ثبت با موفقیت انجام شد", "توجه");
+
+                                url = "@Url.Action("InvoiceRequestList", "home")";
+                                url += "?CustomerId=" + ($("#CustomerId").val() == null ? "-1" : $("#CustomerId").val().toString());
+                                url += "&RequestHeaderIsActive=24&RequestNo=" + $("#RequestNo").val().toString();
+
+                                $("#ResultDiv").load(url);
+
+                                FetchRequestList();
+                            } else {
+                                ShowAlert("ثبت با مشکل مواجه شد", "توجه");
+                            }
+                        },
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+
+
+                        error: function (xhr, status, error) {
+                            //alert("err");
+                            alert(error.toString());
+                            //var err = eval("(" + xhr.responseText + ")");
+                            //alert(err.Message);
+                            flag = false;
+                        }
+                });
+
+            } catch (e) {
+                alert(e.toString());
+            }
+        }
+
+        return;
+    }
+
+    function CheckInvoiceValidation() {
+        var ind, numberRow, reqQty, pervSumInvoiceQty, invoiceQty;
+        var flagSelected = false, flag = true;
+        try {
+
+            numberRow = $("#NumberRequestRow").val();
+
+            for (ind = 1; ind <= numberRow; ind++) {
+
+                if ($("#Selected" + ind.toString()).prop("checked")) {
+
+                    reqQty = $("#Qty-" + ind.toString()).html();
+
+                    pervSumInvoiceQty = $("#PervSumInvoiceQty-" + ind.toString()).html();
+
+                    invoiceQty = $("#InvoiceQty-" + ind.toString()).val();
+
+                    ClearMessage("#InvoceQtyMsg-" + ind.toString());
+                    if (!CheckNumber($("#InvoiceQty-" + ind.toString()).val(), "لطفا تعداد راوارد کنید", "tomato", "InvoceQtyMsg-" + ind.toString())) {
+                        flag = false;
+                    } else {
+                        if (parseInt(invoiceQty) + parseInt(pervSumInvoiceQty) > parseInt(reqQty)) {
+                            ShowMessage("InvoceQtyMsg-" + ind.toString(), "tomato", "مقدار پیش فاکتور نمی تواند از مقدار درخواست بیشتر باشد");
+                            flag = false;
+                        }
+                    }
+
+                    flagSelected = true;
+                }
+            }
+
+            ClearMessage("#InvoiceTitleMsg");
+            if (isEmpty("InvoiceTitle", "لطفا عنوان پیش فاکتور راوارد کنید", "tomato", "InvoiceTitleMsg")) {
+                flag = false;
+            }
+
+            ClearMessage("#CreateInvoiceMsg");
+            if (!flagSelected) {
+                ShowMessage("CreateInvoiceMsg", "tomato", "موردي جهت ثبت يافت نشد");
+                flag = false;
+            }
+
+            return flag;
+        } catch (e) {
+            alert(e.toString());
+        }
+    }
+</script>

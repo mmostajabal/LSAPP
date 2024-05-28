@@ -1,0 +1,171 @@
+﻿@model LSService.VRequestClass
+
+@{
+    ViewBag.Title = "تاييد پيش فاكتور";
+}
+
+<div class="row panel-group col-sm-12 float-right" style="border: 1px solid gray; padding: 10px; border-radius: 20px 20px;">
+    <div class="row col-sm-12" align="right" valing="middle" style="direction: rtl; background-color: #CB0f1f; color: #fff; height: 40px; vertical-align: middle; vertical-align: middle;margin: 10px">
+        <label style="vert-align: middle; vertical-align: middle; direction:rtl;margin-right:20px;margin-top:10px;display:inline-block"> تاييد پيش فاكتور</label>
+    </div>
+    <div id="RequestModal" class="modal" role="dialog" style="width: 100%;">
+        <div class="modal-dialog modal-lg" style="width: 100%">
+            <div class="modal-content" style="width: 100%">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        &times;
+                    </button>
+                </div>
+                <div class="modal-body" id="RequestPartialBody">
+                </div>
+                <div class="modal-footer" style="text-align: center">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12" align="center">
+        <span id="grPublicMsg"></span>
+    </div>
+    <div class="row col-sm-12" style="padding-top:20px;">
+        <div class="col-sm-2 control-label">
+            مشتری
+        </div>
+        <div class="col-sm-10">
+            @Html.DropDownListFor(m => m.CustomerId, (SelectList)ViewData["Customer"], new { style = "width:50%;text-align:right", @onchange = "CustomerId_Change();" })
+            <span id="CustomerIdMsg"></span>
+        </div>
+    </div>
+    <div class="row col-sm-12" style="padding-top:20px;">
+        <div class="col-sm-2 control-label">
+            شماره درخواست
+        </div>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(m => m.RequestNo, new { style = "width:20%;text-align:left;", @class = "form-control", maxlength = 15, required = "required",@onchange="CustomerId_Change();" })
+            <span id="RequestNoMsg"></span>
+        </div>
+    </div>
+    <div class="col-sm-12" style="padding-top:20px" id="InvoiceDiv">
+    </div>
+    <div class="col-sm-12" style="padding-top:20px">
+        @*@Html.Hidden("KeepRequestNo")
+        @Html.Hidden("ShowObject")*@
+        
+        <button id="ConfimIvoiceBtn" name="ConfimIvoiceBtn" class="btn btn-success" style="height: 30pt;" value="Save" type="button" onclick="ConfimIvoiceBtn_Click()">
+            تاييد پيش فاكتور <i class="fa fa-save" style="font-size: 14pt" aria-hidden="true"></i>
+        </button><span id="ConfirmInvoiceMsg"></span>
+    </div>
+</div>
+<script>
+    $(function () {
+        $("#CustomerId").select2({
+            placeholder: "مشتری",
+            allowClear: false,
+            theme: "classic"
+        });
+
+
+        $("#CustomerId").val(null).trigger('change');
+    });
+
+    function CustomerId_Change() {
+        var url;
+
+        url = "@Url.Action("ConfirmInvoiceList", "home")";
+        url += "?CustomerId=" + ($("#CustomerId").val() == null ? "0" : $("#CustomerId").val().toString());
+        url += "&RequestNo=" + $("#RequestNo").val().toString();               
+        url += "&InvoiceHeaderIsActive=24";
+        url += "&InvoiceDetailIsActive=24";
+        
+        $("#InvoiceDiv").load(url);
+        return;
+    }
+
+    function ConfimIvoiceBtn_Click() {
+        if (CheckConfirmInvoiceValidation()) {
+            try {
+
+                var invoiceDetailId = "";
+                var numberRow = $("#NumberInvoiceRow").val();
+
+                for (ind = 1; ind <= numberRow; ind++) {
+
+                    if ($("#Selected" + ind.toString()).prop("checked")) {
+                        invoiceDetailId += (invoiceDetailId == "" ? "" : ",");
+                        invoiceDetailId += $("#InvoiceDetailId-" + ind.toString()).val();
+                    }
+                }
+
+
+                $.ajax({
+                    url: '@Url.Action("ConfirmInvoice", "LS")',
+                    type: 'Post',
+                    async: false,
+                    cache: false,
+                    data: "{'invoiceDetailId':'" + invoiceDetailId
+                        + "'}",
+                        success: function (data) {
+                            if (data != null) {
+                                var url;
+                                ShowAlert("ثبت با موفقیت انجام شد", "توجه");
+                                CustomerId_Change();
+
+                                @*url = "@Url.Action("InvoiceRequestList", "home")";
+                                url += "?CustomerId=" + ($("#CustomerId").val() == null ? "-1" : $("#CustomerId").val().toString());
+                                url += "&RequestHeaderIsActive=24&RequestNo=" + $("#RequestNo").val().toString();
+
+                                $("#ResultDiv").load(url);
+
+                                FetchRequestList();*@
+                            } else {
+                                ShowAlert("ثبت با مشکل مواجه شد", "توجه");
+                            }
+                        },
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+
+
+                        error: function (xhr, status, error) {
+                            //alert("err");
+                            alert(error.toString());
+                            //var err = eval("(" + xhr.responseText + ")");
+                            //alert(err.Message);
+                            flag = false;
+                        }
+                });
+
+            } catch (e) {
+                alert(e.toString());
+            }
+        }
+
+        return;
+    }
+
+    function CheckConfirmInvoiceValidation() {
+        var ind;
+        var flagSelected = false, flag = true;
+        try {
+
+            numberRow = $("#NumberInvoiceRow").val();
+
+            for (ind = 1; ind <= numberRow; ind++) {
+
+                if ($("#Selected" + ind.toString()).prop("checked")) {
+
+                    flagSelected = true;
+                }
+            }
+
+            ClearMessage("#ConfirmInvoiceMsg");
+            if (!flagSelected) {
+                ShowMessage("ConfirmInvoiceMsg", "tomato", "موردي جهت ثبت يافت نشد");
+                flag = false;
+            }
+
+            return flag;
+        } catch (e) {
+            alert(e.toString());
+        }
+    }
+</script>
+

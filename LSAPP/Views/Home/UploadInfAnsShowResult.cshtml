@@ -1,0 +1,148 @@
+﻿@using LSService
+@model IList<OrderHaveError>
+@{
+    ViewBag.Title = "نتايج انتقال اطلاعات";
+    int ind = 1;
+}
+<link href="@Url.Content("~/Content/DataTables/css/dataTables.bootstrap.min.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/DataTables/css/fixedHeader.bootstrap.min.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/DataTables/css/responsive.bootstrap.min.css")" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/DataTables/dataTables.buttons.min.js"></script>
+<script src="~/Scripts/DataTables/buttons.flash.min.js"></script>
+<script src="~/Scripts/DataTables/jszip.min.js"></script>
+<script src="~/Scripts/DataTables/pdfmake.min.js"></script>
+<script src="~/Scripts/DataTables/vfs_fonts.js"></script>
+<script src="~/Scripts/DataTables/buttons.html5.min.js"></script>
+<script src="~/Scripts/DataTables/buttons.print.min.js"></script>
+<script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
+<script src="~/Scripts/DataTables/dataTables.fixedHeader.min.js"></script>
+<script src="~/Scripts/DataTables/dataTables.responsive.min.js"></script>
+<script src="~/Scripts/DataTables/responsive.bootstrap.min.js"></script>
+@using (@Html.BeginForm("SaveCatAndOrder", "home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row panel-group col-sm-12 float-right" style="border: 1px solid gray; padding: 10px; border-radius: 20px 20px;">
+        <div class="row col-sm-12" align="right" valing="middle" style="direction: rtl; background-color: #CB0f1f; color: #fff; height: 40px; vertical-align: middle; vertical-align: middle;margin: 10px">
+            <label style="vert-align: middle; vertical-align: middle; direction:rtl;margin-right:20px;margin-top:10px;display:inline-block">آپلود قطعات جدید</label>
+        </div>
+        <div class="col-sm-12" align="center">
+            <span id="udPublicMsg"></span>
+        </div>
+        <div class="row col-sm-12" align="center" style="background-color: khaki; height: 30pt">
+            <label style="direction: rtl;">@ViewBag.NumberTransfer</label>
+        </div>
+        <div class="row col-sm-12">
+            <label >شماره فني هاي جديد</label>
+        </div>
+        <div>
+            <table id="ErrorTable" class="table table-striped table-bordered nowrap" style="width: 100%">
+                <thead>
+                <tr>
+                    <th>انتخاب</th>
+                    <th>Order No</th>
+                    <th>Technical Code</th>
+                    <th>Part Name</th>
+                    <th>نام فارسی</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Price AED</th>
+                    <th>Tariff</th>
+                    <th>Net Weight</th>
+                    <th>Gross Weith</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var m in Model)
+                {
+                    <tr>
+                        <td> @Html.CheckBox("IsSelected" + ind.ToString(), m.IsSelected, new {style = "text-align:right;", value = m.OrderHaveErrorId, @class = "checkbox"})</td>
+                        <td>@m.OrderNo</td>
+                        <td>@m.TechnicalCode</td>
+                        <td>@m.ItemName</td>
+                        <td>@m.PersianName</td>
+                        <td>@m.Quantity</td>
+                        <td>@m.Price</td>
+                        <td>@m.PriceAED</td>
+                        <td>@m.Tariff</td>
+                        <td>@m.NetWeight</td>
+                        <td>@m.GrossWeight</td>
+                    </tr>
+                    ind++;
+                }
+                </tbody>
+
+            </table>
+        </div>
+        <div class="col-sm-12 divClass">
+            @Html.Hidden("NumberError", Model.Count)
+            @Html.Hidden("orderHaveErrorId")
+            <button id="SaveBtn" name="SaveBtn" class="btn btn-success" style="width: 80pt; height: 30pt;" value="Save" type="button" onclick="SaveBtn_Click();">
+                ثبت
+            </button>
+        </div>
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        //$('[data-toggle="tooltip"]').tooltip({
+        //    animated: 'fade',
+        //    placement: 'bottom',
+        //    html: true
+        //});
+        try {
+            $('#ErrorTable').DataTable({
+                "responsive": true,
+                "paging": false,
+                dom: 'Bfrtip',
+                buttons: [
+                    'excel', 'print'
+                ]
+            });
+        } catch (ex) {
+            alert(ex.toString());
+        }
+    });
+
+    function SaveBtn_Click() {
+        var ind = 1;
+        var numberError = $("#NumberError").val();
+        var orderHaveErrorId = [];
+        var strId = "";
+        var arrInd = 0;
+
+        for (ind = 1; ind <= numberError; ind++) {
+            if ($("#IsSelected" + ind.toString()).prop("checked")) {
+                strId += (strId == "" ? "" : ",");
+                strId += $("#IsSelected" + ind.toString()).val();
+                //orderHaveErrorId[arrInd] = $("#IsSelected" + ind.toString()).val();
+                //arrInd++;
+            }
+        }
+
+        if (strId != "") {
+            $("#orderHaveErrorId").val(strId);
+            $("form").submit();
+            //$.ajax({
+            //    url: '../home/SaveCatAndOrder',
+            //    type: 'Post',
+            //    async: false,
+            //    cache: false,
+            //    success: function (data) {
+            //        //$('#MessageTable').html("");
+            //        //AddRow2Table("MessageTable", " ثبت با موفقیت انجام شد ", "LabelConfirm");
+            //        //ResetForm();
+            //        return;
+            //    },
+            //    contentType: "application/json; charset=utf-8",
+            //    dataType: "json",
+            //    //
+            //    data: "{"
+            //        + "'OrderHaveErrorId' : " + JSON.stringify(orderHaveErrorId)
+            //        + "}",
+            //    //error: OnError
+            //});
+        }
+        return;
+    }
+</script>
+

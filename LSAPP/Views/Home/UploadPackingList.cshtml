@@ -1,0 +1,96 @@
+﻿@model LSService.UploadInf
+@{
+    ViewBag.Title = "آپلود پكينگ ليست";
+}
+
+@using (@Html.BeginForm("doUploadPackingList", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row panel-group col-sm-12 float-right" style="border: 1px solid gray; padding: 10px; border-radius: 20px 20px;">
+        <div class="row col-sm-12" align="right" valing="middle" style="direction: rtl; background-color: #CB0f1f; color: #fff; height: 40px; vertical-align: middle; vertical-align: middle;margin: 10px">
+            <label style="vert-align: middle; vertical-align: middle; direction:rtl;margin-right:20px;margin-top:10px;display:inline-block">آپلود پکینگ لیست</label>
+        </div>
+        <div id="PackingListModal" class="modal" role="dialog" style="width: 100%;">
+            <div class="modal-dialog modal-lg" style="width: 100%">
+                <div class="modal-content" style="width: 100%">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            &times;
+                        </button>
+                    </div>
+                    <div class="modal-body" id="PackingListPartialBody">
+                    </div>
+                    <div class="modal-footer" style="text-align: center">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12" align="center">
+            <span id="upPublicMsg"></span>
+        </div>
+
+        <div class="col-sm-12 float-right">
+            <div class="row col-sm-12" style="margin-top: 20px;">
+                <div class="col-sm-2 float-right" align="right" for="DocTitle"> شماره سفارش</div>
+                <div class="col-sm-3 float-right" align="right">
+                    @Html.TextBoxFor(m => m.OrderNo, "", new { style = "width:96%;text-align:left;", @class = "form-control", maxlength = 10 })
+
+                    <span id="OrderNoMsg"></span>
+                </div>
+                <div class="col-sm-1 float-right" align="right">
+                    <button class="btn" style="background-color: transparent; border-block-end-color: gray;" type="button" onclick="SearchBtn_Click(); "><i class="fa fa-search" style="font-size: 14pt" aria-hidden="true"></i></button>
+                </div>
+            </div>
+            <div class="row col-sm-12" style="margin-top: 20px;">
+                <div class="col-sm-2 float-right" align="right" for="DocTitle"> عنوان فايل</div>
+                <div class="col-sm-10 float-right" align="right">
+                    @Html.TextBoxFor(m => m.DocTitle, "", new { style = "width:50%;", @class = "form-control" })
+                    <span id="DocTitleMsg"></span>
+                </div>
+            </div>
+            <div class="row col-sm-12" style="margin-top: 20px;">
+                <div class="col-sm-2 float-right" align="right" for="DocDesc"> شرح فايل</div>
+                <div class="col-sm-10 float-right" align="right">
+                    @(Html.TextAreaFor(m => m.DocDesc, new {@rows = 4, @dir = "rtl", Style = "border-radius:7px; width:96%;height:60px;", maxlength = 1024}))
+
+                </div>
+            </div>
+            <div class="row col-sm-12" style="margin-top: 20px;">
+                <div class="col-sm-2 float-right" align="right" for="DocDesc"> انتخاب فايل</div>
+                <div class="col-sm-10 float-right" align="right">
+                    @Html.TextBox("file", "", new { type = "file", style = "width:50%;", @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-sm-12 divClass">
+                <button id="SaveBtn" name="UploadBtn" class="btn btn-success" style="width: 80pt; height: 30pt;" value="Upload" type="submit">
+                    آپلود  <i class="fa fa-upload" style="font-size: 14pt" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+}
+<script>
+        $(function() {
+            $("#UploadDocTypeId").select2({
+                placeholder: "اطلاعات آپلود",
+                allowClear: false,
+                theme: "classic"
+            });
+        });
+
+        function SearchBtn_Click() {
+            var url = "@Url.Action("SearchOrder", "home")";
+            url += "/?showtitle=0";
+            
+            $("#PackingListPartialBody").load(url);
+            $("#PackingListModal").modal('show');
+            return;
+        }
+
+    function CloseModal() {
+        $('.modal').hide();
+        $(".modal-backdrop").remove();
+        //$('#IssueModal').modal("hide");
+    }
+</script>
+

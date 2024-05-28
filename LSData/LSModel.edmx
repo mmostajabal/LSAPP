@@ -1,0 +1,2658 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="LSDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TBaseInf">
+          <Key>
+            <PropertyRef Name="BaseInfId" />
+          </Key>
+          <Property Name="BaseInfId" Type="int" Nullable="false" />
+          <Property Name="BaseInfDesc" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsActive" Type="smallint" Nullable="false" />
+          <Property Name="BaseInfTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBaseInfType">
+          <Key>
+            <PropertyRef Name="BaseInfTypeId" />
+          </Key>
+          <Property Name="BaseInfTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BaseInfDesc" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsActive" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBrand">
+          <Key>
+            <PropertyRef Name="BrandId" />
+          </Key>
+          <Property Name="BrandId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BrandDesc" Type="nvarchar" MaxLength="150" />
+          <Property Name="IsActive" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TCarType">
+          <Key>
+            <PropertyRef Name="CarTypeId" />
+          </Key>
+          <Property Name="CarTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CarTypeDesc" Type="nvarchar" MaxLength="100" />
+          <Property Name="BrandId" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TCat">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TechnicalCode" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="PNC" Type="varchar" MaxLength="15" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="255" />
+          <Property Name="PersianName" Type="nvarchar" MaxLength="255" />
+          <Property Name="Length" Type="float" Nullable="false" />
+          <Property Name="Width" Type="float" Nullable="false" />
+          <Property Name="Height" Type="float" Nullable="false" />
+          <Property Name="NetWeight" Type="float" Nullable="false" />
+          <Property Name="ForWardItemNo" Type="varchar" MaxLength="20" />
+          <Property Name="ForWardITCCode" Type="varchar" MaxLength="10" />
+          <Property Name="BackwardItemNo" Type="nvarchar" MaxLength="20" />
+          <Property Name="BackwardITCCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="QuantityOfUsageInMachine" Type="float" Nullable="false" />
+          <Property Name="PPLDollar" Type="float" Nullable="false" />
+          <Property Name="BasePriceRls" Type="float" Nullable="false" />
+          <Property Name="ItemGroup" Type="nvarchar" MaxLength="50" />
+          <Property Name="Brand" Type="nvarchar" MaxLength="50" />
+          <Property Name="Health" Type="nvarchar" MaxLength="10" />
+          <Property Name="Grade" Type="nvarchar" MaxLength="255" />
+          <Property Name="ItemUsage" Type="nvarchar(max)" />
+          <Property Name="UsagePlace" Type="nvarchar" MaxLength="50" />
+          <Property Name="Specificcode" Type="nvarchar" MaxLength="50" />
+          <Property Name="VeryCritical" Type="nvarchar" MaxLength="50" />
+          <Property Name="ItemGroupId" Type="int" Nullable="false" />
+          <Property Name="ItemTypeId" Type="int" Nullable="false" />
+          <Property Name="GoodsGradeId" Type="int" Nullable="false" />
+          <Property Name="TrackingTypeId" Type="int" Nullable="false" />
+          <Property Name="LabelingTypeId" Type="int" Nullable="false" />
+          <Property Name="UsageTypeId" Type="int" Nullable="false" />
+          <Property Name="UnitId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TCatCarType">
+          <Key>
+            <PropertyRef Name="CatCarTypeId" />
+          </Key>
+          <Property Name="CatCarTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TechnicalCode" Type="varchar" MaxLength="20" />
+          <Property Name="CarTypeId" Type="int" Nullable="false" />
+          <Property Name="Coefficient" Type="float" Nullable="false" />
+          <Property Name="IsActive" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TCustomer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerTypeId" Type="int" Nullable="false" />
+          <Property Name="CustomerContractTypeId" Type="int" Nullable="false" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="150" />
+          <Property Name="Tel" Type="varchar" MaxLength="20" />
+          <Property Name="MobileNo" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="255" />
+          <Property Name="Address" Type="nvarchar" MaxLength="1024" />
+          <Property Name="ManagerName" Type="nvarchar" MaxLength="150" />
+          <Property Name="IsActive" Type="smallint" Nullable="false" />
+          <Property Name="NationalId" Type="char" MaxLength="20" />
+          <Property Name="ZIPCode" Type="char" MaxLength="10" />
+          <Property Name="EcoCode" Type="char" MaxLength="20" />
+          <Property Name="RegistrationNumber" Type="char" MaxLength="20" />
+          <Property Name="RepresentativeCode" Type="char" MaxLength="10" />
+          <Property Name="RepresentativeName" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TDocSerial">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DocSerialNo" Type="int" Nullable="false" />
+          <Property Name="CurYear" Type="int" Nullable="false" />
+          <Property Name="InventoryDocTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TExitFromWarehouseDetail">
+          <Key>
+            <PropertyRef Name="ExitFromWarehouseDetailId" />
+          </Key>
+          <Property Name="ExitFromWarehouseDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExitNo" Type="char" MaxLength="15" />
+          <Property Name="TechnicalCode" Type="varchar" MaxLength="20" />
+          <Property Name="Qty" Type="float" Nullable="false" />
+          <Property Name="IsActive" Type="smallint" Nullable="false" />
+          <Property Name="InvoiceDetailId" Type="int" Nullable="false" />
+          <Property Name="FactorNo" Type="char" MaxLength="15" />
+          <Property Name="FactorDate" Type="char" MaxLength="10" />
+          <Property Name="FactorTime" Type="char" MaxLength="10" />
+          <Property Name="FactorEntryDataPersonalId" Type="char" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="TExitFromWarehouseHeader">
+          <Key>
+            <PropertyRef Name="ExitFromWarehouseHeaderId" />
+          </Key>
+          <Property Name="ExitFromWarehouseHeaderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InvoiceNo" Type="char" MaxLength="15" />
+          <Property Name="ExitNo" Type="char" MaxLength="15" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="ExitDate" Type="char" MaxLength="10" />
+          <Property Name="ExitTime" Type="char" MaxLength="10" />
+          <Property Name="EntryPersonalId" Type="char" MaxLength="10" />
+          <Property Name="IsActive" Type="smallint" Nullable="false" />
+          <Property Name="InvoiceId" Type="int" Nullable="false" />
+          <Property Name="ExitTitle" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="TFactorDetail">
+          <Key>
+            <PropertyRef Name="FactorDetailId" />
+          </Key>
+          <Property Name="FactorDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FactorNo" Type="char" MaxLength="15" />
+          <Property Name="TechnicalCode" Type="varchar" MaxLength="20" />
+          <Property Name="Qty" Type="float" Nullable="false" />
+          <Property Name="IsActive" Type="smallint" Nullable="false" />
+          <Property Name="ExitFromWarehouseDetailId" Type="int" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TFactorHeader">
+          <Key>
+            <PropertyRef Name="FactorHeaderId" />
+          </Key>
+          <Property Name="FactorHeaderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InvoiceId" Type="int" Nullable="false" />
+          <Property Name="FactorNo" Type="char" MaxLength="15" />
+          <Property Name="FactorDate" Type="char" MaxLength="10" />
+          <Property Name="FactorTime" Type="char" MaxLength="10" />
+          <Property Name="EntryPersonalId" Type="char" MaxLength="10" />
+          <Property Name="IsActive" Type="smallint" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TGoodsGrade">
+          <Key>
+            <PropertyRef Name="GoodsGradeId" />
+          </Key>
+          <Property Name="GoodsGradeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GoodsGradeDesc" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsActive" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TGoodsPrice">
+          <Key>
+            <PropertyRef Name="GoodsPriceId" />
+          </Key>
+          <Property Name="GoodsPriceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TechnicalCode" Type="varchar" MaxLength="20" />
+          <Property Name="CurrencyTypeId" Type="int" Nullable="false" />
+          <Property Name="DollarPrice" Type="float" Nullable="false" />
+          <Property Name="BasePrice" Type="float" />
+          <Property Name="PriceInRials" Type="float" Nullable="false" />
+          <Property Name="EntryDataDate" Type="char" MaxLength="10" />
+          <Property Name="EntryDataTime" Type="char" MaxLength="10" />
+          <Property Name="EntryPersonalId" Type="char" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="TGoodsPriceArc">
+          <Key>
+            <PropertyRef Name="GoodsPriceArcId" />
+          </Key>
+          <Property Name="GoodsPriceArcId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GoodsPriceId" Type="int" Nullable="false" />
+          <Property Name="TechnicalCode" Type="varchar" MaxLength="20" />
+          <Property Name="CurrencyTypeId" Type="int" Nullable="false" />
+          <Property Name="DollarPrice" Type="float" Nullable="false" />
+          <Property Name="BasePrice" Type="float" />
+          <Property Name="PriceInRials" Type="float" Nullable="false" />
+          <Property Name="EntryDataDate" Type="char" MaxLength="10" />
+          <Property Name="EntryDataTime" Type="char" MaxLength="10" />
+          <Property Name="EntryPersonalId" Type="char" MaxLength="10" />
+          <Property Name="UpdateDate" Type="char" MaxLength="10" />
+          <Property Name="UpdateTime" Type="char" MaxLength="10" />
+          <Property Name="UpdatePersonalId" Type="char" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="TInventoryDocDetail">
+          <Key>
+            <PropertyRef Name="InventoryDocDetailId" />
+          </Key>
+          <Property Name="InventoryDocDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InventoryDocHeaderId" Type="int" Nullable="false" />
+          <Property Name="TechnicalCode" Type="varchar" MaxLength="20" />
+          <Property Name="OrderId" Type="int" Nullable="false" />
+          <Property Name="PackingListId" Type="int" Nullable="false" />
+          <Property Name="Qty" Type="float" Nullable="false" />
+          <Property Name="Explain" Type="nvarchar" MaxLength="1024" />
+        </EntityType>
+        <EntityType Name="TInventoryDocHeader">
+          <Key>
+            <PropertyRef Name="InventoryDocHeaderId" />
+          </Key>
+          <Property Name="InventoryDocHeaderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DocNo" Type="char" MaxLength="12" />
+          <Property Name="InventoryDocTypeId" Type="int" Nullable="false" />
+          <Property Name="EntryDataDate" Type="char" MaxLength="10" />
+          <Property Name="EntryDataTime" Type="char" MaxLength="10" />
+          <Property Name="EntryDataPersonalId" Type="char" MaxLength="10" />
+          <Property Name="IsActive" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TInventoryDocType">
+          <Key>
+            <PropertyRef Name="InventoryDocTypeId" />
+          </Key>
+          <Property Name="InventoryDocTypeId" Type="int" Nullable="false" />
+          <Property Name="InventoryDocDesc" Type="nvarchar" MaxLength="150" />
+          <Property Name="EffectionType" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TInvoiceDetail">
+          <Key>
+            <PropertyRef Name="InvoiceDetailId" />
+          </Key>
+          <Property Name="InvoiceDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InvoiceId" Type="int" Nullable="false" />
+          <Property Name="TechnicalCode" Type="varchar" MaxLength="20" />
+          <Property Name="Qty" Type="float" Nullable="false" />
+          <Property Name="IsActive" Type="smallint" Nullable="false" />
+          <Property Name="RequestDetialId" Type="int" Nullable="false" />
+          <Property Name="InvoiceNo" Type="char" MaxLength="15" />
+          <Property Name="ConfirmDate" Type="char" MaxLength="10" />
+          <Property Name="ConfirmTime" Type="char" MaxLength="10" />
+          <Property Name="ConfirmPersonalId" Type="char" MaxLength="10" />
+          <Property Name="PrintDate" Type="char" MaxLength="10" />
+          <Property Name="PrintTime" Type="char" MaxLength="10" />
+          <Property Name="PrintPersonalId" Type="char" MaxLength="10" />
+          <Property Name="ExitQty" Type="float" Nullable="false" />
+          <Property Name="PriceInRials" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TInvoiceHeader">
+          <Key>
+            <PropertyRef Name="InvoiceId" />
+          </Key>
+          <Property Name="InvoiceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InvoiceNo" Type="char" MaxLength="15" />
+          <Property Name="InvoiceTitle" Type="nvarchar" MaxLength="100" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="InvoiceDate" Type="char" MaxLength="10" />
+          <Property Name="InvoiceTime" Type="char" MaxLength="10" />
+          <Property Name="EntryPersonalId" Type="char" MaxLength="10" />
+          <Property Name="IsActive" Type="smallint" Nullable="false" />
+          <Property Name="RequestId" Type="int" Nullable="false" />
+          <Property Name="RequestNo" Type="char" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="TItemGroup">
+          <Key>
+            <PropertyRef Name="ItemGroupId" />
+          </Key>
+          <Property Name="ItemGroupId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemGroupDesc" Type="nvarchar" MaxLength="150" />
+          <Property Name="IsActive" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TItemType">
+          <Key>
+            <PropertyRef Name="ItemTypeId" />
+          </Key>
+          <Property Name="ItemTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemTypeDesc" Type="nvarchar" MaxLength="150" />
+          <Property Name="IsActive" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TOrder">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TechnicalCode" Type="varchar" MaxLength="20" />
+          <Property Name="Quantity" Type="float" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="PriceAED" Type="float" Nullable="false" />
+          <Property Name="Tariff" Type="char" MaxLength="10" />
+          <Property Name="NetWeight" Type="float" Nullable="false" />
+          <Property Name="GrossWeight" Type="float" Nullable="false" />
+          <Property Name="OrderNo" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="EntryDataDate" Type="char" MaxLength="10" />
+          <Property Name="EntryDataTime" Type="char" MaxLength="10" />
+          <Property Name="EntryDataPersonalId" Type="char" MaxLength="10" />
+          <Property Name="UploadInfId" Type="int" Nullable="false" />
+          <Property Name="PackListQTY" Type="float" Nullable="false" />
+          <Property Name="PackingListTechnicalCode" Type="varchar" MaxLength="20" />
+          <Property Name="RecieveOrderQuantity" Type="float" Nullable="false" />
+          <Property Name="IsActive" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TOrderHaveError">
+          <Key>
+            <PropertyRef Name="OrderHaveErrorId" />
+          </Key>
+          <Property Name="OrderHaveErrorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TechnicalCode" Type="varchar" MaxLength="20" />
+          <Property Name="Quantity" Type="float" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="PriceAED" Type="float" Nullable="false" />
+          <Property Name="Tariff" Type="char" MaxLength="10" />
+          <Property Name="NetWeight" Type="float" Nullable="false" />
+          <Property Name="GrossWeight" Type="float" Nullable="false" />
+          <Property Name="OrderNo" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="EntryDataDate" Type="char" MaxLength="10" />
+          <Property Name="EntryDataTime" Type="char" MaxLength="10" />
+          <Property Name="EntryDataPersonalId" Type="char" MaxLength="10" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="255" />
+          <Property Name="PersianName" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsActive" Type="smallint" Nullable="false" />
+          <Property Name="UploadInfId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TPackingList">
+          <Key>
+            <PropertyRef Name="PackingListId" />
+          </Key>
+          <Property Name="PackingListId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PackingListNo" Type="char" MaxLength="10" />
+          <Property Name="InvoiceNo" Type="char" MaxLength="10" />
+          <Property Name="CaseNo" Type="char" MaxLength="20" />
+          <Property Name="CountryOfOrigin" Type="char" MaxLength="10" />
+          <Property Name="TechnicalCode" Type="varchar" MaxLength="20" />
+          <Property Name="ShipQty" Type="float" Nullable="false" />
+          <Property Name="HSCode" Type="char" MaxLength="10" />
+          <Property Name="UnitPrice" Type="float" Nullable="false" />
+          <Property Name="NetWeight" Type="float" Nullable="false" />
+          <Property Name="GrossWeight" Type="float" Nullable="false" />
+          <Property Name="EntryDataDate" Type="char" MaxLength="10" />
+          <Property Name="EntryDataTime" Type="char" MaxLength="10" />
+          <Property Name="EntryDataPersonalId" Type="char" MaxLength="10" />
+          <Property Name="UploadInfId" Type="int" Nullable="false" />
+          <Property Name="OrderNo" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="TechnicalCodeOder" Type="varchar" MaxLength="20" />
+          <Property Name="OrderId" Type="int" Nullable="false" />
+          <Property Name="ConfirmShipQty" Type="float" Nullable="false" />
+          <Property Name="IsActive" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TPackingListError">
+          <Key>
+            <PropertyRef Name="PackingListErrorId" />
+          </Key>
+          <Property Name="PackingListErrorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PackingListNo" Type="char" MaxLength="10" />
+          <Property Name="InvoiceNo" Type="char" MaxLength="10" />
+          <Property Name="CaseNo" Type="char" MaxLength="20" />
+          <Property Name="CountryOfOrigin" Type="char" MaxLength="10" />
+          <Property Name="TechnicalCode" Type="varchar" MaxLength="50" />
+          <Property Name="ShipQty" Type="float" Nullable="false" />
+          <Property Name="HSCode" Type="char" MaxLength="10" />
+          <Property Name="UnitPrice" Type="float" Nullable="false" />
+          <Property Name="NetWeight" Type="float" Nullable="false" />
+          <Property Name="GrossWeight" Type="float" Nullable="false" />
+          <Property Name="EntryDataDate" Type="char" MaxLength="10" />
+          <Property Name="EntryDataTime" Type="char" MaxLength="10" />
+          <Property Name="EntryDataPersonalId" Type="char" MaxLength="10" />
+          <Property Name="UploadInfId" Type="int" Nullable="false" />
+          <Property Name="OrderNo" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="TechnicalCodeOder" Type="varchar" MaxLength="20" />
+          <Property Name="IsActive" Type="smallint" Nullable="false" />
+          <Property Name="ErrorType" Type="smallint" Nullable="false" />
+          <Property Name="PartName" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="TRequestDetial">
+          <Key>
+            <PropertyRef Name="RequestDetialId" />
+          </Key>
+          <Property Name="RequestDetialId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TechnicalCode" Type="varchar" MaxLength="20" />
+          <Property Name="Qty" Type="float" Nullable="false" />
+          <Property Name="ConfirmQty" Type="float" Nullable="false" />
+          <Property Name="RequestId" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="smallint" Nullable="false" />
+          <Property Name="RequestTypeId" Type="int" Nullable="false" />
+          <Property Name="RequestNo" Type="char" MaxLength="15" Nullable="false" />
+          <Property Name="InvoiceQty" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TRequestHeader">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Name="RequestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RequestNo" Type="char" MaxLength="15" Nullable="false" />
+          <Property Name="RequestDate" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="RequestTime" Type="char" MaxLength="10" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="EntryPersonalId" Type="char" MaxLength="10" />
+          <Property Name="IsActive" Type="smallint" Nullable="false" />
+          <Property Name="RequestTitle" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TSerial">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderSerialNo" Type="int" Nullable="false" />
+          <Property Name="CurYear" Type="int" Nullable="false" />
+          <Property Name="SerialType" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TUploadInf">
+          <Key>
+            <PropertyRef Name="UploadInfId" />
+          </Key>
+          <Property Name="UploadInfId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DocPath" Type="varchar" MaxLength="255" />
+          <Property Name="EntryPersonalId" Type="char" MaxLength="10" />
+          <Property Name="UploadDocTypeId" Type="int" Nullable="false" />
+          <Property Name="DocTitle" Type="varchar" MaxLength="150" />
+          <Property Name="DocDesc" Type="varchar" MaxLength="1024" />
+        </EntityType>
+        <EntityType Name="TUsageType">
+          <Key>
+            <PropertyRef Name="UsageTypeId" />
+          </Key>
+          <Property Name="UsageTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UsageTypeDesc" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsActive" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TWareHouseStock">
+          <Key>
+            <PropertyRef Name="WareHouseStockId" />
+          </Key>
+          <Property Name="WareHouseStockId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TechnicalCode" Type="varchar" MaxLength="20" />
+          <Property Name="StockQty" Type="float" Nullable="false" />
+          <Property Name="ReserveQty" Type="float" Nullable="false" />
+          <Property Name="BlockedQty" Type="float" Nullable="false" />
+          <Property Name="ScrapeQty" Type="float" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LSDB.dbo.V_ExitWarehouse' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_ExitWarehouse">
+          <Key>
+            <PropertyRef Name="ExitFromWarehouseDetailId" />
+            <PropertyRef Name="ExitDetailIsActive" />
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="ExitHeaderIsActive" />
+            <PropertyRef Name="InvoiceId" />
+            <PropertyRef Name="Qty" />
+            <PropertyRef Name="InvoiceDetailId" />
+            <PropertyRef Name="ExitFromWarehouseHeaderId" />
+            <PropertyRef Name="PriceInRials" />
+          </Key>
+          <Property Name="ExitFromWarehouseDetailId" Type="int" Nullable="false" />
+          <Property Name="TechnicalCode" Type="varchar" MaxLength="20" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="255" />
+          <Property Name="ExitDetailIsActive" Type="smallint" Nullable="false" />
+          <Property Name="InvoiceNo" Type="char" MaxLength="15" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="150" />
+          <Property Name="ExitDate" Type="char" MaxLength="10" />
+          <Property Name="ExitTime" Type="char" MaxLength="10" />
+          <Property Name="EntryPersonalId" Type="char" MaxLength="10" />
+          <Property Name="ExitHeaderIsActive" Type="smallint" Nullable="false" />
+          <Property Name="ExitNo" Type="char" MaxLength="15" />
+          <Property Name="InvoiceId" Type="int" Nullable="false" />
+          <Property Name="ExitTitle" Type="nvarchar" MaxLength="150" />
+          <Property Name="ExitHeaderIsActiveDesc" Type="nvarchar" MaxLength="100" />
+          <Property Name="ExitDetailIsActiveDesc" Type="nvarchar" MaxLength="100" />
+          <Property Name="Qty" Type="float" Nullable="false" />
+          <Property Name="InvoiceDetailId" Type="int" Nullable="false" />
+          <Property Name="InvoiceTitle" Type="nvarchar" MaxLength="100" />
+          <Property Name="ExitFromWarehouseHeaderId" Type="int" Nullable="false" />
+          <Property Name="PriceInRials" Type="float" Nullable="false" />
+          <Property Name="FactorNo" Type="char" MaxLength="15" />
+          <Property Name="FactorDate" Type="char" MaxLength="10" />
+          <Property Name="FactorTime" Type="char" MaxLength="10" />
+          <Property Name="FactorEntryDataPersonalId" Type="char" MaxLength="10" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LSDB.dbo.V_ExitWarehouseHeader' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_ExitWarehouseHeader">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="ExitHeaderIsActive" />
+            <PropertyRef Name="ExitDetailIsActive" />
+            <PropertyRef Name="ExitFromWarehouseHeaderId" />
+          </Key>
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="150" />
+          <Property Name="ExitDate" Type="char" MaxLength="10" />
+          <Property Name="ExitTime" Type="char" MaxLength="10" />
+          <Property Name="ExitHeaderIsActive" Type="smallint" Nullable="false" />
+          <Property Name="ExitDetailIsActive" Type="smallint" Nullable="false" />
+          <Property Name="InvoiceNo" Type="char" MaxLength="15" />
+          <Property Name="ExitNo" Type="char" MaxLength="15" />
+          <Property Name="InvoiceTitle" Type="nvarchar" MaxLength="100" />
+          <Property Name="ExitTitle" Type="nvarchar" MaxLength="150" />
+          <Property Name="ExitFromWarehouseHeaderId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LSDB.dbo.V_Invoice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_Invoice">
+          <Key>
+            <PropertyRef Name="InvoiceId" />
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="CustomerTypeId" />
+            <PropertyRef Name="InvoiceHeaderIsActive" />
+            <PropertyRef Name="RequestId" />
+            <PropertyRef Name="Qty" />
+            <PropertyRef Name="RequestDetialId" />
+            <PropertyRef Name="InvoiceDetailIsActive" />
+            <PropertyRef Name="PriceInRials" />
+            <PropertyRef Name="InvoiceDetailId" />
+            <PropertyRef Name="ExitQty" />
+          </Key>
+          <Property Name="InvoiceId" Type="int" Nullable="false" />
+          <Property Name="InvoiceNo" Type="char" MaxLength="15" />
+          <Property Name="InvoiceTitle" Type="nvarchar" MaxLength="100" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="CustomerTypeId" Type="int" Nullable="false" />
+          <Property Name="InvoiceDate" Type="char" MaxLength="10" />
+          <Property Name="InvoiceTime" Type="char" MaxLength="10" />
+          <Property Name="EntryPersonalId" Type="char" MaxLength="10" />
+          <Property Name="InvoiceHeaderIsActive" Type="smallint" Nullable="false" />
+          <Property Name="RequestId" Type="int" Nullable="false" />
+          <Property Name="RequestNo" Type="char" MaxLength="15" />
+          <Property Name="TechnicalCode" Type="varchar" MaxLength="20" />
+          <Property Name="Qty" Type="float" Nullable="false" />
+          <Property Name="RequestDetialId" Type="int" Nullable="false" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="255" />
+          <Property Name="PersianName" Type="nvarchar" MaxLength="255" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="150" />
+          <Property Name="InvoiceDetailIsActive" Type="smallint" Nullable="false" />
+          <Property Name="PriceInRials" Type="float" Nullable="false" />
+          <Property Name="ConfirmDate" Type="char" MaxLength="10" />
+          <Property Name="ConfirmTime" Type="char" MaxLength="10" />
+          <Property Name="ConfirmPersonalId" Type="char" MaxLength="10" />
+          <Property Name="InvoiceDetailId" Type="int" Nullable="false" />
+          <Property Name="PrintDate" Type="char" MaxLength="10" />
+          <Property Name="PrintTime" Type="char" MaxLength="10" />
+          <Property Name="PrintPersonalId" Type="char" MaxLength="10" />
+          <Property Name="ExitQty" Type="float" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LSDB.dbo.VCat' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VCat">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="TechnicalCode" />
+            <PropertyRef Name="Length" />
+            <PropertyRef Name="Width" />
+            <PropertyRef Name="Height" />
+            <PropertyRef Name="NetWeight" />
+            <PropertyRef Name="ItemGroupId" />
+            <PropertyRef Name="ItemTypeId" />
+            <PropertyRef Name="GoodsGradeId" />
+            <PropertyRef Name="TrackingTypeId" />
+            <PropertyRef Name="LabelingTypeId" />
+            <PropertyRef Name="UsageTypeId" />
+            <PropertyRef Name="UnitId" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="TechnicalCode" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="PNC" Type="varchar" MaxLength="15" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="255" />
+          <Property Name="PersianName" Type="nvarchar" MaxLength="255" />
+          <Property Name="Length" Type="float" Nullable="false" />
+          <Property Name="Width" Type="float" Nullable="false" />
+          <Property Name="Height" Type="float" Nullable="false" />
+          <Property Name="NetWeight" Type="float" Nullable="false" />
+          <Property Name="ItemGroupId" Type="int" Nullable="false" />
+          <Property Name="ItemGroupDesc" Type="nvarchar" MaxLength="150" />
+          <Property Name="ItemTypeId" Type="int" Nullable="false" />
+          <Property Name="ItemTypeDesc" Type="nvarchar" MaxLength="150" />
+          <Property Name="GoodsGradeId" Type="int" Nullable="false" />
+          <Property Name="GoodsGradeDesc" Type="nvarchar" MaxLength="100" />
+          <Property Name="TrackingTypeId" Type="int" Nullable="false" />
+          <Property Name="TrackingDesc" Type="nvarchar" MaxLength="100" />
+          <Property Name="LabelingTypeId" Type="int" Nullable="false" />
+          <Property Name="LabelingDesc" Type="nvarchar" MaxLength="100" />
+          <Property Name="UsageTypeId" Type="int" Nullable="false" />
+          <Property Name="UsageTypeDesc" Type="nvarchar" MaxLength="100" />
+          <Property Name="UnitId" Type="int" Nullable="false" />
+          <Property Name="UnitDesc" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LSDB.dbo.VCatCarType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VCatCarType">
+          <Key>
+            <PropertyRef Name="TechnicalCode" />
+          </Key>
+          <Property Name="TechnicalCode" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="PersianName" Type="nvarchar" MaxLength="255" />
+          <Property Name="CatCarTypeId" Type="int" />
+          <Property Name="Coefficient" Type="float" />
+          <Property Name="CatCarTypeIsActive" Type="smallint" />
+          <Property Name="CarTypeDesc" Type="nvarchar" MaxLength="100" />
+          <Property Name="BrandDesc" Type="nvarchar" MaxLength="150" />
+          <Property Name="CarTypeId" Type="int" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LSDB.dbo.VCustomer' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VCustomer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="CustomerTypeId" />
+            <PropertyRef Name="CustomerContractTypeId" />
+            <PropertyRef Name="IsActive" />
+          </Key>
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="CustomerTypeId" Type="int" Nullable="false" />
+          <Property Name="CustomerTypeDesc" Type="nvarchar" MaxLength="100" />
+          <Property Name="CustomerContractTypeId" Type="int" Nullable="false" />
+          <Property Name="CustomerContractTypeDesc" Type="nvarchar" MaxLength="100" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="150" />
+          <Property Name="Tel" Type="varchar" MaxLength="20" />
+          <Property Name="MobileNo" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="255" />
+          <Property Name="Address" Type="nvarchar" MaxLength="1024" />
+          <Property Name="ManagerName" Type="nvarchar" MaxLength="150" />
+          <Property Name="IsActive" Type="smallint" Nullable="false" />
+          <Property Name="NationalId" Type="char" MaxLength="20" />
+          <Property Name="ZIPCode" Type="char" MaxLength="10" />
+          <Property Name="EcoCode" Type="char" MaxLength="20" />
+          <Property Name="RegistrationNumber" Type="char" MaxLength="20" />
+          <Property Name="RepresentativeCode" Type="char" MaxLength="10" />
+          <Property Name="RepresentativeName" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LSDB.dbo.VFactor' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VFactor">
+          <Key>
+            <PropertyRef Name="FactorHeaderId" />
+            <PropertyRef Name="InvoiceId" />
+            <PropertyRef Name="IsActive" />
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="FactorDetailId" />
+            <PropertyRef Name="Qty" />
+            <PropertyRef Name="EXPR1" />
+            <PropertyRef Name="InvoiceDetailId" />
+            <PropertyRef Name="Price" />
+          </Key>
+          <Property Name="FactorHeaderId" Type="int" Nullable="false" />
+          <Property Name="InvoiceId" Type="int" Nullable="false" />
+          <Property Name="FactorNo" Type="char" MaxLength="15" />
+          <Property Name="FactorDate" Type="char" MaxLength="10" />
+          <Property Name="FactorTime" Type="char" MaxLength="10" />
+          <Property Name="EntryPersonalId" Type="char" MaxLength="10" />
+          <Property Name="IsActive" Type="smallint" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="150" />
+          <Property Name="FactorDetailId" Type="int" Nullable="false" />
+          <Property Name="TechnicalCode" Type="varchar" MaxLength="20" />
+          <Property Name="Qty" Type="float" Nullable="false" />
+          <Property Name="EXPR1" Type="smallint" Nullable="false" />
+          <Property Name="InvoiceDetailId" Type="int" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LSDB.dbo.VGoodsPrice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VGoodsPrice">
+          <Key>
+            <PropertyRef Name="CurrencyTypeId" />
+            <PropertyRef Name="DollarPrice" />
+          </Key>
+          <Property Name="TechnicalCode" Type="varchar" MaxLength="20" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="255" />
+          <Property Name="PersianName" Type="nvarchar" MaxLength="255" />
+          <Property Name="CurrencyTypeId" Type="int" Nullable="false" />
+          <Property Name="CurrencyTypeDesc" Type="nvarchar" MaxLength="100" />
+          <Property Name="DollarPrice" Type="float" Nullable="false" />
+          <Property Name="BasePrice" Type="float" />
+          <Property Name="PriceInRials" Type="nchar" MaxLength="10" />
+          <Property Name="EntryDataDate" Type="char" MaxLength="10" />
+          <Property Name="EntryDataTime" Type="char" MaxLength="10" />
+          <Property Name="EntryPersonalId" Type="char" MaxLength="10" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LSDB.dbo.VGoodsPriceArc' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VGoodsPriceArc">
+          <Key>
+            <PropertyRef Name="GoodsPriceArcId" />
+            <PropertyRef Name="GoodsPriceId" />
+            <PropertyRef Name="CurrencyTypeId" />
+            <PropertyRef Name="DollarPrice" />
+          </Key>
+          <Property Name="GoodsPriceArcId" Type="int" Nullable="false" />
+          <Property Name="GoodsPriceId" Type="int" Nullable="false" />
+          <Property Name="TechnicalCode" Type="varchar" MaxLength="20" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="255" />
+          <Property Name="PersianName" Type="nvarchar" MaxLength="255" />
+          <Property Name="CurrencyTypeId" Type="int" Nullable="false" />
+          <Property Name="CurrencyTypeDesc" Type="nvarchar" MaxLength="100" />
+          <Property Name="DollarPrice" Type="float" Nullable="false" />
+          <Property Name="BasePrice" Type="float" />
+          <Property Name="PriceInRials" Type="nchar" MaxLength="10" />
+          <Property Name="EntryDataDate" Type="char" MaxLength="10" />
+          <Property Name="EntryDataTime" Type="char" MaxLength="10" />
+          <Property Name="EntryPersonalId" Type="char" MaxLength="10" />
+          <Property Name="UpdateDate" Type="char" MaxLength="10" />
+          <Property Name="UpdateTime" Type="char" MaxLength="10" />
+          <Property Name="UpdatePersonalId" Type="char" MaxLength="10" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LSDB.dbo.VRequest' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VRequest">
+          <Key>
+            <PropertyRef Name="UnitId" />
+            <PropertyRef Name="Qty" />
+            <PropertyRef Name="ConfirmQty" />
+            <PropertyRef Name="RequestDetailIsActive" />
+            <PropertyRef Name="RequestNo" />
+            <PropertyRef Name="RequestDate" />
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="RequestHeaderIsActive" />
+            <PropertyRef Name="RequestDetialId" />
+            <PropertyRef Name="RequestId" />
+            <PropertyRef Name="RequestTypeId" />
+            <PropertyRef Name="StockQty" />
+            <PropertyRef Name="ReserveQty" />
+            <PropertyRef Name="BlockedQty" />
+            <PropertyRef Name="ScrapeQty" />
+            <PropertyRef Name="InvoiceQty" />
+          </Key>
+          <Property Name="TechnicalCode" Type="varchar" MaxLength="20" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="255" />
+          <Property Name="PersianName" Type="nvarchar" MaxLength="255" />
+          <Property Name="UnitId" Type="int" Nullable="false" />
+          <Property Name="UnitDesc" Type="nvarchar" MaxLength="100" />
+          <Property Name="Qty" Type="float" Nullable="false" />
+          <Property Name="ConfirmQty" Type="float" Nullable="false" />
+          <Property Name="RequestDetailIsActive" Type="smallint" Nullable="false" />
+          <Property Name="RequestNo" Type="char" MaxLength="15" Nullable="false" />
+          <Property Name="RequestDate" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="RequestTime" Type="char" MaxLength="10" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="150" />
+          <Property Name="EntryPersonalId" Type="char" MaxLength="10" />
+          <Property Name="RequestTypeDesc" Type="nvarchar" MaxLength="100" />
+          <Property Name="RequestTitle" Type="nvarchar" MaxLength="100" />
+          <Property Name="RequestHeaderIsActive" Type="smallint" Nullable="false" />
+          <Property Name="RequestDetialId" Type="int" Nullable="false" />
+          <Property Name="RequestId" Type="int" Nullable="false" />
+          <Property Name="RequestTypeId" Type="int" Nullable="false" />
+          <Property Name="StockQty" Type="float" Nullable="false" />
+          <Property Name="ReserveQty" Type="float" Nullable="false" />
+          <Property Name="BlockedQty" Type="float" Nullable="false" />
+          <Property Name="ScrapeQty" Type="float" Nullable="false" />
+          <Property Name="InvoiceQty" Type="float" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LSDB.dbo.VWareHouseStock' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VWareHouseStock">
+          <Key>
+            <PropertyRef Name="TechnicalCode" />
+            <PropertyRef Name="UnitId" />
+          </Key>
+          <Property Name="TechnicalCode" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="255" />
+          <Property Name="PersianName" Type="nvarchar" MaxLength="255" />
+          <Property Name="UnitId" Type="int" Nullable="false" />
+          <Property Name="UnitDesc" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReserveQty" Type="float" />
+          <Property Name="BlockedQty" Type="float" />
+          <Property Name="ScrapeQty" Type="float" />
+          <Property Name="StockQty" Type="float" />
+        </EntityType>
+        <Association Name="FK_TInventoryDocDetail_TInventoryDocHeader">
+          <End Role="TInventoryDocHeader" Type="Self.TInventoryDocHeader" Multiplicity="1" />
+          <End Role="TInventoryDocDetail" Type="Self.TInventoryDocDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TInventoryDocHeader">
+              <PropertyRef Name="InventoryDocHeaderId" />
+            </Principal>
+            <Dependent Role="TInventoryDocDetail">
+              <PropertyRef Name="InventoryDocHeaderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LSDBModelStoreContainer">
+          <EntitySet Name="TBaseInf" EntityType="Self.TBaseInf" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBaseInfType" EntityType="Self.TBaseInfType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBrand" EntityType="Self.TBrand" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TCarType" EntityType="Self.TCarType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TCat" EntityType="Self.TCat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TCatCarType" EntityType="Self.TCatCarType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TCustomer" EntityType="Self.TCustomer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TDocSerial" EntityType="Self.TDocSerial" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TExitFromWarehouseDetail" EntityType="Self.TExitFromWarehouseDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TExitFromWarehouseHeader" EntityType="Self.TExitFromWarehouseHeader" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TFactorDetail" EntityType="Self.TFactorDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TFactorHeader" EntityType="Self.TFactorHeader" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TGoodsGrade" EntityType="Self.TGoodsGrade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TGoodsPrice" EntityType="Self.TGoodsPrice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TGoodsPriceArc" EntityType="Self.TGoodsPriceArc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TInventoryDocDetail" EntityType="Self.TInventoryDocDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TInventoryDocHeader" EntityType="Self.TInventoryDocHeader" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TInventoryDocType" EntityType="Self.TInventoryDocType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TInvoiceDetail" EntityType="Self.TInvoiceDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TInvoiceHeader" EntityType="Self.TInvoiceHeader" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TItemGroup" EntityType="Self.TItemGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TItemType" EntityType="Self.TItemType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TOrder" EntityType="Self.TOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TOrderHaveError" EntityType="Self.TOrderHaveError" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TPackingList" EntityType="Self.TPackingList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TPackingListError" EntityType="Self.TPackingListError" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TRequestDetial" EntityType="Self.TRequestDetial" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TRequestHeader" EntityType="Self.TRequestHeader" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TSerial" EntityType="Self.TSerial" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TUploadInf" EntityType="Self.TUploadInf" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TUsageType" EntityType="Self.TUsageType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TWareHouseStock" EntityType="Self.TWareHouseStock" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="V_ExitWarehouse" EntityType="Self.V_ExitWarehouse" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_ExitWarehouse].[ExitFromWarehouseDetailId] AS [ExitFromWarehouseDetailId], 
+    [V_ExitWarehouse].[TechnicalCode] AS [TechnicalCode], 
+    [V_ExitWarehouse].[ItemName] AS [ItemName], 
+    [V_ExitWarehouse].[ExitDetailIsActive] AS [ExitDetailIsActive], 
+    [V_ExitWarehouse].[InvoiceNo] AS [InvoiceNo], 
+    [V_ExitWarehouse].[CustomerId] AS [CustomerId], 
+    [V_ExitWarehouse].[CustomerName] AS [CustomerName], 
+    [V_ExitWarehouse].[ExitDate] AS [ExitDate], 
+    [V_ExitWarehouse].[ExitTime] AS [ExitTime], 
+    [V_ExitWarehouse].[EntryPersonalId] AS [EntryPersonalId], 
+    [V_ExitWarehouse].[ExitHeaderIsActive] AS [ExitHeaderIsActive], 
+    [V_ExitWarehouse].[ExitNo] AS [ExitNo], 
+    [V_ExitWarehouse].[InvoiceId] AS [InvoiceId], 
+    [V_ExitWarehouse].[ExitTitle] AS [ExitTitle], 
+    [V_ExitWarehouse].[ExitHeaderIsActiveDesc] AS [ExitHeaderIsActiveDesc], 
+    [V_ExitWarehouse].[ExitDetailIsActiveDesc] AS [ExitDetailIsActiveDesc], 
+    [V_ExitWarehouse].[Qty] AS [Qty], 
+    [V_ExitWarehouse].[InvoiceDetailId] AS [InvoiceDetailId], 
+    [V_ExitWarehouse].[InvoiceTitle] AS [InvoiceTitle], 
+    [V_ExitWarehouse].[ExitFromWarehouseHeaderId] AS [ExitFromWarehouseHeaderId], 
+    [V_ExitWarehouse].[PriceInRials] AS [PriceInRials], 
+    [V_ExitWarehouse].[FactorNo] AS [FactorNo], 
+    [V_ExitWarehouse].[FactorDate] AS [FactorDate], 
+    [V_ExitWarehouse].[FactorTime] AS [FactorTime], 
+    [V_ExitWarehouse].[FactorEntryDataPersonalId] AS [FactorEntryDataPersonalId]
+    FROM [dbo].[V_ExitWarehouse] AS [V_ExitWarehouse]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_ExitWarehouseHeader" EntityType="Self.V_ExitWarehouseHeader" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_ExitWarehouseHeader].[CustomerId] AS [CustomerId], 
+    [V_ExitWarehouseHeader].[CustomerName] AS [CustomerName], 
+    [V_ExitWarehouseHeader].[ExitDate] AS [ExitDate], 
+    [V_ExitWarehouseHeader].[ExitTime] AS [ExitTime], 
+    [V_ExitWarehouseHeader].[ExitHeaderIsActive] AS [ExitHeaderIsActive], 
+    [V_ExitWarehouseHeader].[ExitDetailIsActive] AS [ExitDetailIsActive], 
+    [V_ExitWarehouseHeader].[InvoiceNo] AS [InvoiceNo], 
+    [V_ExitWarehouseHeader].[ExitNo] AS [ExitNo], 
+    [V_ExitWarehouseHeader].[InvoiceTitle] AS [InvoiceTitle], 
+    [V_ExitWarehouseHeader].[ExitTitle] AS [ExitTitle], 
+    [V_ExitWarehouseHeader].[ExitFromWarehouseHeaderId] AS [ExitFromWarehouseHeaderId]
+    FROM [dbo].[V_ExitWarehouseHeader] AS [V_ExitWarehouseHeader]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_Invoice" EntityType="Self.V_Invoice" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_Invoice].[InvoiceId] AS [InvoiceId], 
+    [V_Invoice].[InvoiceNo] AS [InvoiceNo], 
+    [V_Invoice].[InvoiceTitle] AS [InvoiceTitle], 
+    [V_Invoice].[CustomerId] AS [CustomerId], 
+    [V_Invoice].[CustomerTypeId] AS [CustomerTypeId], 
+    [V_Invoice].[InvoiceDate] AS [InvoiceDate], 
+    [V_Invoice].[InvoiceTime] AS [InvoiceTime], 
+    [V_Invoice].[EntryPersonalId] AS [EntryPersonalId], 
+    [V_Invoice].[InvoiceHeaderIsActive] AS [InvoiceHeaderIsActive], 
+    [V_Invoice].[RequestId] AS [RequestId], 
+    [V_Invoice].[RequestNo] AS [RequestNo], 
+    [V_Invoice].[TechnicalCode] AS [TechnicalCode], 
+    [V_Invoice].[Qty] AS [Qty], 
+    [V_Invoice].[RequestDetialId] AS [RequestDetialId], 
+    [V_Invoice].[ItemName] AS [ItemName], 
+    [V_Invoice].[PersianName] AS [PersianName], 
+    [V_Invoice].[CustomerName] AS [CustomerName], 
+    [V_Invoice].[InvoiceDetailIsActive] AS [InvoiceDetailIsActive], 
+    [V_Invoice].[PriceInRials] AS [PriceInRials], 
+    [V_Invoice].[ConfirmDate] AS [ConfirmDate], 
+    [V_Invoice].[ConfirmTime] AS [ConfirmTime], 
+    [V_Invoice].[ConfirmPersonalId] AS [ConfirmPersonalId], 
+    [V_Invoice].[InvoiceDetailId] AS [InvoiceDetailId], 
+    [V_Invoice].[PrintDate] AS [PrintDate], 
+    [V_Invoice].[PrintTime] AS [PrintTime], 
+    [V_Invoice].[PrintPersonalId] AS [PrintPersonalId], 
+    [V_Invoice].[ExitQty] AS [ExitQty]
+    FROM [dbo].[V_Invoice] AS [V_Invoice]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VCat" EntityType="Self.VCat" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VCat].[ID] AS [ID], 
+    [VCat].[TechnicalCode] AS [TechnicalCode], 
+    [VCat].[PNC] AS [PNC], 
+    [VCat].[ItemName] AS [ItemName], 
+    [VCat].[PersianName] AS [PersianName], 
+    [VCat].[Length] AS [Length], 
+    [VCat].[Width] AS [Width], 
+    [VCat].[Height] AS [Height], 
+    [VCat].[NetWeight] AS [NetWeight], 
+    [VCat].[ItemGroupId] AS [ItemGroupId], 
+    [VCat].[ItemGroupDesc] AS [ItemGroupDesc], 
+    [VCat].[ItemTypeId] AS [ItemTypeId], 
+    [VCat].[ItemTypeDesc] AS [ItemTypeDesc], 
+    [VCat].[GoodsGradeId] AS [GoodsGradeId], 
+    [VCat].[GoodsGradeDesc] AS [GoodsGradeDesc], 
+    [VCat].[TrackingTypeId] AS [TrackingTypeId], 
+    [VCat].[TrackingDesc] AS [TrackingDesc], 
+    [VCat].[LabelingTypeId] AS [LabelingTypeId], 
+    [VCat].[LabelingDesc] AS [LabelingDesc], 
+    [VCat].[UsageTypeId] AS [UsageTypeId], 
+    [VCat].[UsageTypeDesc] AS [UsageTypeDesc], 
+    [VCat].[UnitId] AS [UnitId], 
+    [VCat].[UnitDesc] AS [UnitDesc]
+    FROM [dbo].[VCat] AS [VCat]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VCatCarType" EntityType="Self.VCatCarType" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VCatCarType].[TechnicalCode] AS [TechnicalCode], 
+    [VCatCarType].[PersianName] AS [PersianName], 
+    [VCatCarType].[CatCarTypeId] AS [CatCarTypeId], 
+    [VCatCarType].[Coefficient] AS [Coefficient], 
+    [VCatCarType].[CatCarTypeIsActive] AS [CatCarTypeIsActive], 
+    [VCatCarType].[CarTypeDesc] AS [CarTypeDesc], 
+    [VCatCarType].[BrandDesc] AS [BrandDesc], 
+    [VCatCarType].[CarTypeId] AS [CarTypeId], 
+    [VCatCarType].[ItemName] AS [ItemName]
+    FROM [dbo].[VCatCarType] AS [VCatCarType]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VCustomer" EntityType="Self.VCustomer" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VCustomer].[CustomerId] AS [CustomerId], 
+    [VCustomer].[CustomerTypeId] AS [CustomerTypeId], 
+    [VCustomer].[CustomerTypeDesc] AS [CustomerTypeDesc], 
+    [VCustomer].[CustomerContractTypeId] AS [CustomerContractTypeId], 
+    [VCustomer].[CustomerContractTypeDesc] AS [CustomerContractTypeDesc], 
+    [VCustomer].[CustomerName] AS [CustomerName], 
+    [VCustomer].[Tel] AS [Tel], 
+    [VCustomer].[MobileNo] AS [MobileNo], 
+    [VCustomer].[Email] AS [Email], 
+    [VCustomer].[Address] AS [Address], 
+    [VCustomer].[ManagerName] AS [ManagerName], 
+    [VCustomer].[IsActive] AS [IsActive], 
+    [VCustomer].[NationalId] AS [NationalId], 
+    [VCustomer].[ZIPCode] AS [ZIPCode], 
+    [VCustomer].[EcoCode] AS [EcoCode], 
+    [VCustomer].[RegistrationNumber] AS [RegistrationNumber], 
+    [VCustomer].[RepresentativeCode] AS [RepresentativeCode], 
+    [VCustomer].[RepresentativeName] AS [RepresentativeName]
+    FROM [dbo].[VCustomer] AS [VCustomer]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VFactor" EntityType="Self.VFactor" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VFactor].[FactorHeaderId] AS [FactorHeaderId], 
+    [VFactor].[InvoiceId] AS [InvoiceId], 
+    [VFactor].[FactorNo] AS [FactorNo], 
+    [VFactor].[FactorDate] AS [FactorDate], 
+    [VFactor].[FactorTime] AS [FactorTime], 
+    [VFactor].[EntryPersonalId] AS [EntryPersonalId], 
+    [VFactor].[IsActive] AS [IsActive], 
+    [VFactor].[CustomerId] AS [CustomerId], 
+    [VFactor].[CustomerName] AS [CustomerName], 
+    [VFactor].[FactorDetailId] AS [FactorDetailId], 
+    [VFactor].[TechnicalCode] AS [TechnicalCode], 
+    [VFactor].[Qty] AS [Qty], 
+    [VFactor].[EXPR1] AS [EXPR1], 
+    [VFactor].[InvoiceDetailId] AS [InvoiceDetailId], 
+    [VFactor].[Price] AS [Price], 
+    [VFactor].[ItemName] AS [ItemName]
+    FROM [dbo].[VFactor] AS [VFactor]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VGoodsPrice" EntityType="Self.VGoodsPrice" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VGoodsPrice].[TechnicalCode] AS [TechnicalCode], 
+    [VGoodsPrice].[ItemName] AS [ItemName], 
+    [VGoodsPrice].[PersianName] AS [PersianName], 
+    [VGoodsPrice].[CurrencyTypeId] AS [CurrencyTypeId], 
+    [VGoodsPrice].[CurrencyTypeDesc] AS [CurrencyTypeDesc], 
+    [VGoodsPrice].[DollarPrice] AS [DollarPrice], 
+    [VGoodsPrice].[BasePrice] AS [BasePrice], 
+    [VGoodsPrice].[PriceInRials] AS [PriceInRials], 
+    [VGoodsPrice].[EntryDataDate] AS [EntryDataDate], 
+    [VGoodsPrice].[EntryDataTime] AS [EntryDataTime], 
+    [VGoodsPrice].[EntryPersonalId] AS [EntryPersonalId]
+    FROM [dbo].[VGoodsPrice] AS [VGoodsPrice]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VGoodsPriceArc" EntityType="Self.VGoodsPriceArc" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VGoodsPriceArc].[GoodsPriceArcId] AS [GoodsPriceArcId], 
+    [VGoodsPriceArc].[GoodsPriceId] AS [GoodsPriceId], 
+    [VGoodsPriceArc].[TechnicalCode] AS [TechnicalCode], 
+    [VGoodsPriceArc].[ItemName] AS [ItemName], 
+    [VGoodsPriceArc].[PersianName] AS [PersianName], 
+    [VGoodsPriceArc].[CurrencyTypeId] AS [CurrencyTypeId], 
+    [VGoodsPriceArc].[CurrencyTypeDesc] AS [CurrencyTypeDesc], 
+    [VGoodsPriceArc].[DollarPrice] AS [DollarPrice], 
+    [VGoodsPriceArc].[BasePrice] AS [BasePrice], 
+    [VGoodsPriceArc].[PriceInRials] AS [PriceInRials], 
+    [VGoodsPriceArc].[EntryDataDate] AS [EntryDataDate], 
+    [VGoodsPriceArc].[EntryDataTime] AS [EntryDataTime], 
+    [VGoodsPriceArc].[EntryPersonalId] AS [EntryPersonalId], 
+    [VGoodsPriceArc].[UpdateDate] AS [UpdateDate], 
+    [VGoodsPriceArc].[UpdateTime] AS [UpdateTime], 
+    [VGoodsPriceArc].[UpdatePersonalId] AS [UpdatePersonalId]
+    FROM [dbo].[VGoodsPriceArc] AS [VGoodsPriceArc]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VRequest" EntityType="Self.VRequest" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VRequest].[TechnicalCode] AS [TechnicalCode], 
+    [VRequest].[ItemName] AS [ItemName], 
+    [VRequest].[PersianName] AS [PersianName], 
+    [VRequest].[UnitId] AS [UnitId], 
+    [VRequest].[UnitDesc] AS [UnitDesc], 
+    [VRequest].[Qty] AS [Qty], 
+    [VRequest].[ConfirmQty] AS [ConfirmQty], 
+    [VRequest].[RequestDetailIsActive] AS [RequestDetailIsActive], 
+    [VRequest].[RequestNo] AS [RequestNo], 
+    [VRequest].[RequestDate] AS [RequestDate], 
+    [VRequest].[RequestTime] AS [RequestTime], 
+    [VRequest].[CustomerId] AS [CustomerId], 
+    [VRequest].[CustomerName] AS [CustomerName], 
+    [VRequest].[EntryPersonalId] AS [EntryPersonalId], 
+    [VRequest].[RequestTypeDesc] AS [RequestTypeDesc], 
+    [VRequest].[RequestTitle] AS [RequestTitle], 
+    [VRequest].[RequestHeaderIsActive] AS [RequestHeaderIsActive], 
+    [VRequest].[RequestDetialId] AS [RequestDetialId], 
+    [VRequest].[RequestId] AS [RequestId], 
+    [VRequest].[RequestTypeId] AS [RequestTypeId], 
+    [VRequest].[StockQty] AS [StockQty], 
+    [VRequest].[ReserveQty] AS [ReserveQty], 
+    [VRequest].[BlockedQty] AS [BlockedQty], 
+    [VRequest].[ScrapeQty] AS [ScrapeQty], 
+    [VRequest].[InvoiceQty] AS [InvoiceQty]
+    FROM [dbo].[VRequest] AS [VRequest]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VWareHouseStock" EntityType="Self.VWareHouseStock" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VWareHouseStock].[TechnicalCode] AS [TechnicalCode], 
+    [VWareHouseStock].[ItemName] AS [ItemName], 
+    [VWareHouseStock].[PersianName] AS [PersianName], 
+    [VWareHouseStock].[UnitId] AS [UnitId], 
+    [VWareHouseStock].[UnitDesc] AS [UnitDesc], 
+    [VWareHouseStock].[ReserveQty] AS [ReserveQty], 
+    [VWareHouseStock].[BlockedQty] AS [BlockedQty], 
+    [VWareHouseStock].[ScrapeQty] AS [ScrapeQty], 
+    [VWareHouseStock].[StockQty] AS [StockQty]
+    FROM [dbo].[VWareHouseStock] AS [VWareHouseStock]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_TInventoryDocDetail_TInventoryDocHeader" Association="Self.FK_TInventoryDocDetail_TInventoryDocHeader">
+            <End Role="TInventoryDocHeader" EntitySet="TInventoryDocHeader" />
+            <End Role="TInventoryDocDetail" EntitySet="TInventoryDocDetail" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LSDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TBaseInf">
+          <Key>
+            <PropertyRef Name="BaseInfId" />
+          </Key>
+          <Property Name="BaseInfId" Type="Int32" Nullable="false" />
+          <Property Name="BaseInfDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Int16" Nullable="false" />
+          <Property Name="BaseInfTypeId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBaseInfType">
+          <Key>
+            <PropertyRef Name="BaseInfTypeId" />
+          </Key>
+          <Property Name="BaseInfTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BaseInfDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Int16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBrand">
+          <Key>
+            <PropertyRef Name="BrandId" />
+          </Key>
+          <Property Name="BrandId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BrandDesc" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Int16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TCarType">
+          <Key>
+            <PropertyRef Name="CarTypeId" />
+          </Key>
+          <Property Name="CarTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CarTypeDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BrandId" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Int16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TCat">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TechnicalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PNC" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ItemName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PersianName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Length" Type="Double" Nullable="false" />
+          <Property Name="Width" Type="Double" Nullable="false" />
+          <Property Name="Height" Type="Double" Nullable="false" />
+          <Property Name="NetWeight" Type="Double" Nullable="false" />
+          <Property Name="ForWardItemNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ForWardITCCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="BackwardItemNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="BackwardITCCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="QuantityOfUsageInMachine" Type="Double" Nullable="false" />
+          <Property Name="PPLDollar" Type="Double" Nullable="false" />
+          <Property Name="BasePriceRls" Type="Double" Nullable="false" />
+          <Property Name="ItemGroup" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Brand" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Health" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Grade" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ItemUsage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UsagePlace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Specificcode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VeryCritical" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ItemGroupId" Type="Int32" Nullable="false" />
+          <Property Name="ItemTypeId" Type="Int32" Nullable="false" />
+          <Property Name="GoodsGradeId" Type="Int32" Nullable="false" />
+          <Property Name="TrackingTypeId" Type="Int32" Nullable="false" />
+          <Property Name="LabelingTypeId" Type="Int32" Nullable="false" />
+          <Property Name="UsageTypeId" Type="Int32" Nullable="false" />
+          <Property Name="UnitId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TCatCarType">
+          <Key>
+            <PropertyRef Name="CatCarTypeId" />
+          </Key>
+          <Property Name="CatCarTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TechnicalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CarTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Coefficient" Type="Double" Nullable="false" />
+          <Property Name="IsActive" Type="Int16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TCustomer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerTypeId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerContractTypeId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Tel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Name="ManagerName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Int16" Nullable="false" />
+          <Property Name="NationalId" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="ZIPCode" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="EcoCode" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="RegistrationNumber" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="RepresentativeCode" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="RepresentativeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TDocSerial">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DocSerialNo" Type="Int32" Nullable="false" />
+          <Property Name="CurYear" Type="Int32" Nullable="false" />
+          <Property Name="InventoryDocTypeId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TExitFromWarehouseDetail">
+          <Key>
+            <PropertyRef Name="ExitFromWarehouseDetailId" />
+          </Key>
+          <Property Name="ExitFromWarehouseDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExitNo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="TechnicalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Qty" Type="Double" Nullable="false" />
+          <Property Name="IsActive" Type="Int16" Nullable="false" />
+          <Property Name="InvoiceDetailId" Type="Int32" Nullable="false" />
+          <Property Name="FactorNo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="FactorDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="FactorTime" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="FactorEntryDataPersonalId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TExitFromWarehouseHeader">
+          <Key>
+            <PropertyRef Name="ExitFromWarehouseHeaderId" />
+          </Key>
+          <Property Name="ExitFromWarehouseHeaderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvoiceNo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="ExitNo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="ExitDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="ExitTime" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="EntryPersonalId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="IsActive" Type="Int16" Nullable="false" />
+          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
+          <Property Name="ExitTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TFactorDetail">
+          <Key>
+            <PropertyRef Name="FactorDetailId" />
+          </Key>
+          <Property Name="FactorDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FactorNo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="TechnicalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Qty" Type="Double" Nullable="false" />
+          <Property Name="IsActive" Type="Int16" Nullable="false" />
+          <Property Name="ExitFromWarehouseDetailId" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TFactorHeader">
+          <Key>
+            <PropertyRef Name="FactorHeaderId" />
+          </Key>
+          <Property Name="FactorHeaderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
+          <Property Name="FactorNo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="FactorDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="FactorTime" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="EntryPersonalId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="IsActive" Type="Int16" Nullable="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TGoodsGrade">
+          <Key>
+            <PropertyRef Name="GoodsGradeId" />
+          </Key>
+          <Property Name="GoodsGradeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GoodsGradeDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Int16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TGoodsPrice">
+          <Key>
+            <PropertyRef Name="GoodsPriceId" />
+          </Key>
+          <Property Name="GoodsPriceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TechnicalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CurrencyTypeId" Type="Int32" Nullable="false" />
+          <Property Name="DollarPrice" Type="Double" Nullable="false" />
+          <Property Name="BasePrice" Type="Double" />
+          <Property Name="PriceInRials" Type="Double" Nullable="false" />
+          <Property Name="EntryDataDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="EntryDataTime" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="EntryPersonalId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TGoodsPriceArc">
+          <Key>
+            <PropertyRef Name="GoodsPriceArcId" />
+          </Key>
+          <Property Name="GoodsPriceArcId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GoodsPriceId" Type="Int32" Nullable="false" />
+          <Property Name="TechnicalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CurrencyTypeId" Type="Int32" Nullable="false" />
+          <Property Name="DollarPrice" Type="Double" Nullable="false" />
+          <Property Name="BasePrice" Type="Double" />
+          <Property Name="PriceInRials" Type="Double" Nullable="false" />
+          <Property Name="EntryDataDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="EntryDataTime" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="EntryPersonalId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="UpdateDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="UpdateTime" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="UpdatePersonalId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TInventoryDocDetail">
+          <Key>
+            <PropertyRef Name="InventoryDocDetailId" />
+          </Key>
+          <Property Name="InventoryDocDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InventoryDocHeaderId" Type="Int32" Nullable="false" />
+          <Property Name="TechnicalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="OrderId" Type="Int32" Nullable="false" />
+          <Property Name="PackingListId" Type="Int32" Nullable="false" />
+          <Property Name="Qty" Type="Double" Nullable="false" />
+          <Property Name="Explain" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TInventoryDocHeader" Relationship="Self.FK_TInventoryDocDetail_TInventoryDocHeader" FromRole="TInventoryDocDetail" ToRole="TInventoryDocHeader" />
+        </EntityType>
+        <EntityType Name="TInventoryDocHeader">
+          <Key>
+            <PropertyRef Name="InventoryDocHeaderId" />
+          </Key>
+          <Property Name="InventoryDocHeaderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DocNo" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
+          <Property Name="InventoryDocTypeId" Type="Int32" Nullable="false" />
+          <Property Name="EntryDataDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="EntryDataTime" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="EntryDataPersonalId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="IsActive" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="TInventoryDocDetails" Relationship="Self.FK_TInventoryDocDetail_TInventoryDocHeader" FromRole="TInventoryDocHeader" ToRole="TInventoryDocDetail" />
+        </EntityType>
+        <EntityType Name="TInventoryDocType">
+          <Key>
+            <PropertyRef Name="InventoryDocTypeId" />
+          </Key>
+          <Property Name="InventoryDocTypeId" Type="Int32" Nullable="false" />
+          <Property Name="InventoryDocDesc" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="EffectionType" Type="Int16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TInvoiceDetail">
+          <Key>
+            <PropertyRef Name="InvoiceDetailId" />
+          </Key>
+          <Property Name="InvoiceDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
+          <Property Name="TechnicalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Qty" Type="Double" Nullable="false" />
+          <Property Name="IsActive" Type="Int16" Nullable="false" />
+          <Property Name="RequestDetialId" Type="Int32" Nullable="false" />
+          <Property Name="InvoiceNo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="ConfirmDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="ConfirmTime" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="ConfirmPersonalId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="PrintDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="PrintTime" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="PrintPersonalId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="ExitQty" Type="Double" Nullable="false" />
+          <Property Name="PriceInRials" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TInvoiceHeader">
+          <Key>
+            <PropertyRef Name="InvoiceId" />
+          </Key>
+          <Property Name="InvoiceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvoiceNo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="InvoiceTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="InvoiceDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="InvoiceTime" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="EntryPersonalId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="IsActive" Type="Int16" Nullable="false" />
+          <Property Name="RequestId" Type="Int32" Nullable="false" />
+          <Property Name="RequestNo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TItemGroup">
+          <Key>
+            <PropertyRef Name="ItemGroupId" />
+          </Key>
+          <Property Name="ItemGroupId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemGroupDesc" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Int16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TItemType">
+          <Key>
+            <PropertyRef Name="ItemTypeId" />
+          </Key>
+          <Property Name="ItemTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemTypeDesc" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Int16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TOrder">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TechnicalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Double" Nullable="false" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="PriceAED" Type="Double" Nullable="false" />
+          <Property Name="Tariff" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="NetWeight" Type="Double" Nullable="false" />
+          <Property Name="GrossWeight" Type="Double" Nullable="false" />
+          <Property Name="OrderNo" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="EntryDataDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="EntryDataTime" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="EntryDataPersonalId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="UploadInfId" Type="Int32" Nullable="false" />
+          <Property Name="PackListQTY" Type="Double" Nullable="false" />
+          <Property Name="PackingListTechnicalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="RecieveOrderQuantity" Type="Double" Nullable="false" />
+          <Property Name="IsActive" Type="Int16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TOrderHaveError">
+          <Key>
+            <PropertyRef Name="OrderHaveErrorId" />
+          </Key>
+          <Property Name="OrderHaveErrorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TechnicalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Double" Nullable="false" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="PriceAED" Type="Double" Nullable="false" />
+          <Property Name="Tariff" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="NetWeight" Type="Double" Nullable="false" />
+          <Property Name="GrossWeight" Type="Double" Nullable="false" />
+          <Property Name="OrderNo" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="EntryDataDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="EntryDataTime" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="EntryDataPersonalId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="ItemName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PersianName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Int16" Nullable="false" />
+          <Property Name="UploadInfId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TPackingList">
+          <Key>
+            <PropertyRef Name="PackingListId" />
+          </Key>
+          <Property Name="PackingListId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PackingListNo" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="InvoiceNo" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="CaseNo" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="CountryOfOrigin" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="TechnicalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ShipQty" Type="Double" Nullable="false" />
+          <Property Name="HSCode" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="UnitPrice" Type="Double" Nullable="false" />
+          <Property Name="NetWeight" Type="Double" Nullable="false" />
+          <Property Name="GrossWeight" Type="Double" Nullable="false" />
+          <Property Name="EntryDataDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="EntryDataTime" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="EntryDataPersonalId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="UploadInfId" Type="Int32" Nullable="false" />
+          <Property Name="OrderNo" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="TechnicalCodeOder" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="OrderId" Type="Int32" Nullable="false" />
+          <Property Name="ConfirmShipQty" Type="Double" Nullable="false" />
+          <Property Name="IsActive" Type="Int16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TPackingListError">
+          <Key>
+            <PropertyRef Name="PackingListErrorId" />
+          </Key>
+          <Property Name="PackingListErrorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PackingListNo" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="InvoiceNo" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="CaseNo" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="CountryOfOrigin" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="TechnicalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ShipQty" Type="Double" Nullable="false" />
+          <Property Name="HSCode" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="UnitPrice" Type="Double" Nullable="false" />
+          <Property Name="NetWeight" Type="Double" Nullable="false" />
+          <Property Name="GrossWeight" Type="Double" Nullable="false" />
+          <Property Name="EntryDataDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="EntryDataTime" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="EntryDataPersonalId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="UploadInfId" Type="Int32" Nullable="false" />
+          <Property Name="OrderNo" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="TechnicalCodeOder" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Int16" Nullable="false" />
+          <Property Name="ErrorType" Type="Int16" Nullable="false" />
+          <Property Name="PartName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TRequestDetial">
+          <Key>
+            <PropertyRef Name="RequestDetialId" />
+          </Key>
+          <Property Name="RequestDetialId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TechnicalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Qty" Type="Double" Nullable="false" />
+          <Property Name="ConfirmQty" Type="Double" Nullable="false" />
+          <Property Name="RequestId" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Int16" Nullable="false" />
+          <Property Name="RequestTypeId" Type="Int32" Nullable="false" />
+          <Property Name="RequestNo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="InvoiceQty" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TRequestHeader">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Name="RequestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RequestNo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="RequestDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="RequestTime" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="EntryPersonalId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="IsActive" Type="Int16" Nullable="false" />
+          <Property Name="RequestTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TSerial">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderSerialNo" Type="Int32" Nullable="false" />
+          <Property Name="CurYear" Type="Int32" Nullable="false" />
+          <Property Name="SerialType" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TUploadInf">
+          <Key>
+            <PropertyRef Name="UploadInfId" />
+          </Key>
+          <Property Name="UploadInfId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DocPath" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EntryPersonalId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="UploadDocTypeId" Type="Int32" Nullable="false" />
+          <Property Name="DocTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="DocDesc" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TUsageType">
+          <Key>
+            <PropertyRef Name="UsageTypeId" />
+          </Key>
+          <Property Name="UsageTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsageTypeDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Int16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TWareHouseStock">
+          <Key>
+            <PropertyRef Name="WareHouseStockId" />
+          </Key>
+          <Property Name="WareHouseStockId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TechnicalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="StockQty" Type="Double" Nullable="false" />
+          <Property Name="ReserveQty" Type="Double" Nullable="false" />
+          <Property Name="BlockedQty" Type="Double" Nullable="false" />
+          <Property Name="ScrapeQty" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="V_ExitWarehouse">
+          <Key>
+            <PropertyRef Name="ExitFromWarehouseDetailId" />
+            <PropertyRef Name="ExitDetailIsActive" />
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="ExitHeaderIsActive" />
+            <PropertyRef Name="InvoiceId" />
+            <PropertyRef Name="Qty" />
+            <PropertyRef Name="InvoiceDetailId" />
+            <PropertyRef Name="ExitFromWarehouseHeaderId" />
+            <PropertyRef Name="PriceInRials" />
+          </Key>
+          <Property Name="ExitFromWarehouseDetailId" Type="Int32" Nullable="false" />
+          <Property Name="TechnicalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ItemName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ExitDetailIsActive" Type="Int16" Nullable="false" />
+          <Property Name="InvoiceNo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ExitDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="ExitTime" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="EntryPersonalId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="ExitHeaderIsActive" Type="Int16" Nullable="false" />
+          <Property Name="ExitNo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
+          <Property Name="ExitTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ExitHeaderIsActiveDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ExitDetailIsActiveDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Qty" Type="Double" Nullable="false" />
+          <Property Name="InvoiceDetailId" Type="Int32" Nullable="false" />
+          <Property Name="InvoiceTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ExitFromWarehouseHeaderId" Type="Int32" Nullable="false" />
+          <Property Name="PriceInRials" Type="Double" Nullable="false" />
+          <Property Name="FactorNo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="FactorDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="FactorTime" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="FactorEntryDataPersonalId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="V_ExitWarehouseHeader">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="ExitHeaderIsActive" />
+            <PropertyRef Name="ExitDetailIsActive" />
+            <PropertyRef Name="ExitFromWarehouseHeaderId" />
+          </Key>
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ExitDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="ExitTime" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="ExitHeaderIsActive" Type="Int16" Nullable="false" />
+          <Property Name="ExitDetailIsActive" Type="Int16" Nullable="false" />
+          <Property Name="InvoiceNo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="ExitNo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="InvoiceTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ExitTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ExitFromWarehouseHeaderId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="V_Invoice">
+          <Key>
+            <PropertyRef Name="InvoiceId" />
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="CustomerTypeId" />
+            <PropertyRef Name="InvoiceHeaderIsActive" />
+            <PropertyRef Name="RequestId" />
+            <PropertyRef Name="Qty" />
+            <PropertyRef Name="RequestDetialId" />
+            <PropertyRef Name="InvoiceDetailIsActive" />
+            <PropertyRef Name="PriceInRials" />
+            <PropertyRef Name="InvoiceDetailId" />
+            <PropertyRef Name="ExitQty" />
+          </Key>
+          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
+          <Property Name="InvoiceNo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="InvoiceTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerTypeId" Type="Int32" Nullable="false" />
+          <Property Name="InvoiceDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="InvoiceTime" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="EntryPersonalId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="InvoiceHeaderIsActive" Type="Int16" Nullable="false" />
+          <Property Name="RequestId" Type="Int32" Nullable="false" />
+          <Property Name="RequestNo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="TechnicalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Qty" Type="Double" Nullable="false" />
+          <Property Name="RequestDetialId" Type="Int32" Nullable="false" />
+          <Property Name="ItemName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PersianName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="InvoiceDetailIsActive" Type="Int16" Nullable="false" />
+          <Property Name="PriceInRials" Type="Double" Nullable="false" />
+          <Property Name="ConfirmDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="ConfirmTime" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="ConfirmPersonalId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="InvoiceDetailId" Type="Int32" Nullable="false" />
+          <Property Name="PrintDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="PrintTime" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="PrintPersonalId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="ExitQty" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VCat">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="TechnicalCode" />
+            <PropertyRef Name="Length" />
+            <PropertyRef Name="Width" />
+            <PropertyRef Name="Height" />
+            <PropertyRef Name="NetWeight" />
+            <PropertyRef Name="ItemGroupId" />
+            <PropertyRef Name="ItemTypeId" />
+            <PropertyRef Name="GoodsGradeId" />
+            <PropertyRef Name="TrackingTypeId" />
+            <PropertyRef Name="LabelingTypeId" />
+            <PropertyRef Name="UsageTypeId" />
+            <PropertyRef Name="UnitId" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="TechnicalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PNC" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ItemName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PersianName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Length" Type="Double" Nullable="false" />
+          <Property Name="Width" Type="Double" Nullable="false" />
+          <Property Name="Height" Type="Double" Nullable="false" />
+          <Property Name="NetWeight" Type="Double" Nullable="false" />
+          <Property Name="ItemGroupId" Type="Int32" Nullable="false" />
+          <Property Name="ItemGroupDesc" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ItemTypeId" Type="Int32" Nullable="false" />
+          <Property Name="ItemTypeDesc" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="GoodsGradeId" Type="Int32" Nullable="false" />
+          <Property Name="GoodsGradeDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TrackingTypeId" Type="Int32" Nullable="false" />
+          <Property Name="TrackingDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LabelingTypeId" Type="Int32" Nullable="false" />
+          <Property Name="LabelingDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UsageTypeId" Type="Int32" Nullable="false" />
+          <Property Name="UsageTypeDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UnitId" Type="Int32" Nullable="false" />
+          <Property Name="UnitDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="VCatCarType">
+          <Key>
+            <PropertyRef Name="TechnicalCode" />
+          </Key>
+          <Property Name="TechnicalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PersianName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CatCarTypeId" Type="Int32" />
+          <Property Name="Coefficient" Type="Double" />
+          <Property Name="CatCarTypeIsActive" Type="Int16" />
+          <Property Name="CarTypeDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BrandDesc" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CarTypeId" Type="Int32" />
+          <Property Name="ItemName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="VCustomer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="CustomerTypeId" />
+            <PropertyRef Name="CustomerContractTypeId" />
+            <PropertyRef Name="IsActive" />
+          </Key>
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerTypeId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerTypeDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerContractTypeId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerContractTypeDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Tel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Name="ManagerName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Int16" Nullable="false" />
+          <Property Name="NationalId" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="ZIPCode" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="EcoCode" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="RegistrationNumber" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="RepresentativeCode" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="RepresentativeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="VFactor">
+          <Key>
+            <PropertyRef Name="FactorHeaderId" />
+            <PropertyRef Name="InvoiceId" />
+            <PropertyRef Name="IsActive" />
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="FactorDetailId" />
+            <PropertyRef Name="Qty" />
+            <PropertyRef Name="EXPR1" />
+            <PropertyRef Name="InvoiceDetailId" />
+            <PropertyRef Name="Price" />
+          </Key>
+          <Property Name="FactorHeaderId" Type="Int32" Nullable="false" />
+          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
+          <Property Name="FactorNo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="FactorDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="FactorTime" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="EntryPersonalId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="IsActive" Type="Int16" Nullable="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="FactorDetailId" Type="Int32" Nullable="false" />
+          <Property Name="TechnicalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Qty" Type="Double" Nullable="false" />
+          <Property Name="EXPR1" Type="Int16" Nullable="false" />
+          <Property Name="InvoiceDetailId" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="ItemName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="VGoodsPrice">
+          <Key>
+            <PropertyRef Name="CurrencyTypeId" />
+            <PropertyRef Name="DollarPrice" />
+          </Key>
+          <Property Name="TechnicalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ItemName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PersianName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CurrencyTypeId" Type="Int32" Nullable="false" />
+          <Property Name="CurrencyTypeDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DollarPrice" Type="Double" Nullable="false" />
+          <Property Name="BasePrice" Type="Double" />
+          <Property Name="PriceInRials" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="EntryDataDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="EntryDataTime" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="EntryPersonalId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="VGoodsPriceArc">
+          <Key>
+            <PropertyRef Name="GoodsPriceArcId" />
+            <PropertyRef Name="GoodsPriceId" />
+            <PropertyRef Name="CurrencyTypeId" />
+            <PropertyRef Name="DollarPrice" />
+          </Key>
+          <Property Name="GoodsPriceArcId" Type="Int32" Nullable="false" />
+          <Property Name="GoodsPriceId" Type="Int32" Nullable="false" />
+          <Property Name="TechnicalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ItemName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PersianName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CurrencyTypeId" Type="Int32" Nullable="false" />
+          <Property Name="CurrencyTypeDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DollarPrice" Type="Double" Nullable="false" />
+          <Property Name="BasePrice" Type="Double" />
+          <Property Name="PriceInRials" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="EntryDataDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="EntryDataTime" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="EntryPersonalId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="UpdateDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="UpdateTime" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="UpdatePersonalId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="VRequest">
+          <Key>
+            <PropertyRef Name="UnitId" />
+            <PropertyRef Name="Qty" />
+            <PropertyRef Name="ConfirmQty" />
+            <PropertyRef Name="RequestDetailIsActive" />
+            <PropertyRef Name="RequestNo" />
+            <PropertyRef Name="RequestDate" />
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="RequestHeaderIsActive" />
+            <PropertyRef Name="RequestDetialId" />
+            <PropertyRef Name="RequestId" />
+            <PropertyRef Name="RequestTypeId" />
+            <PropertyRef Name="StockQty" />
+            <PropertyRef Name="ReserveQty" />
+            <PropertyRef Name="BlockedQty" />
+            <PropertyRef Name="ScrapeQty" />
+            <PropertyRef Name="InvoiceQty" />
+          </Key>
+          <Property Name="TechnicalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ItemName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PersianName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UnitId" Type="Int32" Nullable="false" />
+          <Property Name="UnitDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Qty" Type="Double" Nullable="false" />
+          <Property Name="ConfirmQty" Type="Double" Nullable="false" />
+          <Property Name="RequestDetailIsActive" Type="Int16" Nullable="false" />
+          <Property Name="RequestNo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="RequestDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="RequestTime" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="EntryPersonalId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="RequestTypeDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RequestTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RequestHeaderIsActive" Type="Int16" Nullable="false" />
+          <Property Name="RequestDetialId" Type="Int32" Nullable="false" />
+          <Property Name="RequestId" Type="Int32" Nullable="false" />
+          <Property Name="RequestTypeId" Type="Int32" Nullable="false" />
+          <Property Name="StockQty" Type="Double" Nullable="false" />
+          <Property Name="ReserveQty" Type="Double" Nullable="false" />
+          <Property Name="BlockedQty" Type="Double" Nullable="false" />
+          <Property Name="ScrapeQty" Type="Double" Nullable="false" />
+          <Property Name="InvoiceQty" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VWareHouseStock">
+          <Key>
+            <PropertyRef Name="TechnicalCode" />
+            <PropertyRef Name="UnitId" />
+          </Key>
+          <Property Name="TechnicalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ItemName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PersianName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UnitId" Type="Int32" Nullable="false" />
+          <Property Name="UnitDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReserveQty" Type="Double" />
+          <Property Name="BlockedQty" Type="Double" />
+          <Property Name="ScrapeQty" Type="Double" />
+          <Property Name="StockQty" Type="Double" />
+        </EntityType>
+        <Association Name="FK_TInventoryDocDetail_TInventoryDocHeader">
+          <End Role="TInventoryDocHeader" Type="Self.TInventoryDocHeader" Multiplicity="1" />
+          <End Role="TInventoryDocDetail" Type="Self.TInventoryDocDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TInventoryDocHeader">
+              <PropertyRef Name="InventoryDocHeaderId" />
+            </Principal>
+            <Dependent Role="TInventoryDocDetail">
+              <PropertyRef Name="InventoryDocHeaderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LSDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TBaseInfs" EntityType="Self.TBaseInf" />
+          <EntitySet Name="TBaseInfTypes" EntityType="Self.TBaseInfType" />
+          <EntitySet Name="TBrands" EntityType="Self.TBrand" />
+          <EntitySet Name="TCarTypes" EntityType="Self.TCarType" />
+          <EntitySet Name="TCats" EntityType="Self.TCat" />
+          <EntitySet Name="TCatCarTypes" EntityType="Self.TCatCarType" />
+          <EntitySet Name="TCustomers" EntityType="Self.TCustomer" />
+          <EntitySet Name="TDocSerials" EntityType="Self.TDocSerial" />
+          <EntitySet Name="TExitFromWarehouseDetails" EntityType="Self.TExitFromWarehouseDetail" />
+          <EntitySet Name="TExitFromWarehouseHeaders" EntityType="Self.TExitFromWarehouseHeader" />
+          <EntitySet Name="TFactorDetails" EntityType="Self.TFactorDetail" />
+          <EntitySet Name="TFactorHeaders" EntityType="Self.TFactorHeader" />
+          <EntitySet Name="TGoodsGrades" EntityType="Self.TGoodsGrade" />
+          <EntitySet Name="TGoodsPrices" EntityType="Self.TGoodsPrice" />
+          <EntitySet Name="TGoodsPriceArcs" EntityType="Self.TGoodsPriceArc" />
+          <EntitySet Name="TInventoryDocDetails" EntityType="Self.TInventoryDocDetail" />
+          <EntitySet Name="TInventoryDocHeaders" EntityType="Self.TInventoryDocHeader" />
+          <EntitySet Name="TInventoryDocTypes" EntityType="Self.TInventoryDocType" />
+          <EntitySet Name="TInvoiceDetails" EntityType="Self.TInvoiceDetail" />
+          <EntitySet Name="TInvoiceHeaders" EntityType="Self.TInvoiceHeader" />
+          <EntitySet Name="TItemGroups" EntityType="Self.TItemGroup" />
+          <EntitySet Name="TItemTypes" EntityType="Self.TItemType" />
+          <EntitySet Name="TOrders" EntityType="Self.TOrder" />
+          <EntitySet Name="TOrderHaveErrors" EntityType="Self.TOrderHaveError" />
+          <EntitySet Name="TPackingLists" EntityType="Self.TPackingList" />
+          <EntitySet Name="TPackingListErrors" EntityType="Self.TPackingListError" />
+          <EntitySet Name="TRequestDetials" EntityType="Self.TRequestDetial" />
+          <EntitySet Name="TRequestHeaders" EntityType="Self.TRequestHeader" />
+          <EntitySet Name="TSerials" EntityType="Self.TSerial" />
+          <EntitySet Name="TUploadInfs" EntityType="Self.TUploadInf" />
+          <EntitySet Name="TUsageTypes" EntityType="Self.TUsageType" />
+          <EntitySet Name="TWareHouseStocks" EntityType="Self.TWareHouseStock" />
+          <EntitySet Name="V_ExitWarehouse" EntityType="Self.V_ExitWarehouse" />
+          <EntitySet Name="V_ExitWarehouseHeader" EntityType="Self.V_ExitWarehouseHeader" />
+          <EntitySet Name="V_Invoice" EntityType="Self.V_Invoice" />
+          <EntitySet Name="VCats" EntityType="Self.VCat" />
+          <EntitySet Name="VCatCarTypes" EntityType="Self.VCatCarType" />
+          <EntitySet Name="VCustomers" EntityType="Self.VCustomer" />
+          <EntitySet Name="VFactors" EntityType="Self.VFactor" />
+          <EntitySet Name="VGoodsPrices" EntityType="Self.VGoodsPrice" />
+          <EntitySet Name="VGoodsPriceArcs" EntityType="Self.VGoodsPriceArc" />
+          <EntitySet Name="VRequests" EntityType="Self.VRequest" />
+          <EntitySet Name="VWareHouseStocks" EntityType="Self.VWareHouseStock" />
+          <AssociationSet Name="FK_TInventoryDocDetail_TInventoryDocHeader" Association="Self.FK_TInventoryDocDetail_TInventoryDocHeader">
+            <End Role="TInventoryDocHeader" EntitySet="TInventoryDocHeaders" />
+            <End Role="TInventoryDocDetail" EntitySet="TInventoryDocDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LSDBModelStoreContainer" CdmEntityContainer="LSDBEntities">
+          <EntitySetMapping Name="TBaseInfs">
+            <EntityTypeMapping TypeName="LSDBModel.TBaseInf">
+              <MappingFragment StoreEntitySet="TBaseInf">
+                <ScalarProperty Name="BaseInfId" ColumnName="BaseInfId" />
+                <ScalarProperty Name="BaseInfDesc" ColumnName="BaseInfDesc" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="BaseInfTypeId" ColumnName="BaseInfTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBaseInfTypes">
+            <EntityTypeMapping TypeName="LSDBModel.TBaseInfType">
+              <MappingFragment StoreEntitySet="TBaseInfType">
+                <ScalarProperty Name="BaseInfTypeId" ColumnName="BaseInfTypeId" />
+                <ScalarProperty Name="BaseInfDesc" ColumnName="BaseInfDesc" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBrands">
+            <EntityTypeMapping TypeName="LSDBModel.TBrand">
+              <MappingFragment StoreEntitySet="TBrand">
+                <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+                <ScalarProperty Name="BrandDesc" ColumnName="BrandDesc" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TCarTypes">
+            <EntityTypeMapping TypeName="LSDBModel.TCarType">
+              <MappingFragment StoreEntitySet="TCarType">
+                <ScalarProperty Name="CarTypeId" ColumnName="CarTypeId" />
+                <ScalarProperty Name="CarTypeDesc" ColumnName="CarTypeDesc" />
+                <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TCats">
+            <EntityTypeMapping TypeName="LSDBModel.TCat">
+              <MappingFragment StoreEntitySet="TCat">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TechnicalCode" ColumnName="TechnicalCode" />
+                <ScalarProperty Name="PNC" ColumnName="PNC" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="PersianName" ColumnName="PersianName" />
+                <ScalarProperty Name="Length" ColumnName="Length" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="NetWeight" ColumnName="NetWeight" />
+                <ScalarProperty Name="ForWardItemNo" ColumnName="ForWardItemNo" />
+                <ScalarProperty Name="ForWardITCCode" ColumnName="ForWardITCCode" />
+                <ScalarProperty Name="BackwardItemNo" ColumnName="BackwardItemNo" />
+                <ScalarProperty Name="BackwardITCCode" ColumnName="BackwardITCCode" />
+                <ScalarProperty Name="QuantityOfUsageInMachine" ColumnName="QuantityOfUsageInMachine" />
+                <ScalarProperty Name="PPLDollar" ColumnName="PPLDollar" />
+                <ScalarProperty Name="BasePriceRls" ColumnName="BasePriceRls" />
+                <ScalarProperty Name="ItemGroup" ColumnName="ItemGroup" />
+                <ScalarProperty Name="Brand" ColumnName="Brand" />
+                <ScalarProperty Name="Health" ColumnName="Health" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+                <ScalarProperty Name="ItemUsage" ColumnName="ItemUsage" />
+                <ScalarProperty Name="UsagePlace" ColumnName="UsagePlace" />
+                <ScalarProperty Name="Specificcode" ColumnName="Specificcode" />
+                <ScalarProperty Name="VeryCritical" ColumnName="VeryCritical" />
+                <ScalarProperty Name="ItemGroupId" ColumnName="ItemGroupId" />
+                <ScalarProperty Name="ItemTypeId" ColumnName="ItemTypeId" />
+                <ScalarProperty Name="GoodsGradeId" ColumnName="GoodsGradeId" />
+                <ScalarProperty Name="TrackingTypeId" ColumnName="TrackingTypeId" />
+                <ScalarProperty Name="LabelingTypeId" ColumnName="LabelingTypeId" />
+                <ScalarProperty Name="UsageTypeId" ColumnName="UsageTypeId" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TCatCarTypes">
+            <EntityTypeMapping TypeName="LSDBModel.TCatCarType">
+              <MappingFragment StoreEntitySet="TCatCarType">
+                <ScalarProperty Name="CatCarTypeId" ColumnName="CatCarTypeId" />
+                <ScalarProperty Name="TechnicalCode" ColumnName="TechnicalCode" />
+                <ScalarProperty Name="CarTypeId" ColumnName="CarTypeId" />
+                <ScalarProperty Name="Coefficient" ColumnName="Coefficient" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TCustomers">
+            <EntityTypeMapping TypeName="LSDBModel.TCustomer">
+              <MappingFragment StoreEntitySet="TCustomer">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CustomerTypeId" ColumnName="CustomerTypeId" />
+                <ScalarProperty Name="CustomerContractTypeId" ColumnName="CustomerContractTypeId" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ManagerName" ColumnName="ManagerName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="NationalId" ColumnName="NationalId" />
+                <ScalarProperty Name="ZIPCode" ColumnName="ZIPCode" />
+                <ScalarProperty Name="EcoCode" ColumnName="EcoCode" />
+                <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
+                <ScalarProperty Name="RepresentativeCode" ColumnName="RepresentativeCode" />
+                <ScalarProperty Name="RepresentativeName" ColumnName="RepresentativeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TDocSerials">
+            <EntityTypeMapping TypeName="LSDBModel.TDocSerial">
+              <MappingFragment StoreEntitySet="TDocSerial">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DocSerialNo" ColumnName="DocSerialNo" />
+                <ScalarProperty Name="CurYear" ColumnName="CurYear" />
+                <ScalarProperty Name="InventoryDocTypeId" ColumnName="InventoryDocTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TExitFromWarehouseDetails">
+            <EntityTypeMapping TypeName="LSDBModel.TExitFromWarehouseDetail">
+              <MappingFragment StoreEntitySet="TExitFromWarehouseDetail">
+                <ScalarProperty Name="ExitFromWarehouseDetailId" ColumnName="ExitFromWarehouseDetailId" />
+                <ScalarProperty Name="ExitNo" ColumnName="ExitNo" />
+                <ScalarProperty Name="TechnicalCode" ColumnName="TechnicalCode" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="InvoiceDetailId" ColumnName="InvoiceDetailId" />
+                <ScalarProperty Name="FactorNo" ColumnName="FactorNo" />
+                <ScalarProperty Name="FactorDate" ColumnName="FactorDate" />
+                <ScalarProperty Name="FactorTime" ColumnName="FactorTime" />
+                <ScalarProperty Name="FactorEntryDataPersonalId" ColumnName="FactorEntryDataPersonalId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TExitFromWarehouseHeaders">
+            <EntityTypeMapping TypeName="LSDBModel.TExitFromWarehouseHeader">
+              <MappingFragment StoreEntitySet="TExitFromWarehouseHeader">
+                <ScalarProperty Name="ExitFromWarehouseHeaderId" ColumnName="ExitFromWarehouseHeaderId" />
+                <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
+                <ScalarProperty Name="ExitNo" ColumnName="ExitNo" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="ExitDate" ColumnName="ExitDate" />
+                <ScalarProperty Name="ExitTime" ColumnName="ExitTime" />
+                <ScalarProperty Name="EntryPersonalId" ColumnName="EntryPersonalId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="ExitTitle" ColumnName="ExitTitle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TFactorDetails">
+            <EntityTypeMapping TypeName="LSDBModel.TFactorDetail">
+              <MappingFragment StoreEntitySet="TFactorDetail">
+                <ScalarProperty Name="FactorDetailId" ColumnName="FactorDetailId" />
+                <ScalarProperty Name="FactorNo" ColumnName="FactorNo" />
+                <ScalarProperty Name="TechnicalCode" ColumnName="TechnicalCode" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ExitFromWarehouseDetailId" ColumnName="ExitFromWarehouseDetailId" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TFactorHeaders">
+            <EntityTypeMapping TypeName="LSDBModel.TFactorHeader">
+              <MappingFragment StoreEntitySet="TFactorHeader">
+                <ScalarProperty Name="FactorHeaderId" ColumnName="FactorHeaderId" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="FactorNo" ColumnName="FactorNo" />
+                <ScalarProperty Name="FactorDate" ColumnName="FactorDate" />
+                <ScalarProperty Name="FactorTime" ColumnName="FactorTime" />
+                <ScalarProperty Name="EntryPersonalId" ColumnName="EntryPersonalId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TGoodsGrades">
+            <EntityTypeMapping TypeName="LSDBModel.TGoodsGrade">
+              <MappingFragment StoreEntitySet="TGoodsGrade">
+                <ScalarProperty Name="GoodsGradeId" ColumnName="GoodsGradeId" />
+                <ScalarProperty Name="GoodsGradeDesc" ColumnName="GoodsGradeDesc" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TGoodsPrices">
+            <EntityTypeMapping TypeName="LSDBModel.TGoodsPrice">
+              <MappingFragment StoreEntitySet="TGoodsPrice">
+                <ScalarProperty Name="GoodsPriceId" ColumnName="GoodsPriceId" />
+                <ScalarProperty Name="TechnicalCode" ColumnName="TechnicalCode" />
+                <ScalarProperty Name="CurrencyTypeId" ColumnName="CurrencyTypeId" />
+                <ScalarProperty Name="DollarPrice" ColumnName="DollarPrice" />
+                <ScalarProperty Name="BasePrice" ColumnName="BasePrice" />
+                <ScalarProperty Name="PriceInRials" ColumnName="PriceInRials" />
+                <ScalarProperty Name="EntryDataDate" ColumnName="EntryDataDate" />
+                <ScalarProperty Name="EntryDataTime" ColumnName="EntryDataTime" />
+                <ScalarProperty Name="EntryPersonalId" ColumnName="EntryPersonalId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TGoodsPriceArcs">
+            <EntityTypeMapping TypeName="LSDBModel.TGoodsPriceArc">
+              <MappingFragment StoreEntitySet="TGoodsPriceArc">
+                <ScalarProperty Name="GoodsPriceArcId" ColumnName="GoodsPriceArcId" />
+                <ScalarProperty Name="GoodsPriceId" ColumnName="GoodsPriceId" />
+                <ScalarProperty Name="TechnicalCode" ColumnName="TechnicalCode" />
+                <ScalarProperty Name="CurrencyTypeId" ColumnName="CurrencyTypeId" />
+                <ScalarProperty Name="DollarPrice" ColumnName="DollarPrice" />
+                <ScalarProperty Name="BasePrice" ColumnName="BasePrice" />
+                <ScalarProperty Name="PriceInRials" ColumnName="PriceInRials" />
+                <ScalarProperty Name="EntryDataDate" ColumnName="EntryDataDate" />
+                <ScalarProperty Name="EntryDataTime" ColumnName="EntryDataTime" />
+                <ScalarProperty Name="EntryPersonalId" ColumnName="EntryPersonalId" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="UpdatePersonalId" ColumnName="UpdatePersonalId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TInventoryDocDetails">
+            <EntityTypeMapping TypeName="LSDBModel.TInventoryDocDetail">
+              <MappingFragment StoreEntitySet="TInventoryDocDetail">
+                <ScalarProperty Name="InventoryDocDetailId" ColumnName="InventoryDocDetailId" />
+                <ScalarProperty Name="InventoryDocHeaderId" ColumnName="InventoryDocHeaderId" />
+                <ScalarProperty Name="TechnicalCode" ColumnName="TechnicalCode" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="PackingListId" ColumnName="PackingListId" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="Explain" ColumnName="Explain" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TInventoryDocHeaders">
+            <EntityTypeMapping TypeName="LSDBModel.TInventoryDocHeader">
+              <MappingFragment StoreEntitySet="TInventoryDocHeader">
+                <ScalarProperty Name="InventoryDocHeaderId" ColumnName="InventoryDocHeaderId" />
+                <ScalarProperty Name="DocNo" ColumnName="DocNo" />
+                <ScalarProperty Name="InventoryDocTypeId" ColumnName="InventoryDocTypeId" />
+                <ScalarProperty Name="EntryDataDate" ColumnName="EntryDataDate" />
+                <ScalarProperty Name="EntryDataTime" ColumnName="EntryDataTime" />
+                <ScalarProperty Name="EntryDataPersonalId" ColumnName="EntryDataPersonalId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TInventoryDocTypes">
+            <EntityTypeMapping TypeName="LSDBModel.TInventoryDocType">
+              <MappingFragment StoreEntitySet="TInventoryDocType">
+                <ScalarProperty Name="InventoryDocTypeId" ColumnName="InventoryDocTypeId" />
+                <ScalarProperty Name="InventoryDocDesc" ColumnName="InventoryDocDesc" />
+                <ScalarProperty Name="EffectionType" ColumnName="EffectionType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TInvoiceDetails">
+            <EntityTypeMapping TypeName="LSDBModel.TInvoiceDetail">
+              <MappingFragment StoreEntitySet="TInvoiceDetail">
+                <ScalarProperty Name="InvoiceDetailId" ColumnName="InvoiceDetailId" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="TechnicalCode" ColumnName="TechnicalCode" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RequestDetialId" ColumnName="RequestDetialId" />
+                <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
+                <ScalarProperty Name="ConfirmDate" ColumnName="ConfirmDate" />
+                <ScalarProperty Name="ConfirmTime" ColumnName="ConfirmTime" />
+                <ScalarProperty Name="ConfirmPersonalId" ColumnName="ConfirmPersonalId" />
+                <ScalarProperty Name="PrintDate" ColumnName="PrintDate" />
+                <ScalarProperty Name="PrintTime" ColumnName="PrintTime" />
+                <ScalarProperty Name="PrintPersonalId" ColumnName="PrintPersonalId" />
+                <ScalarProperty Name="ExitQty" ColumnName="ExitQty" />
+                <ScalarProperty Name="PriceInRials" ColumnName="PriceInRials" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TInvoiceHeaders">
+            <EntityTypeMapping TypeName="LSDBModel.TInvoiceHeader">
+              <MappingFragment StoreEntitySet="TInvoiceHeader">
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
+                <ScalarProperty Name="InvoiceTitle" ColumnName="InvoiceTitle" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+                <ScalarProperty Name="InvoiceTime" ColumnName="InvoiceTime" />
+                <ScalarProperty Name="EntryPersonalId" ColumnName="EntryPersonalId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+                <ScalarProperty Name="RequestNo" ColumnName="RequestNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TItemGroups">
+            <EntityTypeMapping TypeName="LSDBModel.TItemGroup">
+              <MappingFragment StoreEntitySet="TItemGroup">
+                <ScalarProperty Name="ItemGroupId" ColumnName="ItemGroupId" />
+                <ScalarProperty Name="ItemGroupDesc" ColumnName="ItemGroupDesc" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TItemTypes">
+            <EntityTypeMapping TypeName="LSDBModel.TItemType">
+              <MappingFragment StoreEntitySet="TItemType">
+                <ScalarProperty Name="ItemTypeId" ColumnName="ItemTypeId" />
+                <ScalarProperty Name="ItemTypeDesc" ColumnName="ItemTypeDesc" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TOrders">
+            <EntityTypeMapping TypeName="LSDBModel.TOrder">
+              <MappingFragment StoreEntitySet="TOrder">
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="TechnicalCode" ColumnName="TechnicalCode" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="PriceAED" ColumnName="PriceAED" />
+                <ScalarProperty Name="Tariff" ColumnName="Tariff" />
+                <ScalarProperty Name="NetWeight" ColumnName="NetWeight" />
+                <ScalarProperty Name="GrossWeight" ColumnName="GrossWeight" />
+                <ScalarProperty Name="OrderNo" ColumnName="OrderNo" />
+                <ScalarProperty Name="EntryDataDate" ColumnName="EntryDataDate" />
+                <ScalarProperty Name="EntryDataTime" ColumnName="EntryDataTime" />
+                <ScalarProperty Name="EntryDataPersonalId" ColumnName="EntryDataPersonalId" />
+                <ScalarProperty Name="UploadInfId" ColumnName="UploadInfId" />
+                <ScalarProperty Name="PackListQTY" ColumnName="PackListQTY" />
+                <ScalarProperty Name="PackingListTechnicalCode" ColumnName="PackingListTechnicalCode" />
+                <ScalarProperty Name="RecieveOrderQuantity" ColumnName="RecieveOrderQuantity" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TOrderHaveErrors">
+            <EntityTypeMapping TypeName="LSDBModel.TOrderHaveError">
+              <MappingFragment StoreEntitySet="TOrderHaveError">
+                <ScalarProperty Name="OrderHaveErrorId" ColumnName="OrderHaveErrorId" />
+                <ScalarProperty Name="TechnicalCode" ColumnName="TechnicalCode" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="PriceAED" ColumnName="PriceAED" />
+                <ScalarProperty Name="Tariff" ColumnName="Tariff" />
+                <ScalarProperty Name="NetWeight" ColumnName="NetWeight" />
+                <ScalarProperty Name="GrossWeight" ColumnName="GrossWeight" />
+                <ScalarProperty Name="OrderNo" ColumnName="OrderNo" />
+                <ScalarProperty Name="EntryDataDate" ColumnName="EntryDataDate" />
+                <ScalarProperty Name="EntryDataTime" ColumnName="EntryDataTime" />
+                <ScalarProperty Name="EntryDataPersonalId" ColumnName="EntryDataPersonalId" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="PersianName" ColumnName="PersianName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UploadInfId" ColumnName="UploadInfId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TPackingLists">
+            <EntityTypeMapping TypeName="LSDBModel.TPackingList">
+              <MappingFragment StoreEntitySet="TPackingList">
+                <ScalarProperty Name="PackingListId" ColumnName="PackingListId" />
+                <ScalarProperty Name="PackingListNo" ColumnName="PackingListNo" />
+                <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
+                <ScalarProperty Name="CaseNo" ColumnName="CaseNo" />
+                <ScalarProperty Name="CountryOfOrigin" ColumnName="CountryOfOrigin" />
+                <ScalarProperty Name="TechnicalCode" ColumnName="TechnicalCode" />
+                <ScalarProperty Name="ShipQty" ColumnName="ShipQty" />
+                <ScalarProperty Name="HSCode" ColumnName="HSCode" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="NetWeight" ColumnName="NetWeight" />
+                <ScalarProperty Name="GrossWeight" ColumnName="GrossWeight" />
+                <ScalarProperty Name="EntryDataDate" ColumnName="EntryDataDate" />
+                <ScalarProperty Name="EntryDataTime" ColumnName="EntryDataTime" />
+                <ScalarProperty Name="EntryDataPersonalId" ColumnName="EntryDataPersonalId" />
+                <ScalarProperty Name="UploadInfId" ColumnName="UploadInfId" />
+                <ScalarProperty Name="OrderNo" ColumnName="OrderNo" />
+                <ScalarProperty Name="TechnicalCodeOder" ColumnName="TechnicalCodeOder" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="ConfirmShipQty" ColumnName="ConfirmShipQty" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TPackingListErrors">
+            <EntityTypeMapping TypeName="LSDBModel.TPackingListError">
+              <MappingFragment StoreEntitySet="TPackingListError">
+                <ScalarProperty Name="PackingListErrorId" ColumnName="PackingListErrorId" />
+                <ScalarProperty Name="PackingListNo" ColumnName="PackingListNo" />
+                <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
+                <ScalarProperty Name="CaseNo" ColumnName="CaseNo" />
+                <ScalarProperty Name="CountryOfOrigin" ColumnName="CountryOfOrigin" />
+                <ScalarProperty Name="TechnicalCode" ColumnName="TechnicalCode" />
+                <ScalarProperty Name="ShipQty" ColumnName="ShipQty" />
+                <ScalarProperty Name="HSCode" ColumnName="HSCode" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="NetWeight" ColumnName="NetWeight" />
+                <ScalarProperty Name="GrossWeight" ColumnName="GrossWeight" />
+                <ScalarProperty Name="EntryDataDate" ColumnName="EntryDataDate" />
+                <ScalarProperty Name="EntryDataTime" ColumnName="EntryDataTime" />
+                <ScalarProperty Name="EntryDataPersonalId" ColumnName="EntryDataPersonalId" />
+                <ScalarProperty Name="UploadInfId" ColumnName="UploadInfId" />
+                <ScalarProperty Name="OrderNo" ColumnName="OrderNo" />
+                <ScalarProperty Name="TechnicalCodeOder" ColumnName="TechnicalCodeOder" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ErrorType" ColumnName="ErrorType" />
+                <ScalarProperty Name="PartName" ColumnName="PartName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRequestDetials">
+            <EntityTypeMapping TypeName="LSDBModel.TRequestDetial">
+              <MappingFragment StoreEntitySet="TRequestDetial">
+                <ScalarProperty Name="RequestDetialId" ColumnName="RequestDetialId" />
+                <ScalarProperty Name="TechnicalCode" ColumnName="TechnicalCode" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="ConfirmQty" ColumnName="ConfirmQty" />
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RequestTypeId" ColumnName="RequestTypeId" />
+                <ScalarProperty Name="RequestNo" ColumnName="RequestNo" />
+                <ScalarProperty Name="InvoiceQty" ColumnName="InvoiceQty" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRequestHeaders">
+            <EntityTypeMapping TypeName="LSDBModel.TRequestHeader">
+              <MappingFragment StoreEntitySet="TRequestHeader">
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+                <ScalarProperty Name="RequestNo" ColumnName="RequestNo" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="RequestTime" ColumnName="RequestTime" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="EntryPersonalId" ColumnName="EntryPersonalId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RequestTitle" ColumnName="RequestTitle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TSerials">
+            <EntityTypeMapping TypeName="LSDBModel.TSerial">
+              <MappingFragment StoreEntitySet="TSerial">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="OrderSerialNo" ColumnName="OrderSerialNo" />
+                <ScalarProperty Name="CurYear" ColumnName="CurYear" />
+                <ScalarProperty Name="SerialType" ColumnName="SerialType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TUploadInfs">
+            <EntityTypeMapping TypeName="LSDBModel.TUploadInf">
+              <MappingFragment StoreEntitySet="TUploadInf">
+                <ScalarProperty Name="UploadInfId" ColumnName="UploadInfId" />
+                <ScalarProperty Name="DocPath" ColumnName="DocPath" />
+                <ScalarProperty Name="EntryPersonalId" ColumnName="EntryPersonalId" />
+                <ScalarProperty Name="UploadDocTypeId" ColumnName="UploadDocTypeId" />
+                <ScalarProperty Name="DocTitle" ColumnName="DocTitle" />
+                <ScalarProperty Name="DocDesc" ColumnName="DocDesc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TUsageTypes">
+            <EntityTypeMapping TypeName="LSDBModel.TUsageType">
+              <MappingFragment StoreEntitySet="TUsageType">
+                <ScalarProperty Name="UsageTypeId" ColumnName="UsageTypeId" />
+                <ScalarProperty Name="UsageTypeDesc" ColumnName="UsageTypeDesc" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TWareHouseStocks">
+            <EntityTypeMapping TypeName="LSDBModel.TWareHouseStock">
+              <MappingFragment StoreEntitySet="TWareHouseStock">
+                <ScalarProperty Name="WareHouseStockId" ColumnName="WareHouseStockId" />
+                <ScalarProperty Name="TechnicalCode" ColumnName="TechnicalCode" />
+                <ScalarProperty Name="StockQty" ColumnName="StockQty" />
+                <ScalarProperty Name="ReserveQty" ColumnName="ReserveQty" />
+                <ScalarProperty Name="BlockedQty" ColumnName="BlockedQty" />
+                <ScalarProperty Name="ScrapeQty" ColumnName="ScrapeQty" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_ExitWarehouse">
+            <EntityTypeMapping TypeName="LSDBModel.V_ExitWarehouse">
+              <MappingFragment StoreEntitySet="V_ExitWarehouse">
+                <ScalarProperty Name="ExitFromWarehouseDetailId" ColumnName="ExitFromWarehouseDetailId" />
+                <ScalarProperty Name="TechnicalCode" ColumnName="TechnicalCode" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ExitDetailIsActive" ColumnName="ExitDetailIsActive" />
+                <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="ExitDate" ColumnName="ExitDate" />
+                <ScalarProperty Name="ExitTime" ColumnName="ExitTime" />
+                <ScalarProperty Name="EntryPersonalId" ColumnName="EntryPersonalId" />
+                <ScalarProperty Name="ExitHeaderIsActive" ColumnName="ExitHeaderIsActive" />
+                <ScalarProperty Name="ExitNo" ColumnName="ExitNo" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="ExitTitle" ColumnName="ExitTitle" />
+                <ScalarProperty Name="ExitHeaderIsActiveDesc" ColumnName="ExitHeaderIsActiveDesc" />
+                <ScalarProperty Name="ExitDetailIsActiveDesc" ColumnName="ExitDetailIsActiveDesc" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="InvoiceDetailId" ColumnName="InvoiceDetailId" />
+                <ScalarProperty Name="InvoiceTitle" ColumnName="InvoiceTitle" />
+                <ScalarProperty Name="ExitFromWarehouseHeaderId" ColumnName="ExitFromWarehouseHeaderId" />
+                <ScalarProperty Name="PriceInRials" ColumnName="PriceInRials" />
+                <ScalarProperty Name="FactorNo" ColumnName="FactorNo" />
+                <ScalarProperty Name="FactorDate" ColumnName="FactorDate" />
+                <ScalarProperty Name="FactorTime" ColumnName="FactorTime" />
+                <ScalarProperty Name="FactorEntryDataPersonalId" ColumnName="FactorEntryDataPersonalId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_ExitWarehouseHeader">
+            <EntityTypeMapping TypeName="LSDBModel.V_ExitWarehouseHeader">
+              <MappingFragment StoreEntitySet="V_ExitWarehouseHeader">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="ExitDate" ColumnName="ExitDate" />
+                <ScalarProperty Name="ExitTime" ColumnName="ExitTime" />
+                <ScalarProperty Name="ExitHeaderIsActive" ColumnName="ExitHeaderIsActive" />
+                <ScalarProperty Name="ExitDetailIsActive" ColumnName="ExitDetailIsActive" />
+                <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
+                <ScalarProperty Name="ExitNo" ColumnName="ExitNo" />
+                <ScalarProperty Name="InvoiceTitle" ColumnName="InvoiceTitle" />
+                <ScalarProperty Name="ExitTitle" ColumnName="ExitTitle" />
+                <ScalarProperty Name="ExitFromWarehouseHeaderId" ColumnName="ExitFromWarehouseHeaderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_Invoice">
+            <EntityTypeMapping TypeName="LSDBModel.V_Invoice">
+              <MappingFragment StoreEntitySet="V_Invoice">
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
+                <ScalarProperty Name="InvoiceTitle" ColumnName="InvoiceTitle" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CustomerTypeId" ColumnName="CustomerTypeId" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+                <ScalarProperty Name="InvoiceTime" ColumnName="InvoiceTime" />
+                <ScalarProperty Name="EntryPersonalId" ColumnName="EntryPersonalId" />
+                <ScalarProperty Name="InvoiceHeaderIsActive" ColumnName="InvoiceHeaderIsActive" />
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+                <ScalarProperty Name="RequestNo" ColumnName="RequestNo" />
+                <ScalarProperty Name="TechnicalCode" ColumnName="TechnicalCode" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="RequestDetialId" ColumnName="RequestDetialId" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="PersianName" ColumnName="PersianName" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="InvoiceDetailIsActive" ColumnName="InvoiceDetailIsActive" />
+                <ScalarProperty Name="PriceInRials" ColumnName="PriceInRials" />
+                <ScalarProperty Name="ConfirmDate" ColumnName="ConfirmDate" />
+                <ScalarProperty Name="ConfirmTime" ColumnName="ConfirmTime" />
+                <ScalarProperty Name="ConfirmPersonalId" ColumnName="ConfirmPersonalId" />
+                <ScalarProperty Name="InvoiceDetailId" ColumnName="InvoiceDetailId" />
+                <ScalarProperty Name="PrintDate" ColumnName="PrintDate" />
+                <ScalarProperty Name="PrintTime" ColumnName="PrintTime" />
+                <ScalarProperty Name="PrintPersonalId" ColumnName="PrintPersonalId" />
+                <ScalarProperty Name="ExitQty" ColumnName="ExitQty" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VCats">
+            <EntityTypeMapping TypeName="LSDBModel.VCat">
+              <MappingFragment StoreEntitySet="VCat">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TechnicalCode" ColumnName="TechnicalCode" />
+                <ScalarProperty Name="PNC" ColumnName="PNC" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="PersianName" ColumnName="PersianName" />
+                <ScalarProperty Name="Length" ColumnName="Length" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="NetWeight" ColumnName="NetWeight" />
+                <ScalarProperty Name="ItemGroupId" ColumnName="ItemGroupId" />
+                <ScalarProperty Name="ItemGroupDesc" ColumnName="ItemGroupDesc" />
+                <ScalarProperty Name="ItemTypeId" ColumnName="ItemTypeId" />
+                <ScalarProperty Name="ItemTypeDesc" ColumnName="ItemTypeDesc" />
+                <ScalarProperty Name="GoodsGradeId" ColumnName="GoodsGradeId" />
+                <ScalarProperty Name="GoodsGradeDesc" ColumnName="GoodsGradeDesc" />
+                <ScalarProperty Name="TrackingTypeId" ColumnName="TrackingTypeId" />
+                <ScalarProperty Name="TrackingDesc" ColumnName="TrackingDesc" />
+                <ScalarProperty Name="LabelingTypeId" ColumnName="LabelingTypeId" />
+                <ScalarProperty Name="LabelingDesc" ColumnName="LabelingDesc" />
+                <ScalarProperty Name="UsageTypeId" ColumnName="UsageTypeId" />
+                <ScalarProperty Name="UsageTypeDesc" ColumnName="UsageTypeDesc" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+                <ScalarProperty Name="UnitDesc" ColumnName="UnitDesc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VCatCarTypes">
+            <EntityTypeMapping TypeName="LSDBModel.VCatCarType">
+              <MappingFragment StoreEntitySet="VCatCarType">
+                <ScalarProperty Name="TechnicalCode" ColumnName="TechnicalCode" />
+                <ScalarProperty Name="PersianName" ColumnName="PersianName" />
+                <ScalarProperty Name="CatCarTypeId" ColumnName="CatCarTypeId" />
+                <ScalarProperty Name="Coefficient" ColumnName="Coefficient" />
+                <ScalarProperty Name="CatCarTypeIsActive" ColumnName="CatCarTypeIsActive" />
+                <ScalarProperty Name="CarTypeDesc" ColumnName="CarTypeDesc" />
+                <ScalarProperty Name="BrandDesc" ColumnName="BrandDesc" />
+                <ScalarProperty Name="CarTypeId" ColumnName="CarTypeId" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VCustomers">
+            <EntityTypeMapping TypeName="LSDBModel.VCustomer">
+              <MappingFragment StoreEntitySet="VCustomer">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CustomerTypeId" ColumnName="CustomerTypeId" />
+                <ScalarProperty Name="CustomerTypeDesc" ColumnName="CustomerTypeDesc" />
+                <ScalarProperty Name="CustomerContractTypeId" ColumnName="CustomerContractTypeId" />
+                <ScalarProperty Name="CustomerContractTypeDesc" ColumnName="CustomerContractTypeDesc" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ManagerName" ColumnName="ManagerName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="NationalId" ColumnName="NationalId" />
+                <ScalarProperty Name="ZIPCode" ColumnName="ZIPCode" />
+                <ScalarProperty Name="EcoCode" ColumnName="EcoCode" />
+                <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
+                <ScalarProperty Name="RepresentativeCode" ColumnName="RepresentativeCode" />
+                <ScalarProperty Name="RepresentativeName" ColumnName="RepresentativeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VFactors">
+            <EntityTypeMapping TypeName="LSDBModel.VFactor">
+              <MappingFragment StoreEntitySet="VFactor">
+                <ScalarProperty Name="FactorHeaderId" ColumnName="FactorHeaderId" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="FactorNo" ColumnName="FactorNo" />
+                <ScalarProperty Name="FactorDate" ColumnName="FactorDate" />
+                <ScalarProperty Name="FactorTime" ColumnName="FactorTime" />
+                <ScalarProperty Name="EntryPersonalId" ColumnName="EntryPersonalId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="FactorDetailId" ColumnName="FactorDetailId" />
+                <ScalarProperty Name="TechnicalCode" ColumnName="TechnicalCode" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="EXPR1" ColumnName="EXPR1" />
+                <ScalarProperty Name="InvoiceDetailId" ColumnName="InvoiceDetailId" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VGoodsPrices">
+            <EntityTypeMapping TypeName="LSDBModel.VGoodsPrice">
+              <MappingFragment StoreEntitySet="VGoodsPrice">
+                <ScalarProperty Name="TechnicalCode" ColumnName="TechnicalCode" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="PersianName" ColumnName="PersianName" />
+                <ScalarProperty Name="CurrencyTypeId" ColumnName="CurrencyTypeId" />
+                <ScalarProperty Name="CurrencyTypeDesc" ColumnName="CurrencyTypeDesc" />
+                <ScalarProperty Name="DollarPrice" ColumnName="DollarPrice" />
+                <ScalarProperty Name="BasePrice" ColumnName="BasePrice" />
+                <ScalarProperty Name="PriceInRials" ColumnName="PriceInRials" />
+                <ScalarProperty Name="EntryDataDate" ColumnName="EntryDataDate" />
+                <ScalarProperty Name="EntryDataTime" ColumnName="EntryDataTime" />
+                <ScalarProperty Name="EntryPersonalId" ColumnName="EntryPersonalId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VGoodsPriceArcs">
+            <EntityTypeMapping TypeName="LSDBModel.VGoodsPriceArc">
+              <MappingFragment StoreEntitySet="VGoodsPriceArc">
+                <ScalarProperty Name="GoodsPriceArcId" ColumnName="GoodsPriceArcId" />
+                <ScalarProperty Name="GoodsPriceId" ColumnName="GoodsPriceId" />
+                <ScalarProperty Name="TechnicalCode" ColumnName="TechnicalCode" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="PersianName" ColumnName="PersianName" />
+                <ScalarProperty Name="CurrencyTypeId" ColumnName="CurrencyTypeId" />
+                <ScalarProperty Name="CurrencyTypeDesc" ColumnName="CurrencyTypeDesc" />
+                <ScalarProperty Name="DollarPrice" ColumnName="DollarPrice" />
+                <ScalarProperty Name="BasePrice" ColumnName="BasePrice" />
+                <ScalarProperty Name="PriceInRials" ColumnName="PriceInRials" />
+                <ScalarProperty Name="EntryDataDate" ColumnName="EntryDataDate" />
+                <ScalarProperty Name="EntryDataTime" ColumnName="EntryDataTime" />
+                <ScalarProperty Name="EntryPersonalId" ColumnName="EntryPersonalId" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="UpdatePersonalId" ColumnName="UpdatePersonalId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VRequests">
+            <EntityTypeMapping TypeName="LSDBModel.VRequest">
+              <MappingFragment StoreEntitySet="VRequest">
+                <ScalarProperty Name="TechnicalCode" ColumnName="TechnicalCode" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="PersianName" ColumnName="PersianName" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+                <ScalarProperty Name="UnitDesc" ColumnName="UnitDesc" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="ConfirmQty" ColumnName="ConfirmQty" />
+                <ScalarProperty Name="RequestDetailIsActive" ColumnName="RequestDetailIsActive" />
+                <ScalarProperty Name="RequestNo" ColumnName="RequestNo" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="RequestTime" ColumnName="RequestTime" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="EntryPersonalId" ColumnName="EntryPersonalId" />
+                <ScalarProperty Name="RequestTypeDesc" ColumnName="RequestTypeDesc" />
+                <ScalarProperty Name="RequestTitle" ColumnName="RequestTitle" />
+                <ScalarProperty Name="RequestHeaderIsActive" ColumnName="RequestHeaderIsActive" />
+                <ScalarProperty Name="RequestDetialId" ColumnName="RequestDetialId" />
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+                <ScalarProperty Name="RequestTypeId" ColumnName="RequestTypeId" />
+                <ScalarProperty Name="StockQty" ColumnName="StockQty" />
+                <ScalarProperty Name="ReserveQty" ColumnName="ReserveQty" />
+                <ScalarProperty Name="BlockedQty" ColumnName="BlockedQty" />
+                <ScalarProperty Name="ScrapeQty" ColumnName="ScrapeQty" />
+                <ScalarProperty Name="InvoiceQty" ColumnName="InvoiceQty" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VWareHouseStocks">
+            <EntityTypeMapping TypeName="LSDBModel.VWareHouseStock">
+              <MappingFragment StoreEntitySet="VWareHouseStock">
+                <ScalarProperty Name="TechnicalCode" ColumnName="TechnicalCode" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="PersianName" ColumnName="PersianName" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+                <ScalarProperty Name="UnitDesc" ColumnName="UnitDesc" />
+                <ScalarProperty Name="ReserveQty" ColumnName="ReserveQty" />
+                <ScalarProperty Name="BlockedQty" ColumnName="BlockedQty" />
+                <ScalarProperty Name="ScrapeQty" ColumnName="ScrapeQty" />
+                <ScalarProperty Name="StockQty" ColumnName="StockQty" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

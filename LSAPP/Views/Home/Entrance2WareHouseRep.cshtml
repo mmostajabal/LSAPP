@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = " گزارش ورود به انبار";
+}
+
+
+@{
+    ViewBag.Title = "ورود به انبار";
+}
+<style>
+    #SearchTable tr td, #SearchTable tr th {
+        background-color: #fff !important;
+        border: none !important;
+    }
+</style>
+@using (@Html.BeginForm("Entrance2WareHouse", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row panel-group col-sm-12 float-right" style="border: 1px solid gray; padding: 10px; border-radius: 20px 20px;">
+        <div class="row col-sm-12" align="right" valing="middle" style="direction: rtl; background-color: #CB0f1f; color: #fff; height: 40px; vertical-align: middle; vertical-align: middle;margin: 10px">
+            <label style="vert-align: middle; vertical-align: middle; direction:rtl;margin-right:20px;margin-top:10px;display:inline-block"> گزارش دریافت انبار</label>
+        </div>
+        <div id="PackingListModal" class="modal" role="dialog" style="width: 100%;">
+            <div class="modal-dialog modal-lg" style="width: 100%">
+                <div class="modal-content" style="width: 100%">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            &times;
+                        </button>
+                    </div>
+                    <div class="modal-body" id="PackingListPartialBody">
+                    </div>
+                    <div class="modal-footer" style="text-align: center">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12" align="center">
+            <span id="upPublicMsg"></span>
+        </div>
+        <div class="col-sm-12 float-right">
+            <table id="SearchTable" class="table table-striped" style="width: 100%;background-color:#fff!important">
+                <tbody>
+                    <tr style="height:30pt;">
+                        <td class="col-sm-2">شماره سفارش</td>
+                        <td class="col-sm-3">
+                            @Html.TextBox("OrderNo", "", new { style = "width:96%;text-align:left;", @class = "form-control", maxlength = 10 })
+                        </td>
+                        <td rowspan="4" class="col-sm-7" align="right" valign="middle" style="vertical-align:middle;">
+                            <button class="btn" type="button" onclick="ShowSearchResult(); ">جستجو <i class="fa fa-search" style="font-size: 14pt" aria-hidden="true"></i></button>
+                        </td>
+                    </tr>
+                    <tr style="height:30pt;">
+                        <td>شماره صندوق</td>
+                        <td>
+                            @Html.TextBox("CaseNo", "", new { style = "width:96%;text-align:left;", @class = "form-control", maxlength = 20 })
+                        </td>
+                    </tr>
+                    <tr style="height:30pt;">
+                        <td> شماره صورتحساب</td>
+                        <td>
+                            @Html.TextBox("InvoiceNo", "", new { style = "width:96%;text-align:left;", @class = "form-control", maxlength = 10 })
+                        </td>
+                    </tr>
+                    <tr style="height:30pt;">
+                        <td> شماره فني</td>
+                        <td>
+                            @Html.TextBox("TechnicalCode", "", new { style = "width:96%;text-align:left;", @class = "form-control", maxlength = 20 })
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row col-sm-12" id="PartsListDiv">
+
+        </div>
+    </div>
+}
+<script>
+    function ShowSearchResult() {
+        try {
+            if ($("#OrderNo").val().toString().trim() != "" || $("#CaseNo").val().toString().trim() != "" || $("#InvoiceNo").val().toString().trim() != "" || $("#TechnicalCode").val().toString().trim() != "") {
+                var url = "@Url.Action("Entrance2WareHouseListRep", "home")";
+
+                url += "/?OrderNo=" + $("#OrderNo").val().toString().trim();
+                url += "&CaseNo=" + $("#CaseNo").val().toString().trim();
+                url += "&InvoiceNo=" + $("#InvoiceNo").val().toString().trim();
+                url += "&TechnicalCode=" + $("#TechnicalCode").val().toString().trim();
+
+                $("#PartsListDiv").load(url);
+            }
+        } catch (ex) {
+            alert(ex.toString());
+        }
+        return;
+    }
+</script>

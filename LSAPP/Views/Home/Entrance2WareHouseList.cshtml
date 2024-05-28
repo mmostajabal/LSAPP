@@ -1,0 +1,84 @@
+﻿@using LSService
+@model IList<PackingListAndOrder> 
+@{
+    Layout = null;
+    int ind = 1;
+}
+<link href="@Url.Content("~/Content/DataTables/css/dataTables.bootstrap.min.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/DataTables/css/fixedHeader.bootstrap.min.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/DataTables/css/responsive.bootstrap.min.css")" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/DataTables/dataTables.buttons.min.js"></script>
+<script src="~/Scripts/DataTables/buttons.flash.min.js"></script>
+<script src="~/Scripts/DataTables/jszip.min.js"></script>
+<script src="~/Scripts/DataTables/pdfmake.min.js"></script>
+<script src="~/Scripts/DataTables/vfs_fonts.js"></script>
+<script src="~/Scripts/DataTables/buttons.html5.min.js"></script>
+<script src="~/Scripts/DataTables/buttons.print.min.js"></script>
+<script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
+<script src="~/Scripts/DataTables/dataTables.fixedHeader.min.js"></script>
+<script src="~/Scripts/DataTables/dataTables.responsive.min.js"></script>
+<script src="~/Scripts/DataTables/responsive.bootstrap.min.js"></script>
+
+<div>
+    <table id="WHTable" class="table table-striped table-bordered " style="width: 100%">
+        <thead>
+            <tr>
+                <th style="width:8%;">انتخاب</th>
+                <th style="width:8%;">PackingList No</th>
+                <th style="width:8%;">Order No</th>
+                <th style="width:9%;">Technical Code</th>
+                <th style="width:13%;">Part Name</th>
+
+                <th style="width:6%;">Order Qty</th>
+                <th style="width:8%;">Receive Order Qty</th>
+                <th style="width:8%;">Ship Qty</th>
+                <th style="width:6%;">Confirm Ship Qty</th>
+                <th style="width:8%;">Qty</th>
+                <th style="width:6%;">Net Weight</th>
+                <th style="width:6%;">Gross Weith</th>
+                <th style="width:6%;">Country of Origin</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var m in Model)
+            {
+            <tr style="border-bottom: gray 1px solid">
+                <td style="text-align:center;"> @Html.CheckBox("IsSelected" + ind.ToString(), m.IsSelected, new { style = "text-align:right;", value = m.PackingListId, @class = "checkbox" })</td>
+                <td style="text-align:center;">@m.PackingListNo</td>
+                <td style="text-align:center;">@m.OrderNo</td>
+                <td style="text-align:center;">@m.PackingListTechnicalCode</td>
+                <td style="text-align:left;">@m.PartName</td>
+
+                <td style="text-align:center;">@m.OrderQuantity</td>
+                <td style="text-align:center;">@m.RecieveOrderQuantity</td>
+                <td style="text-align:center;">@m.ShipQty</td>
+                <td style="text-align:center;">@m.ConfirmShipQty</td>
+
+                <td style="text-align:center;">@Html.TextBox("ReceiveQty" + ind.ToString(), m.ShipQty - m.ConfirmShipQty, new { style = "width:95%;text-align:left", @class = "form-control" })<span id="ReceiveQtyMsg-@ind"></span></td>
+
+
+                <td style="text-align:center;">@m.PackingListNetWeight</td>
+                <td style="text-align:center;">@m.PackingListGrossWeight @Html.Hidden("OrderId" + ind.ToString(), m.OrderId)@Html.Hidden("RemainShipQty" + ind.ToString(), m.ShipQty - m.ConfirmShipQty)</td>
+                <td style="text-align:center;">@m.CountryOfOrigin</td>
+
+            </tr>
+                ind++;
+            }
+        </tbody>
+
+    </table>
+    @Html.Hidden("NumberParts", Model.Count)
+</div>
+
+<script>
+    $(document).ready(function () {
+        try {
+
+            var orderTable = $('#WHTable').DataTable({ "responsive": true, "paging": false });
+
+        } catch (ex) {
+            alert(ex.toString());
+        }
+    });
+</script>

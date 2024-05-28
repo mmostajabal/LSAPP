@@ -1,0 +1,167 @@
+﻿@{
+    Layout = null;
+   
+}
+<div class="col-sm-12">
+    <div class="row col-sm-12" style="padding-top:20px;">
+        <div class="col-sm-2 control-label">
+            عنوان خروجي
+        </div>
+        <div class="col-sm-10">
+            @Html.TextBox("ExitTitle", "", new { style = "width:65%;", @class = "form-control", maxlength = 150 })
+            <span id="ExitTitleMsg"></span>
+        </div>
+    </div>
+    <div id="RequestListDiv"></div>
+    <div class="col-sm-12" style="padding-top:20px">
+       
+        <button id="SaveExitBtn" name="SaveExitBtn" class="btn btn-success" style="height: 30pt;" value="Save" type="button" onclick="SaveExitBtn_Click()">
+            خروج از انبار <i class="fa fa-save" style="font-size: 14pt" aria-hidden="true"></i>
+        </button><span id="CreateExitMsg"></span>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        FetchExitList();
+    });
+    function FetchExitList() {
+        var url;
+
+        url = "@Url.Action("ExitfromwarehouseCurInvoiceList", "home")";
+        url += "?CustomerId=" + ($("#CustomerId").val() == null ? "0" : $("#CustomerId").val().toString());
+        url += "&InvoiceNo=" + $("#KeepInvoiceNo").val().toString();
+
+        $("#RequestListDiv").load(url);
+
+        return;
+    }
+    function SaveExitBtn_Click() {
+        if (CheckExitValidation()) {
+            try {
+                
+                var exitQty = "", invoiceId = "", invoiceDetailId = "", invoiceNo = "", technicalCode = "", hCustomerId = "";
+                var numberRow = $("#NumberExitRow").val();
+                
+                for (ind = 1; ind <= numberRow; ind++) {
+
+                    if ($("#Selected" + ind.toString()).prop("checked")) {
+                        exitQty += (exitQty == "" ? "" : ",");
+                        exitQty += $("#ExitQty-" + ind.toString()).val();
+
+                        invoiceId += (invoiceId == "" ? "" : ",");
+                        invoiceId += $("#InvoiceId" + ind.toString()).val();
+                        
+                        invoiceDetailId += (invoiceDetailId == "" ? "" : ",");
+                        invoiceDetailId += $("#InvoiceDetailId" + ind.toString()).val();
+                        
+                        invoiceNo += (invoiceNo == "" ? "" : ",");
+                        invoiceNo += $("#InvoiceNo-" + ind.toString()).html();
+                        
+                        technicalCode += (technicalCode == "" ? "" : ",");
+                        technicalCode += $("#TechnicalCode-" + ind.toString()).html();
+
+                        hCustomerId = $("#HCustomerId-" + ind.toString()).val();
+                    }
+                }
+                //alert(technicalCode);
+                //alert(exitQty);
+                //alert(invoiceId);
+                //alert(invoiceDetailId);
+                //alert(invoiceNo);
+                //alert(hCustomerId);
+                //alert($("#ExitTitle").val().toString());
+
+                $.ajax({
+                    url: '@Url.Action("SaveExitFromWarhouse", "LS")',
+                    type: 'Post',
+                    async: false,
+                    cache: false,
+                    data: "{'technicalCode':'" + technicalCode
+                        + "', 'exitQty':'" + exitQty
+                        + "', 'invoiceId':'" + invoiceId
+                        + "', 'invoiceDetailId':'" + invoiceDetailId
+                        + "', 'invoiceNo':'" + invoiceNo
+                        + "', 'customerId':" + hCustomerId
+                        + ", 'exitTitle':'" + $("#ExitTitle").val().toString()
+                        + "'}",
+                        success: function (data) {
+                            if (data != null) {
+                                var url;
+                                ShowAlert("ثبت با موفقیت انجام شد", "توجه");
+                                CustomerId_Change();
+
+                                FetchExitList();
+                            } else {
+                                ShowAlert("ثبت با مشکل مواجه شد", "توجه");
+                            }
+                        },
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+
+
+                        error: function (xhr, status, error) {
+                            //alert("err");
+                            alert(error.toString());
+                            //var err = eval("(" + xhr.responseText + ")");
+                            //alert(err.Message);
+                            flag = false;
+                        }
+                });
+
+            } catch (e) {
+                alert(e.toString());
+            }
+        }
+
+        return;
+    }
+
+    function CheckExitValidation() {
+        var ind, numberRow, reqQty, pervSumInvoiceQty, invoiceQty;
+        var flagSelected = false, flag = true;
+        try {
+
+            numberRow = $("#NumberExitRow").val();
+
+            for (ind = 1; ind <= numberRow; ind++) {
+
+                if ($("#Selected" + ind.toString()).prop("checked")) {
+
+                    reqQty = $("#Qty-" + ind.toString()).html();
+
+                    pervSumInvoiceQty = $("#PervSumExitQty-" + ind.toString()).html();
+
+                    invoiceQty = $("#ExitQty-" + ind.toString()).val();
+
+                    ClearMessage("#ExitQtyMsg-" + ind.toString());
+                    if (!CheckNumber($("#ExitQty-" + ind.toString()).val(), "لطفا تعداد راوارد کنید", "tomato", "ExitQtyMsg-" + ind.toString())) {
+                        flag = false;
+                    } else {
+                        if (parseInt(invoiceQty) + parseInt(pervSumInvoiceQty) > parseInt(reqQty)) {
+                            ShowMessage("ExitQtyMsg-" + ind.toString(), "tomato", "مقدار پیش فاکتور نمی تواند از مقدار درخواست بیشتر باشد");
+                            flag = false;
+                        }
+                    }
+
+                    flagSelected = true;
+                }
+            }
+
+            ClearMessage("#ExitTitleMsg");
+            if (isEmpty("ExitTitle", "لطفا عنوان خروج راوارد کنید", "tomato", "ExitTitleMsg")) {
+                flag = false;
+            }
+
+            ClearMessage("#CreateExitMsg");
+            if (!flagSelected) {
+                ShowMessage("CreateExitMsg", "tomato", "موردي جهت ثبت يافت نشد");
+                flag = false;
+            }
+
+            return flag;
+        } catch (e) {
+            alert(e.toString());
+        }
+    }
+</script>

@@ -1,0 +1,54 @@
+﻿
+@model IList<LSService.VExitWarehouseHeaderClass>
+@{
+    Layout = null;
+    int ind = 1;
+}
+<div class="col-sm-12" style="padding-top:20px">
+    <table id="CurRequestTable" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr class="HT">
+                <th width="10%">
+                    صدور فاکتور
+                </th>
+                <th width="10%"> نام مشتري</th>
+                <th width="30%"> عنوان خروج</th>
+                <th width="15%"> شماره خروج</th>
+                <th width="15%"> شماره پيش فاكتور</th>
+                <th width="10%">تاريخ خروج</th>
+                <th width="10%"> ساعت خروج</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var m in Model)
+            {
+            <tr>
+                <td align="center">
+                    <label onclick="IssueFactor(@m.ExitNo)" style="cursor:pointer;" class="btn btn-info">صدور فاکتور</label>
+                </td>
+                <td align="center" id="CustomerName-@ind">@m.CustomerName</td>
+                <td align="center">@m.ExitTitle</td>
+                <td align="center" id="ExitNo-@ind">@m.ExitNo</td>
+                <td align="center" id="InvoiceNo-@ind">@m.InvoiceNo</td>
+                <td align="center">@m.ExitDate</td>
+                <td align="center">@m.ExitTime</td>
+            </tr>
+
+                ind++;
+            }
+        </tbody>
+
+    </table>
+
+</div>
+<div>
+    @Html.Hidden("NumberExitRow", Model.Count)
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#CurRequestTable').DataTable({ "responsive": true, "paging": false });
+
+
+    });
+

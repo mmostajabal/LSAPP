@@ -1,0 +1,54 @@
+﻿
+@model IList<LSService.VGoodsPriceArcClass>
+@{
+    Layout = null;
+    int ind = 1;
+}
+
+<div class="col-sm-12">
+    <table id="PrevGoodsPriceTable" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr class="HT">
+                <th width="7%">نوع ارز </th>
+                <th width="7%">مبلغ به ارز</th>
+                <th width="7%">قیمت ارز</th>
+                <th width="7%">قیمت به ریال</th>
+                <th width="7%">تاریخ ورود</th>
+                <th width="7%">ساعت ورود</th>
+                <th width="8%">بروزآورنده</th>
+                <th width="7%">تاریخ آرشیو</th>
+                <th width="7%">ساعت آرشیو</th>
+                <th width="8%">آرشیو کننده</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var m in Model)
+            {
+            <tr id="NewItems">
+                <td style="text-align:center">@m.CurrencyTypeDesc</td>
+                <td style="text-align:center">@m.BasePrice</td>
+                <td style="text-align:center">@m.DollarPrice</td>
+                <td style="text-align:center">@m.PriceInRials</td>
+                <td style="text-align:center">@m.EntryDataDate</td>
+                <td style="text-align:center">@m.EntryDataTime</td>
+                <td style="text-align:center">@m.EntryPersonalId</td>
+                <td style="text-align:center">@m.UpdateDate</td>
+                <td style="text-align:center">@m.UpdateTime</td>
+                <td style="text-align:center">@m.UpdatePersonalId</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+        try {
+
+            var catTable = $('#PrevGoodsPriceTable').DataTable({ "responsive": true, "paging": false, dom: 'Bfrtip', buttons: ['excel', 'print'] });
+        } catch (ex) {
+            alert(ex.toString());
+        }+11 hhds
+    });
+
+

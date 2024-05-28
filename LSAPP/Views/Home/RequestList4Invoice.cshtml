@@ -1,0 +1,88 @@
+﻿@model  IList<LSService.VRequestClass>
+@{
+    Layout = null;
+    int ind = 1;
+}
+
+<div class="col-sm-12" style="padding-top:20px">
+    <table id="CurRequestTable" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr class="HT">
+                @*<th width="10%">عمليات</th>*@
+                <th width="10%">
+                    انتخاب
+                </th>
+                <th width="10%"> شماره درخواست</th>
+                <th width="12%"> شماره فنی</th>
+                <th width="15%">شرح لاتین</th>
+                <th width="8%">مقدار درخواست</th>
+                <th width="8%"> تعداد پيش فاكتور صادر شده</th>
+                <th width="12%"> تعداد پیش فاکتور </th>
+                <th width="10%">موجودي</th>
+                <th width="8%">رزو شده</th>
+                <th width="8%">بلاك شده</th>
+                <th width="8%">ضايعات</th>
+
+                @*<th width="10%">تعداد تاييد شده</th>*@
+                @*<th width="10%">تاريخ درخواست</th>
+                    <th width="10%">ساعت درخواست</th>
+                    <th width="10%"> تعداد پیش فاکتور*@ </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var m in Model)
+            {
+                <tr>
+                    @*<td>
+                            @if (m.RequestDetailIsActive == 1)
+                            {
+                                <div class="col-sm-6" id="CurEditDiv">
+                                    <i class="fa fa-edit" onclick="EditCurBtn_Click('@m.RequestNo', '@m.TechnicalCode', '@m.ItemName', '@m.Qty', '@m.RequestTitle', @m.InvoiceQty );" style="font-size: 12pt;cursor:pointer" title="ویرایش"></i>
+                                </div>
+                                <div class="col-sm-6" id="CurDeleteDiv">
+                                    <i class="fa fa-trash" style="color:red;font-size:12pt;cursor:pointer" title="حذف" onclick="Delete_Click('@m.RequestId', '@m.TechnicalCode', @m.InvoiceQty);"></i>
+                                </div>
+                            }
+                        </td>*@
+                    @if (m.RequestDetailIsActive == 24)
+                    {
+                        <td align="center">
+                            @Html.CheckBox("Selected" + ind.ToString(), new { style = "text-align:right;", @tabindex = 9, @onclick = "SelectSKill(" + (ind - 1).ToString() + ")" })
+                        </td>
+                    }
+                    else
+                    {
+                        <td align="center"></td>
+                    }
+                    <td align="center" id="RequestNo-@ind">@m.RequestNo</td>
+                    <td align="center" id="TechnicalCode-@ind">@m.TechnicalCode</td>
+                    <td align="left">@m.ItemName @Html.Hidden("RequestId" + ind.ToString(), m.RequestId) @Html.Hidden("RequestDetialId" + ind.ToString(), m.RequestDetialId)</td>
+                    <td align="center" id="Qty-@ind">@m.Qty</td>
+                    <td align="center" id="PervSumInvoiceQty-@ind">@m.InvoiceQty</td>
+                    @if (m.RequestDetailIsActive == 24)
+                    {
+                        <td align="center">@Html.TextBox("InvoiceQty-" + ind.ToString(), m.Qty - m.InvoiceQty, new { style = "width:96%;text-align:left;", @class = "form-control", maxlength = 10 })<span id="InvoceQtyMsg-@ind"></span></td>
+                    }
+                    else
+                    {
+                        <td align="center">0</td>
+                    }
+                    <td align="center">@m.StockQty</td>
+                    <td align="center">@m.ReserveQty</td>
+                    <td align="center">@m.BlockedQty</td>
+                    <td align="center">@m.ScrapeQty</td>
+
+                    @*<td align="center">@m.RequestDate</td>
+                        <td align="center">@m.RequestTime</td>*@
+                </tr>
+
+                ind++;
+            }
+        </tbody>
+
+    </table>
+    
+</div>
+<div>
+    @Html.Hidden("NumberRequestRow", Model.Count)
+</div>

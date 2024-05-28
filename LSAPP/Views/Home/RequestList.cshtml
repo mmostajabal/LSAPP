@@ -1,0 +1,69 @@
+﻿
+@model IList<LSService.RequestHeader>
+@{
+    Layout = null;
+    int ind = 1;
+}
+
+<div class="col-sm-12">
+    <table id="RequestTable" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr class="HT">
+                <th width="14%">عمليات</th>
+                <th width="15%"> شماره درخواست</th>
+                <th width="23%"> عنوان درخواست</th>
+                @*<th width="12%"> شماره فنی</th>
+                    <th width="14%">شرح لاتین</th>
+                    <th width="14%">شرح فارسي</th>
+                    <th width="10%">تعداد</th>*@
+                @*<th width="10%">تعداد تاييد شده</th>*@
+                <th width="16%">تاريخ درخواست</th>
+                <th width="15%">ساعت درخواست</th>
+                <th width="17%">ايجاد كننده</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var m in Model)
+            {
+                <tr id="NewItems">
+                    <td align="center">
+                        <div class="col-sm-4" id="EditDiv">
+                            <i class="fa fa-edit" onclick="EditBtn_Click('@m.RequestNo');" style="font-size: 12pt;cursor:pointer" title="ویرایش"></i>
+                        </div>
+                        <div class="col-sm-4">
+                            <i class="fa fa-eye" style="color:green;font-size:12pt;cursor:pointer" title="مشاهده" onclick="Show_Click('@m.RequestNo');"></i>
+                        </div>
+                        <div class="col-sm-4" id="DeleteDiv">
+                            <i class="fa fa-trash" style="color:red;font-size:12pt;cursor:pointer" title="حذف" onclick="Delete_Click('@m.RequestNo');"></i>
+                        </div>
+                    </td>
+                    <td align="center">@m.RequestNo</td>
+                    @*<td align="center">@m.TechnicalCode</td>
+                        <td>@m.ItemName</td>
+                        <td>@m.PersianName</td>
+                        <td>@m.Qty</td>*@
+                    @*<td>@m.ConfirmQty</td>*@
+                    <td>@m.RequestTitle</td>
+                    <td align="center">@m.RequestDate</td>
+                    <td align="center">@m.RequestTime</td>
+                    <td align="center">@m.EntryPersonalId</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    $(function () {
+
+        var catTable = $('#RequestTable').DataTable({ "responsive": true, "paging": false, dom: 'Bfrtip', buttons: ['excel', 'print'] });
+        if ($("#RequestHeaderIsActive").val() == 25 || $("#RequestHeaderIsActive").val() == 26) {
+            HideRow("EditDiv");
+            HideRow("DeleteDiv");
+
+        } else {
+            ShowRow("EditDiv");
+            ShowRow("DeleteDiv");
+        }
+    });
+</script>

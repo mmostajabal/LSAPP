@@ -1,0 +1,57 @@
+﻿@using LSService
+@model List<VCatClass>
+@{
+    Layout = null;
+    int ind = 1;
+}
+
+<div class="col-sm-12">
+    <table id="CatTable" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr class="HT">
+                <th width="14%">عمليات</th>
+                <th width="13%"> شماره فنی</th>
+                <th width="13%">PNC</th>
+                <th width="30%">شرح لاتین</th>
+                <th width="30%">شرح فارسی</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var m in Model)
+            {
+                <tr id="NewItems">
+                    <td>
+                        <div class="col-sm-3">
+                            <i class="fa fa-edit" onclick="EditBtn_Click('@m.TechnicalCode');" style="font-size: 12pt;cursor:pointer" title="ویرایش"></i>
+                        </div>
+                        <div class="col-sm-3">
+                            <i class="fa fa-usd" aria-hidden="true" style="font-size: 12pt;cursor:pointer" title="قیمت" onclick="PriceBtn_Click('@m.TechnicalCode');"></i>
+                        </div>
+                        <div class="col-sm-3">
+                            <img src="~/Content/Images/BOM.png" width="10px" title="BOM" onclick="BOM_Click('@m.TechnicalCode');" style="cursor:pointer" />
+                        </div>
+                        <div class="col-sm-3">
+                            <i class="fa fa-trash" style="color:red;font-size:12pt;cursor:pointer" title="حذف"></i>
+                        </div>
+                    </td>
+                    <td align="center">@m.TechnicalCode</td>
+                    <td align="center">@m.PNC</td>
+                    <td>@m.ItemName</td>
+                    <td>@m.PersianName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+        try {
+
+            var catTable = $('#CatTable').DataTable({ "responsive": true, "paging": false, dom: 'Bfrtip', buttons: ['excel', 'print'] });
+        } catch (ex) {
+            alert(ex.toString());
+        }+11 hhds
+    });
+
+   
+</script>

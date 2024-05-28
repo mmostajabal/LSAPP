@@ -1,0 +1,298 @@
+﻿@model LSService.InvoiceHeader
+
+@{
+    ViewBag.Title = "فاکتور";
+}
+<div class="row panel-group col-sm-12 float-right" style="border: 1px solid gray; padding: 10px; border-radius: 20px 20px;">
+    <div class="row col-sm-12" align="right" valing="middle" style="direction: rtl; background-color: #CB0f1f; color: #fff; height: 40px; vertical-align: middle; vertical-align: middle;margin: 10px">
+        <label style="vert-align: middle; vertical-align: middle; direction:rtl;margin-right:20px;margin-top:10px;display:inline-block">ایجاد فاکتور</label>
+    </div>
+    <div id="ExitModal" class="modal" role="dialog" style="width: 100%;">
+        <div class="modal-dialog modal-lg" style="width: 100%">
+            <div class="modal-content" style="width: 100%">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        &times;
+                    </button>
+                </div>
+                <div class="modal-body" id="ExitPartialBody">
+                </div>
+                <div class="modal-footer" style="text-align: center">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12" align="center">
+        <span id="fPublicMsg"></span>
+    </div>
+    <div class="row col-sm-12" style="padding-top:20px;">
+        <div class="col-sm-2 control-label">
+            مشتری
+        </div>
+        <div class="col-sm-10">
+            @Html.DropDownListFor(m => m.CustomerId, (SelectList)ViewData["Customer"], new { style = "width:50%;text-align:right", @onchange = "CustomerId_Change();" })
+            <span id="CustomerIdMsg"></span>
+        </div>
+    </div>
+    <div class="row col-sm-12" style="padding-top:20px;">
+        <div class="col-sm-2 control-label">
+            شماره پيش فاكتور
+        </div>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(m => m.InvoiceNo, new { style = "width:20%;text-align:left;", @class = "form-control", maxlength = 15, required = "required" })
+            <span id="RequestNoMsg"></span>
+        </div>
+    </div>
+    <div class="col-sm-12" style="padding-top:20px" id="FactorDiv">
+    </div>
+    @*<div class="col-sm-12" style="padding-top:20px">
+
+            <button id="CreateFactoeBtn" name="CreateFactoeBtn" class="btn btn-success" style="height: 30pt;" value="Save" type="button" onclick="CreateFactoeBtn_Click()">
+                ایجاد فاكتور <i class="fa fa-save" style="font-size: 14pt" aria-hidden="true"></i>
+            </button><span id="FactorMsg"></span>
+        </div>*@
+</div>
+<script>
+    $(function () {
+        $("#CustomerId").select2({
+            placeholder: "مشتری",
+            allowClear: false,
+            theme: "classic"
+        });
+
+        //$("#RequestHeaderIsActive").select2({
+        //    placeholder: "وضعیت درخواست",
+        //    allowClear: false,
+        //    theme: "classic"
+        //});
+
+        $("#CustomerId").val(null).trigger('change');
+    });
+
+    function CustomerId_Change() {
+       var url;
+
+        url = "@Url.Action("ExitWarehouseWithoutFactoList", "home")";
+        url += "?CustomerId=" + ($("#CustomerId").val() == null ? "0" : $("#CustomerId").val().toString());
+        url += "&ExitNo=";
+        url += "&InvoiceNo=" + $("#InvoiceNo").val().toString();
+        url += "&ExitHeaderIsActive=24";
+        url += "&ExitDetailIsActive=24";
+
+        $("#FactorDiv").load(url);
+        return;
+    }
+
+    function IssueFactor(exitNo) {
+        var url = "@Url.Action("ExitfromwarehouseCurDoc4IssueFactor", "home")";
+        url += "?CustomerId=" + ($("#CustomerId").val() == null ? "-1" : $("#CustomerId").val().toString());
+        url += "&ExitNo=" + exitNo;
+
+        $("#ExitPartialBody").load(url);
+        $("#ExitModal").modal('show');
+
+        return;
+    }
+    function CreateFactoeBtn_Click() {
+        if (CheckFactorValidation()) {
+              try {
+
+                  var invoiceDetailId = "", technicalCode = "", qty = "", price = "";
+                var numberRow = $("#NumberInvoiceRow").val();
+
+                for (ind = 1; ind <= numberRow; ind++) {
+
+                    if ($("#Selected" + ind.toString()).prop("checked")) {
+                        invoiceDetailId += (invoiceDetailId == "" ? "" : ",");
+                        invoiceDetailId += $("#InvoiceDetailId-" + ind.toString()).val();
+
+                        technicalCode += (technicalCode == "" ? "" : ",");
+                        technicalCode += $("#TechnicalCode-" + ind.toString()).html();
+
+                        qty += (qty == "" ? "" : ",");
+                        qty += $("#Qty-" + ind.toString()).html();
+
+                        price += (price == "" ? "" : ",");
+                        price += $("#PriceInRials-" + ind.toString()).html();
+
+
+                    }
+                }
+
+
+                $.ajax({
+                    url: '@Url.Action("SaveFactor", "LS")',
+                    type: 'Post',
+                    async: false,
+                    cache: false,
+                    data: "{'invoiceDetailId':'" + invoiceDetailId
+                        + "', 'technicalCode':'" + technicalCode
+                        + "', 'qty':'" + qty
+                        + "', 'price':'" + price
+                        + "', 'customerId':" + $("#CustomerId").val()
+                        + "}",
+                        success: function (data) {
+                            if (data == true) {
+                                var url;
+                                $("#ExitModal").modal('hide');
+                                ShowAlert("ثبت با موفقیت انجام شد", "توجه");
+                                CustomerId_Change();
+
+                            } else {
+                                ShowAlert("ثبت با مشکل مواجه شد", "توجه");
+                            }
+                        },
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+
+
+                        error: function (xhr, status, error) {
+                            //alert("err");
+                            alert(error.toString());
+                            //var err = eval("(" + xhr.responseText + ")");
+                            //alert(err.Message);
+                            flag = false;
+                        }
+                });
+
+            } catch (e) {
+                alert(e.toString());
+            }
+
+        }
+
+        return;
+    }
+
+    function CloseModal() {
+        $('.modal').hide();
+        $(".modal-backdrop").remove();
+        //$('#IssueModal').modal("hide");
+    }
+
+    //function CheckFactorValidation() {
+    //    var ind;
+    //    var flagSelected = false, flag = true;
+    //    try {
+
+    //        numberRow = $("#NumberInvoiceRow").val();
+
+    //        if ($("#CustomerId").val() == null) {
+    //            ShowAlert("لطفا مشتری را انتخاب کنید", "توجه");
+    //            flag = false;
+    //        }
+    //        for (ind = 1; ind <= numberRow; ind++) {
+
+    //            if ($("#Selected" + ind.toString()).prop("checked")) {
+
+    //                flagSelected = true;
+    //            }
+
+    //        }
+
+    //        ClearMessage("#FactorMsg");
+    //        if (!flagSelected) {
+    //            ShowMessage("FactorMsg", "tomato", "موردي جهت ثبت يافت نشد");
+    //            flag = false;
+    //        }
+
+    //        return flag;
+    //    } catch (e) {
+    //        alert(e.toString());
+    //    }
+    //}
+
+    function SaveFactorBtn_Click() {
+
+        try {
+            if (CheckFactorValidation()) {
+
+                var invoiceDetailId = "", technicalCode = "", qty = "", price = "";
+                var exitFromWarehouseHeaderId = "", exitFromWarehouseDetailId = "";
+
+                var numberRow = $("#NumberCurExitRow").val();
+
+                for (ind = 1; ind <= numberRow; ind++) {
+
+                    if ($("#Selected" + ind.toString()).prop("checked")) {
+                        invoiceDetailId += (invoiceDetailId == "" ? "" : ",");
+                        invoiceDetailId += $("#InvoiceDetailId-" + ind.toString()).val();
+
+                        exitFromWarehouseHeaderId += (exitFromWarehouseHeaderId == "" ? "" : ",");
+                        exitFromWarehouseHeaderId += $("#ExitFromWarehouseHeaderId" + ind.toString()).val();
+
+                        exitFromWarehouseDetailId += (exitFromWarehouseDetailId == "" ? "" : ",");
+                        exitFromWarehouseDetailId += $("#ExitFromWarehouseDetailId" + ind.toString()).val();
+
+                    }
+                }
+
+
+                $.ajax({
+                    url: '@Url.Action("SaveFactor", "LS")',
+                    type: 'Post',
+                    async: false,
+                    cache: false,
+                    data: "{'invoiceDetailId':'" + invoiceDetailId
+                        + "', 'exitFromWarehouseHeaderId':'" + exitFromWarehouseHeaderId
+                        + "', 'exitFromWarehouseDetailId':'" + exitFromWarehouseDetailId
+                        + "'}",
+                    success: function (data) {
+                        if (data != null) {
+                            var url;
+                            ShowAlert("ثبت با موفقیت انجام شد", "توجه");
+                            CustomerId_Change();
+
+                        } else {
+                            ShowAlert("ثبت با مشکل مواجه شد", "توجه");
+                        }
+                    },
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+
+
+                    error: function (xhr, status, error) {
+                        //alert("err");
+                        alert(error.toString());
+                        //var err = eval("(" + xhr.responseText + ")");
+                        //alert(err.Message);
+                        flag = false;
+                    }
+                });
+            }
+        } catch (e) {
+            alert(e.toString());
+        }
+        return;
+    }
+
+    function CheckFactorValidation() {
+        var ind, numberRow, reqQty, pervSumInvoiceQty, invoiceQty;
+        var flagSelected = false, flag = true;
+        try {
+
+            numberRow = $("#NumberCurExitRow").val();
+
+            for (ind = 1; ind <= numberRow; ind++) {
+
+                if ($("#Selected" + ind.toString()).prop("checked")) {
+                    flagSelected = true;
+                }
+            }
+
+            ClearMessage("#CreateFactorMsg");
+            if (!flagSelected) {
+                ShowMessage("CreateFactorMsg", "tomato", "موردي جهت ثبت يافت نشد");
+                flag = false;
+            }
+
+            return flag;
+        } catch (e) {
+            alert(e.toString());
+        }
+e3
+        return;
+    }
+
+
+</script>

@@ -1,0 +1,179 @@
+﻿
+@{
+    ViewBag.Title = "ورود به انبار";
+}
+<style>
+    #SearchTable tr td, #SearchTable tr th {
+        background-color: #fff !important;
+        border: none !important;
+    }
+</style>
+@using (@Html.BeginForm("Entrance2WareHouse", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row panel-group col-sm-12 float-right" style="border: 1px solid gray; padding: 10px; border-radius: 20px 20px;">
+        <div class="row col-sm-12" align="right" valing="middle" style="direction: rtl; background-color: #CB0f1f; color: #fff; height: 40px; vertical-align: middle; vertical-align: middle;margin: 10px">
+            <label style="vert-align: middle; vertical-align: middle; direction:rtl;margin-right:20px;margin-top:10px;display:inline-block"> دریافت انبار</label>
+        </div>
+        <div id="PackingListModal" class="modal" role="dialog" style="width: 100%;">
+            <div class="modal-dialog modal-lg" style="width: 100%">
+                <div class="modal-content" style="width: 100%">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            &times;
+                        </button>
+                    </div>
+                    <div class="modal-body" id="PackingListPartialBody">
+                    </div>
+                    <div class="modal-footer" style="text-align: center">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12" align="center">
+            <span id="upPublicMsg"></span>
+        </div>
+        <div class="col-sm-12 float-right">
+            <table id="SearchTable" class="table table-striped" style="width: 100%;background-color:#fff!important">
+                <tbody>
+                    <tr style="height:30pt;">
+                        <td class="col-sm-2">شماره سفارش</td>
+                        <td class="col-sm-3">
+                            @Html.TextBox("OrderNo", "", new { style = "width:96%;text-align:left;", @class = "form-control", maxlength = 10 })
+                        </td>
+                        <td rowspan="4" class="col-sm-7" align="right" valign="middle" style="vertical-align:middle;">
+                            <button class="btn" type="button" onclick="ShowSearchResult(); ">جستجو <i class="fa fa-search" style="font-size: 14pt" aria-hidden="true"></i></button>
+                        </td>
+                    </tr>
+                    <tr style="height:30pt;">
+                        <td>شماره صندوق</td>
+                        <td>
+                            @Html.TextBox("CaseNo", "", new { style = "width:96%;text-align:left;", @class = "form-control", maxlength = 20 })
+                        </td>
+                    </tr>
+                    <tr style="height:30pt;">
+                        <td> شماره صورتحساب</td>
+                        <td>
+                            @Html.TextBox("InvoiceNo", "", new { style = "width:96%;text-align:left;", @class = "form-control", maxlength = 10 })
+                        </td>
+                    </tr>
+                    <tr style="height:30pt;">
+                        <td> شماره فني</td>
+                        <td>
+                            @Html.TextBox("TechnicalCode", "", new { style = "width:96%;text-align:left;", @class = "form-control", maxlength = 20 })
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row col-sm-12" id="PartsListDiv">
+
+        </div>
+
+        <div class="row col-sm-12 divClass">
+            @Html.Hidden("ReceiveQty")
+            @Html.Hidden("PackingListId")
+            @Html.Hidden("OrderId")
+
+
+            <button id="SaveBtn" name="SaveBtn" class="btn btn-success" style="width: 80pt; height: 30pt;" value="Save" type="button" onclick="SaveBtn_Click();">
+                ثبت <i class="fa fa-save" style="font-size: 14pt" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+}
+<script>
+    function ShowSearchResult() {
+        try {
+            if ($("#OrderNo").val().toString().trim() != "" || $("#CaseNo").val().toString().trim() != "" || $("#InvoiceNo").val().toString().trim() != "" || $("#TechnicalCode").val().toString().trim() != "") {
+                var url = "@Url.Action("Entrance2WareHouseList", "home")";
+
+                url += "/?OrderNo=" + $("#OrderNo").val().toString().trim();
+                url += "&CaseNo=" + $("#CaseNo").val().toString().trim();
+                url += "&InvoiceNo=" + $("#InvoiceNo").val().toString().trim();
+                url += "&TechnicalCode=" + $("#TechnicalCode").val().toString().trim();
+
+                $("#PartsListDiv").load(url);
+            }
+        } catch (ex) {
+            alert(ex.toString());
+        }
+        return;
+    }
+
+    function SaveBtn_Click() {
+        if (e2wCheckValidation()) {
+
+            var ind = 1;
+            var numberParts = $("#NumberParts").val();
+            var packingListId = "", receiveQty = "", orderId = "";
+            var arrInd = 0;
+
+            for (ind = 1; ind <= numberParts; ind++) {
+                if ($("#IsSelected" + ind.toString()).prop("checked")) {
+                    receiveQty += (receiveQty == "" ? "" : ",");
+                    receiveQty += $("#ReceiveQty" + ind.toString()).val();
+
+                    packingListId += (packingListId == "" ? "" : ",");
+                    packingListId += $("#IsSelected" + ind.toString()).val();
+
+                    orderId += (orderId == "" ? "" : ",");
+                    orderId += $("#OrderId" + ind.toString()).val();
+                }
+            }
+
+            if (packingListId != "") {
+                $("#ReceiveQty").val(receiveQty);
+                $("#PackingListId").val(packingListId);
+                $("#OrderId").val(orderId);
+                 
+                $("form").submit();
+                //$.ajax({
+                //    url: '../home/SaveCatAndOrder',
+                //    type: 'Post',
+                //    async: false,
+                //    cache: false,
+                //    success: function (data) {
+                //        //$('#MessageTable').html("");
+                //        //AddRow2Table("MessageTable", " ثبت با موفقیت انجام شد ", "LabelConfirm");
+                //        //ResetForm();
+                //        return;
+                //    },
+                //    contentType: "application/json; charset=utf-8",
+                //    dataType: "json",
+                //    //
+                //    data: "{"
+                //        + "'OrderHaveErrorId' : " + JSON.stringify(orderHaveErrorId)
+                //        + "}",
+                //    //error: OnError
+                //});
+            }
+            return;
+        }
+        return;
+    }
+
+    function e2wCheckValidation() {
+        var flag = true;
+        var ind = 1;
+        var numberParts = $("#NumberParts").val();
+        var receiveQty, remainShipQty;
+        var arrInd = 0;
+
+        for (ind = 1; ind <= numberParts; ind++) {
+            $("#ReceiveQtyMsg" + ind.toString()).html('');
+
+            receiveQty = $("#ReceiveQty" + ind.toString()).val();
+            remainShipQty = $("#RemainShipQty" + ind.toString()).val();
+            if (isNaN(receiveQty)) {
+                ShowMessage("لطفایک مقدار عددی در  مقدار دریافتی  وارد کنید", "error", "ReceiveQtyMsg" + ind.toString());
+                flag = false;
+            } else if (receiveQty.toString().trim() == "") {
+                ShowMessage("لطفا مقدار دریافتی را وارد کنید", "error", "ReceiveQtyMsg" + ind.toString());
+                flag = false;
+            }
+
+        }
+
+        return flag;
+    }
+</script>

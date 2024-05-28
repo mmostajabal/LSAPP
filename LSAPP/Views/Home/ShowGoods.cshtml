@@ -1,0 +1,226 @@
+﻿@model LSService.SearchCat
+@{
+    ViewBag.Title = "مشاهده قطعات";
+}
+<link href="@Url.Content("~/Content/DataTables/css/dataTables.bootstrap.min.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/DataTables/css/fixedHeader.bootstrap.min.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/DataTables/css/responsive.bootstrap.min.css")" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/DataTables/dataTables.buttons.min.js"></script>
+<script src="~/Scripts/DataTables/buttons.flash.min.js"></script>
+<script src="~/Scripts/DataTables/jszip.min.js"></script>
+<script src="~/Scripts/DataTables/pdfmake.min.js"></script>
+<script src="~/Scripts/DataTables/vfs_fonts.js"></script>
+<script src="~/Scripts/DataTables/buttons.html5.min.js"></script>
+<script src="~/Scripts/DataTables/buttons.print.min.js"></script>
+<script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
+<script src="~/Scripts/DataTables/dataTables.fixedHeader.min.js"></script>
+<script src="~/Scripts/DataTables/dataTables.responsive.min.js"></script>
+<script src="~/Scripts/DataTables/responsive.bootstrap.min.js"></script>
+
+<div class="row panel-group col-sm-12 float-right" style="border: 1px solid gray; padding: 10px; border-radius: 20px 20px;">
+    <div class="row col-sm-12" align="right" valing="middle" style="direction: rtl; background-color: #CB0f1f; color: #fff; height: 40px; vertical-align: middle; vertical-align: middle;margin: 10px">
+        <label style="vert-align: middle; vertical-align: middle; direction:rtl;margin-right:20px;margin-top:10px;display:inline-block"> اطلاعات قطعات</label>
+    </div>
+    <div id="GoodsModal" class="modal" role="dialog" style="width: 100%;">
+        <div class="modal-dialog modal-lg" style="width: 100%">
+            <div class="modal-content" style="width: 100%">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        &times;
+                    </button>
+                </div>
+                <div class="modal-body" id="GoodsPartialBody">
+                </div>
+                <div class="modal-footer" style="text-align: center">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12" align="center">
+        <span id="dgPublicMsg"></span>
+    </div>
+    <div class="row col-sm-12" style="padding-top:20px;">
+        <div class="col-sm-2 control-label">
+            شماره فنی
+        </div>
+        <div class="col-sm-2">
+            @Html.TextBoxFor(m => m.SearchTechnicalCode, new { style = "width:96%;text-align:left;", @class = "form-control", maxlength = 20 })
+            <span id="TechnicalCodeMsg"></span>
+        </div>
+        <div class="col-sm-1 control-label">
+            شرح لاتين
+        </div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(m => m.SearchItemName, new { style = "width:96%;text-align:left;", @class = "form-control", maxlength = 255 })
+            <span id="ItemNameMsg"></span>
+        </div>
+        <div class="col-sm-1 control-label">
+            شرح فارسی
+        </div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(m => m.SearchPersianName, new { style = "width:96%;text-align:left;", @class = "form-control", maxlength = 20 })
+            <span id="ItemNameMsg"></span>
+        </div>
+    </div>
+    <div class="row col-sm-12" style="padding-top:20px;">
+        <div class="col-sm-2 control-label">
+            نحوه استفاده
+        </div>
+        <div class="col-sm-2">
+            @Html.DropDownListFor(m => m.SearchUsageTypeId, (SelectList)ViewData["UT"], new { style = "width:96%;text-align:right" })
+            <span id="UsageTypeIdMsg"></span>
+        </div>
+        <div class="col-sm-1 control-label">
+            گروه قطعه
+        </div>
+        <div class="col-sm-3">
+            @Html.DropDownListFor(m => m.SearchItemGroupId, (SelectList)ViewData["IG"], new { style = "width:96%;text-align:right" })
+            <span id="ItemGroupMsg"></span>
+        </div>
+        <div class="col-sm-1 control-label">
+            نوع قطعه
+        </div>
+        <div class="col-sm-3">
+            @Html.DropDownListFor(m => m.SearchItemTypeId, (SelectList)ViewData["IT"], new { style = "width:96%;text-align:right" })
+            <span id="ItemTypeIdMsg"></span>
+        </div>
+    </div>
+    <div class="row col-sm-12" style="padding-top:20px;">
+        <div class="col-sm-2 control-label">
+            گرید
+        </div>
+        <div class="col-sm-2">
+            @Html.DropDownListFor(m => m.SearchGoodsGradeId, (SelectList)ViewData["GG"], new { style = "width:96%;text-align:right" })
+            <span id="GoodsGradeIdMsg"></span>
+        </div>
+        <div class="col-sm-1 control-label">
+            ردیابی
+        </div>
+        <div class="col-sm-3">
+            @Html.DropDownListFor(m => m.SearchTrackingTypeId, (SelectList)ViewData["TT"], new { style = "width:96%;text-align:right" })
+            <span id="TrackingTypeIdMsg"></span>
+        </div>
+        <div class="col-sm-1 control-label">
+            لیبل
+        </div>
+        <div class="col-sm-3">
+            @Html.DropDownListFor(m => m.SearchLabelingTypeId, (SelectList)ViewData["LG"], new { style = "width:96%;text-align:right" })
+            <span id="LabelingTypeIdMsg"></span>
+        </div>
+    </div>
+    <div class="col-sm-12" style="padding-top:20px">
+        <button id="SearchBtn" name="SearchBtn" class="btn btn-success" style="width: 80pt; height: 30pt;" value="Save" type="button" onclick="SearchBtn_Click()">
+            جستجو  <i class="fa fa-search" style="font-size: 14pt" aria-hidden="true"></i>
+        </button>&nbsp;&nbsp;
+        <button id="NewGoodsBtn" name="NewGoodsBtn" class="btn btn-success" style="width: 80pt; height: 30pt;" value="Save" type="button" onclick="NewGoodsBtn_Click()">
+            قطعه جدید <i class="fa fa-plus" style="font-size: 14pt" aria-hidden="true"></i>
+        </button>
+    </div>
+    <div class="col-sm-12" style="padding-top:20px" id="ResultDiv">
+    </div>
+</div>
+<script>
+    //$(document).ready(function () {
+    //    try {
+
+    //        var orderTable = $('#PackingListTable').DataTable({ "responsive": true, "paging": false, dom: 'Bfrtip', buttons: ['excel', 'print'] });
+    //    } catch (ex) {
+    //        alert(ex.toString());
+    //    }
+    //});
+
+    $(function () {
+        $("#SearchItemGroupId").select2({
+            placeholder: "گروه قطعه",
+            allowClear: true,
+            theme: "classic"
+        });
+        $("#SearchItemGroupId").val(null).trigger('change');
+
+        $("#SearchItemTypeId").select2({
+            placeholder: "نوع قطعه",
+            allowClear: true,
+            theme: "classic"
+        });
+        $("#SearchItemTypeId").val(null).trigger('change');
+
+        $("#SearchGoodsGradeId").select2({
+            placeholder: "گرید قطعه",
+            allowClear: true,
+            theme: "classic"
+        });
+        $("#SearchGoodsGradeId").val(null).trigger('change');
+
+        $("#SearchTrackingTypeId").select2({
+            placeholder: "نوع ردیابی",
+            allowClear: true,
+            theme: "classic"
+        });
+        $("#SearchTrackingTypeId").val(null).trigger('change');
+
+        $("#SearchLabelingTypeId").select2({
+            placeholder: "نوع برچسب",
+            allowClear: true,
+            theme: "classic"
+        });
+        $("#SearchLabelingTypeId").val(null).trigger('change');
+
+        $("#SearchUsageTypeId").select2({
+            placeholder: "نوع برچسب",
+            allowClear: true,
+            theme: "classic"
+        });
+        $("#SearchUsageTypeId").val(null).trigger('change');
+
+    });
+    function NewGoodsBtn_Click() {
+        $("#GoodsPartialBody").load("@Url.Action("DefGoods", "home")");
+        $("#GoodsModal").modal('show');
+    }
+
+    function SearchBtn_Click() {
+
+        url = "@Url.Action("CatList", "home")";
+        url += "?TechnicalCode=" + $("#SearchTechnicalCode").val();
+        url += "&ItemName=" + $("#SearchItemName").val().toString().trim() ;
+        url += "&PersianName=" + $("#SearchPersianName").val().toString().trim();
+
+        url += "&UsageTypeId=" + ($("#SearchUsageTypeId").val() == null ? "0" : $("#SearchUsageTypeId").val());
+        url += "&ItemGroupId=" + ($("#SearchItemGroupId").val() == null ? "0" : $("#SearchItemGroupId").val());
+        url += "&ItemTypeId=" + ($("#SearchItemTypeId").val() == null ? "0" : $("#SearchItemTypeId").val());
+        url += "&GoodsGradeId=" + ($("#SearchGoodsGradeId").val() == null ? "0" : $("#SearchGoodsGradeId").val());
+        url += "&TrackingTypeId=" + ($("#SearchTrackingTypeId").val() == null ? "0" : $("#SearchTrackingTypeId").val());
+        url += "&LabelingTypeId=" + ($("#SearchLabelingTypeId").val() == null ? "0" : $("#SearchLabelingTypeId").val());
+
+        $("#ResultDiv").load(url);
+    }
+    function EditBtn_Click(technicalCode) {
+
+        var url = "@Url.Action("DefGoods", "home")";
+        url += "?TechnicalCode=" + technicalCode;
+
+        $("#GoodsPartialBody").load(url);
+        $("#GoodsModal").modal('show');
+
+        return;
+    }
+
+    function BOM_Click(technicalCode) {
+        var url = "@Url.Action("GoodInCars", "home")";
+        url += "?TechnicalCode=" + technicalCode;
+
+        $("#GoodsPartialBody").load(url);
+        $("#GoodsModal").modal('show');
+        return;
+    }
+
+    function PriceBtn_Click(technicalCode) {
+        var url = "@Url.Action("GoodsAndPrice", "home")";
+        url += "?TechnicalCode=" + technicalCode;
+
+        $("#GoodsPartialBody").load(url);
+        $("#GoodsModal").modal('show');
+        return;
+    }
+</script>

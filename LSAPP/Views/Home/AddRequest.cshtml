@@ -1,0 +1,225 @@
+﻿
+@model  LSService.VRequestClass
+@{
+    Layout = null;
+}
+@using (@Html.BeginForm("SaveRequest", "LS", FormMethod.Post, new { enctype = "multipart/form-data", id = "RequestForm" }))
+{
+    <div class="row panel-group col-sm-12 float-right" style="border: 1px solid gray; padding: 10px; border-radius: 20px 20px;">
+        <div id="curRequestDiv" class="col-sm-12">
+
+        </div>
+        <div class="col-sm-12" id="ObjDiv">
+            <div class="row col-sm-12" style="padding-top:20px;">
+                <div class="col-sm-2 control-label">
+                    عنوان درخواست
+                </div>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.RequestTitle, new { style = "width:65%;", @class = "form-control", maxlength = 150 })
+                    <span id="RequestTitleMsg"></span>
+                </div>
+            </div>
+            <div class="row col-sm-12" style="padding-top:20px;">
+                <div class="col-sm-2 control-label">
+                    نوع درخواست
+                </div>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(m => m.RequestTypeId, (SelectList)ViewData["RequestTypeId"], new { style = "width:25%;text-align:right" })
+                    <span id="RequestTypeIdMsg"></span>
+                </div>
+            </div>
+            <div class="row col-sm-12" style="padding-top:20px;">
+                <div class="col-sm-2 control-label">
+                    شماره فنی
+                </div>
+                <div class="col-sm-2">
+                    @Html.TextBoxFor(m => m.TechnicalCode, new { style = "width:96%;text-align:left", @class = "form-control", maxlength = 20, @onchange = "TechnicalCode_Change()" })
+                    <span id="TechnicalCodeMsg"></span>
+                </div>
+                <div class="col-sm-2 control-label">
+                    شرح
+                </div>
+
+                <div class="col-sm-6 control-label" id="ItemNameDiv">
+
+                </div>
+            </div>
+            <div class="row col-sm-12" style="padding-top:20px;">
+                <div class="col-sm-2 control-label">
+                    تعداد
+                </div>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.Qty, new { style = "width:15%;text-align:left;", @class = "form-control", maxlength = 10 })
+                    <span id="QtyMsg"></span>
+                </div>
+            </div>
+            <div class="col-sm-12 divClass">
+                @Html.HiddenFor(m => m.RequestNo)
+                @Html.HiddenFor(m => m.RequestId)
+                @Html.HiddenFor(m => m.KeepCustomerId)
+                @Html.HiddenFor(m => m.FlagUpdate)
+
+                <button id="SaveBtn" name="SaveBtn" class="btn btn-success" style="width: 80pt; height: 30pt;" value="Save" type="button" onclick="SaveBtn_Click()">
+                    ثبت  <i class="fa fa-save" style="font-size: 14pt" aria-hidden="true"></i>
+                </button><span id="SaveBtnMsg"></span>
+            </div>
+        </div>
+    </div>
+     }
+<script>
+    $(function() {
+        try {
+            $("#RequestTypeId").select2({
+                placeholder: "نوع درخواست",
+                allowClear: false,
+                theme: "classic"
+            });
+            $("#RequestNo").val($("#KeepRequestNo").val());
+            var url;
+            url = "@Url.Action("CurRequestList", "home")";
+            url += "?CustomerId=" + ($("#CustomerId").val() == null ? "0" : $("#CustomerId").val().toString());
+            url += "&RequestNo=" + ($("#RequestNo").val() == null || $("#RequestNo").val() == "" ? "0" : $("#RequestNo").val());
+            $("#curRequestDiv").load(url);
+
+            if ($("#ShowObject").val() == "1") {
+                ShowRow("ObjDiv");
+                ShowRow("CurEditDiv");
+                ShowRow("CurDeleteDiv");
+            } else {
+                HideRow("ObjDiv");
+                HideRow("CurEditDiv");
+                HideRow("CurDeleteDiv");
+            }
+
+        } catch (e) {
+            alert(e.toString());
+        }
+    });
+
+    function TechnicalCode_Change() {
+        try {
+                    $.ajax({
+                        url: '@Url.Action("FetchTCat", "LS")',
+                        type: 'Post',
+                        async: false,
+                        cache: false,
+                        data: "{'technicalCode':'" + $("#TechnicalCode").val().toString().trim()
+                            + "'}",
+                        success: function (data) {
+                            if (data != 0) {
+                                $("#ItemNameDiv").html(data.ItemName);
+                                //ShowMessage("شماره فنی تکراری است", "error", "TechnicalCodeMsg");
+                                //ShowMessage("TechnicalCodeMsg", "tomato", "شماره فنی تکراری است");
+                                //flag = false;
+                            } else {
+                                $("#ItemNameDiv").html('');
+                                ShowAlert("شماره فنی وارد شده اشتباه است", "توجه");
+                            }
+                        },
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+
+
+                        error: function (xhr, status, error) {
+                            //alert("err");
+                            alert(error.toString());
+                            //var err = eval("(" + xhr.responseText + ")");
+                            //alert(err.Message);
+                            flag = false;
+                        }
+                    });
+        } catch (e) {
+            alert(e.toString());
+         }
+
+    }
+
+    function SaveBtn_Click() {
+        if (RequestCheckValidation()) {
+            $("#KeepCustomerId").val($("#CustomerId").val())
+            var form = $('#RequestForm')[0]; // You need to use standard javascript object here
+            var formData = new FormData(form);
+            $.ajax({
+                    url: '@Url.Action("SaveRequest", "LS")',
+                    type: 'Post',
+                    enctype: 'multipart/form-data',
+                    async: false,
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        ShowAlert("بروز رساني انجام شد", "توجه");
+                        if ($("#RequestNo").val() == "") {
+                            var url;
+                            url = "@Url.Action("RequestList", "home")";
+                            url += "?CustomerId=" + ($("#CustomerId").val() == null ? "-1" : $("#CustomerId").val().toString());
+                            url += "&RequestHeaderIsActive=" + $("#RequestHeaderIsActive").val().toString();
+
+                            $("#ResultDiv").load(url);
+                            $("#RequestNo").val(data);
+                            $("#RequestTitle").prop("readonly", "readonly"); 
+                        }
+
+                        //$("#RequestTitle").val('');
+                        $("#TechnicalCode").val('');
+                        $("#Qty").val('');
+                        $("#ItemNameDiv").html('');
+                        var url;
+                        url = "@Url.Action("CurRequestList", "home")";
+                        url += "?CustomerId=" + ($("#CustomerId").val() == null ? "0" : $("#CustomerId").val().toString());
+                        url += "&RequestNo=" + ($("#RequestNo").val() == null || $("#RequestNo").val() == "" ? "0" : $("#RequestNo").val());
+                        $("#curRequestDiv").load(url);
+
+                       return;
+                    },
+
+                    dataType: "json",
+                    data: formData,
+                    error: function (xhr, status, error) {
+                        //alert("err");
+                        alert(error.toString());
+                        //var err = eval("(" + xhr.responseText + ")");
+                        //alert(err.Message);
+                        flag = false;
+                    }
+            });
+        }
+    }
+
+    function RequestCheckValidation() {
+        var flag = true;
+
+        ClearMessage("#RequestTitleMsg");
+        if (isEmpty("RequestTitle", "لطفا عنوان درخواست راوارد کنید", "tomato", "RequestTitleMsg")) {
+            flag = false;
+        }
+        ClearMessage("#TechnicalCodeMsg");
+        if (isEmpty("TechnicalCode", "لطفا شماره فنی راوارد کنید", "tomato", "TechnicalCodeMsg")) {
+            flag = false;
+        } else if ($("#ItemNameDiv").html.toString().trim() == "") {
+            ShowMessage("TechnicalCodeMsg", "tomato", "لطفا شماره فنی راوارد کنید");
+            flag = false;
+        }
+        ClearMessage("#QtyMsg");
+        if (!CheckNumber($("#Qty").val(), "لطفا تعداد راوارد کنید", "tomato", "QtyMsg")) {
+            flag = false;
+        }
+
+        return flag;
+    }
+
+    function EditCurBtn_Click(RequestNo, TechnicalCode, ItemName, Qty, RequestTitle, InvoiceQty) {
+        if (InvoiceQty == 0) {
+            $("#RequestTitle").val(RequestTitle);
+            $("#TechnicalCode").val(TechnicalCode);
+            $("#ItemNameDiv").html(ItemName);
+            $("#Qty").val(Qty);
+            $("#RequestTitle").prop("readonly", "readonly");
+            $("#TechnicalCode").prop("readonly", "readonly");
+            $("#FlagUpdate").val("1");
+        } else {
+            ShowAlert("شماره فنی " + TechnicalCode + " دارای پیش فاکتور بوده وقابلیت اصلاح ندارد ", "توجه");
+        }
+        return;
+    }
+</script>

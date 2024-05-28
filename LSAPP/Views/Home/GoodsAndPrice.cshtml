@@ -1,0 +1,157 @@
+﻿@using LSService
+@model GoodsPrice
+@{
+    ViewBag.Title = "قیمت قطعات";
+    Layout = null;
+    Cat cat = (Cat)ViewData["Cat"];
+}
+
+@using (@Html.BeginForm("SaveTGoodsPrice", "LS", FormMethod.Post, new { enctype = "multipart/form-data", id = "GoodsPriceForm" }))
+{
+    <div class="row panel-group col-sm-12 float-right" style="border: 1px solid gray; padding: 10px; border-radius: 20px 20px;">
+        <div class="row col-sm-12" style="padding-top:20px;">
+            <div class="col-sm-2">
+                شماره فنی
+            </div>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.TechnicalCode, cat.TechnicalCode, new { style = "width:20%;text-align:left;", @class = "form-control", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="row col-sm-12" style="padding-top:20px;">
+            <div class="col-sm-2">
+                شرح لاتین
+            </div>
+            <div class="col-sm-4">@cat.ItemName</div>
+            <div class="col-sm-2">
+                شرح فارسی
+            </div>
+            <div class="col-sm-4">@cat.PersianName</div>
+        </div>
+        <div class="row col-sm-12" style="padding-top:20px" id="ResultDiv">
+        </div>
+        <div class="row col-sm-12">
+            <div class="col-sm-1">
+                نوع ارز
+            </div>
+            <div class="col-sm-2">
+                @Html.DropDownListFor(m => m.CurrencyTypeId, (SelectList)ViewData["Currency"], new { style = "width:96%;text-align:right" })
+                <span id="CurrencyTypeIdMsg"></span>
+            </div>
+            <div class="col-sm-1 control-label">
+                قیمت
+            </div>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.BasePrice, new { style = "width:96%;text-align:left;", @class = "form-control", maxlength = 10 }) @*, @onchange = "Calculate();"*@
+                <span id="BasePriceMsg"></span>
+            </div>
+            <div class="col-sm-1 control-label">
+                قیمت ارز
+            </div>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.DollarPrice, new { style = "width:96%;text-align:left;", @class = "form-control", maxlength = 10 }) @*, @onchange = "Calculate();"*@
+                <span id="DollarPriceMsg"></span>
+            </div>
+            <div class="col-sm-1 control-label">
+                قیمت به ریال
+            </div>
+            <div class="col-sm-2">
+
+                @Html.TextBoxFor(m => m.PriceInRials, new { style = "width:96%;text-align:left;", @class = "form-control", maxlength = 10 })
+                <span id="PriceInRialsMsg"></span>
+            </div>
+        </div>
+        <div class="row col-sm-12">
+            @Html.HiddenFor(m => m.GoodsPriceId)
+            <button id="SaveBtn" name="SaveBtn" class="btn btn-success" style="width: 80pt; height: 30pt;" value="Save" type="button" onclick="gapSaveBtn_Click()">
+                ثبت  <i class="fa fa-save" style="font-size: 14pt" aria-hidden="true"></i>
+            </button><span id="SaveBtnMsg"></span>
+        </div>
+
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        try {
+            url = "@Url.Action("PrevGoodsPriceList", "home")";
+            url += "?TechnicalCode=@cat.TechnicalCode";
+
+            $("#ResultDiv").load(url);
+
+            $("#CurrencyTypeId").select2({
+                placeholder: "نوع ارز",
+                allowClear: false,
+                theme: "classic"
+            });
+        } catch (ex) {
+            alert(ex.toString());
+        }
+    });
+
+    function gapSaveBtn_Click() {
+        if (gpaCheckValidation()) {
+            var form = $('#GoodsPriceForm')[0]; // You need to use standard javascript object here
+
+            var formData = new FormData(form);
+            $.ajax({
+                url: '@Url.Action("SaveTGoodsPrice", "LS")',
+                type: 'Post',
+                enctype: 'multipart/form-data',
+                async: false,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    var url;
+                    ShowAlert("بروز رساني انجام شد", "توجه");
+                                        
+                    url = "@Url.Action("PrevGoodsPriceList", "home")";
+                    url += "?TechnicalCode=" + $("#TechnicalCode").val().toString();
+                    
+                    $("#ResultDiv").load(url);
+                    return;
+                },
+
+                dataType: "json",
+                data: formData,
+                error: function (xhr, status, error) {
+                        //alert("err");
+                        alert(error.toString());
+                        //var err = eval("(" + xhr.responseText + ")");
+                        //alert(err.Message);
+                        flag = false;
+                    }
+                });
+            }
+           return;
+        }
+
+
+    function gpaCheckValidation() {
+        var flag = true;
+
+        //ClearMessage("#BasePriceMsg");
+        //if (!CheckNumber($("#BasePrice").val(), "لطفا قیمت راوارد کنید", "tomato", "BasePriceMsg")) {
+            //flag = false;
+        //}
+
+        //ClearMessage("#DollarPriceMsg");
+        //if (!CheckNumber($("#DollarPrice").val(), "لطفا قیمت ارز راوارد کنید", "tomato", "DollarPriceMsg")) {
+        //    flag = false;
+        //}
+        ClearMessage("#PriceInRialsMsg");
+        if (!CheckNumber($("#PriceInRials").val(), "لطفا قیمت به ريال راوارد کنید", "tomato", "PriceInRialsMsg")) {
+            flag = false;
+        }
+
+        return flag;
+    }
+
+    function Calculate() {
+        if (!isNaN($("#BasePrice").val()) && !isNaN($("#DollarPrice").val())) {
+            $("#PriceInRials").val($("#BasePrice").val() * $("#DollarPrice").val());
+        } else {
+            $("#PriceInRials").val(0);
+        }
+
+    }
+</script>
